@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Panel</h1>
+  </header>
+  <main>
+    <!-- Form to upload an image/video or post a blog article -->
+    <form id="uploadForm" method="post" action="upload.php" enctype="multipart/form-data">
+      <label for="contentTitle">Title:</label>
+      <input type="text" id="contentTitle" name="contentTitle" required>
+      
+      <label for="contentType">Content Type:</label>
+      <select id="contentType" name="contentType">
+         <option value="image">Image</option>
+         <option value="video">Video</option>
+         <option value="blog">Blog Post</option>
+      </select>
+      
+      <label for="contentFile">Upload File (optional):</label>
+      <input type="file" id="contentFile" name="contentFile">
+      
+      <label for="contentText">Content:</label>
+      <textarea id="contentText" name="contentText" placeholder="Write your article or description here"></textarea>
+      
+      <button type="submit">Upload Content</button>
+    </form>
+  </main>
+</body>
+</html>

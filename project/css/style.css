@@ -1,0 +1,56 @@
+/* Basic reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Arial', sans-serif; background: #fff; color: #333; }
+
+/* Navbar */
+.navbar { background: #333; padding: 10px 0; }
+.navbar nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+.navbar nav ul li { margin: 0 15px; }
+.navbar nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.navbar nav ul li a:hover { color: #ff9900; }
+
+/* Hero Section */
+#hero {
+  height: 100vh;
+  background: url('../images/hero-bg.jpg') no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+.btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #ff9900;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.btn:hover { transform: scale(1.05); }
+
+/* Animation Classes */
+.animate-fadeIn {
+  animation: fadeIn 2s ease-in-out;
+}
+.animate-slideUp {
+  animation: slideUp 1.5s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
