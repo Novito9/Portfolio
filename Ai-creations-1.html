@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Novito9's creative portfolio showcasing designs, logos, and more.">
+  <meta name="keywords" content="portfolio, design, logos, creative, Novito9">
+  <meta property="og:title" content="Novito9's Portfolio">
+  <meta property="og:description" content="Explore Novito9's creative portfolio, including designs and logos.">
+  <meta property="og:image" content="path/to/social-image.jpg">
+  <meta property="og:url" content="https://github.com/Novito9/Portfolio">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <title>Novito9</title>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active" aria-label="Home">Home</a></li>
+        <li><a href="portfolio.html" aria-label="Portfolio">Portfolio</a></li>
+        <li><a href="blog.html" aria-label="Blog">Blog</a></li>
+        <li><a href="contact.html" aria-label="Contact">Contact</a></li>
+        <li><a href="members.html" aria-label="Members">Members</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <h1>NOVITO9</h1>
+    <p id="welcome-message">Welcome and Thank you for Visiting</p>
+    <p id="dynamic-quote">Loading quote...</p>
+    <button class="btn-gallery" onclick="scrollToGallery()" aria-label="Explore Gallery">EXPLORE GALLERY</button>
+  </section>
+
+  <!-- Portfolio Grid -->
+  <div class="portfolio-grid" id="portfolio-grid"></div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

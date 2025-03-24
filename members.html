@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novito9</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    :root {
+      --electric-blue: #00f3ff;
+      --neon-pink: #ff0066;
+      --dark-bg: #000;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+      background-color: var(--dark-bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .navbar {
+      padding: 1.5rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* Hero Section */
+    #hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 60px;
+    }
+
+    #hero h1 {
+      font-size: 4rem;
+      color: var(--neon-pink);
+    }
+
+    /* Portfolio Grid */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 10px;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      transition: 0.4s ease;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .portfolio-item:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <h1>NOVITO9</h1>
+    <p id="welcome-message">Welcome and Thank you for Visiting</p>
+    <p id="dynamic-quote">Loading quote...</p>
+    <button onclick="loadRandomImages()">LOAD IMAGES</button>
+  </section>
+
+  <!-- Portfolio Grid -->
+  <div class="portfolio-grid" id="portfolio-grid"></div>
+
+  <script>
+    async function loadRandomImages() {
+      try {
+        const response = await fetch('images/image-list.json');
+        if (!response.ok) throw new Error("image-list.json not found");
+        const imageData = await response.json();
+        displayImages(imageData);
+      } catch (error) {
+        console.warn("Using fallback images:", error);
+        const fallbackImages = [
+          { url: "images/image1.jpg", alt: "Artwork 1", title: "Image 1" },
+          { url: "images/image2.jpg", alt: "Artwork 2", title: "Image 2" },
+          { url: "images/image3.jpg", alt: "Artwork 3", title: "Image 3" }
+        ];
+        displayImages(fallbackImages);
+      }
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function displayImages(imageData) {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = ''; // Clear previous images
+
+      shuffleArray(imageData).forEach(item => {
+        const portfolioItem = document.createElement('div');

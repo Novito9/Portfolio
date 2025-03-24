@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novito9</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    :root {
+      --electric-blue: #00f3ff;
+      --neon-pink: #ff0066;
+      --dark-bg: #000;
+      --flashy-pink: #ff00ff;
+      --hot-pink: #ff0099;
+      --pink-glow: rgba(255, 0, 255, 0.7);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+      background-color: var(--dark-bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Cyberpunk Navigation */
+    .navbar {
+      padding: 1.5rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: 0.3s ease;
+    }
+
+    .navbar nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: var(--electric-blue);
+      transition: width 0.3s ease;
+    }
+
+    .navbar nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .navbar nav ul li a.active {
+      color: var(--electric-blue);
+    }
+
+    /* Glitch Hero Section */
+    #hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 60px;
+    }
+
+    #hero h1 {
+      font-size: clamp(3rem, 10vw, 6rem);
+      margin: 0;
+      line-height: 1;
+      color: var(--flashy-pink);
+      text-shadow: 
+        0 0 10px var(--pink-glow),
+        0 0 20px var(--pink-glow),
+        0 0 30px var(--pink-glow),
+        0 0 60px var(--hot-pink);
+      animation: 
+        pink-pulse 0.8s infinite alternate,
+        text-glitch 4s infinite;
+      position: relative;
+    }
+
+    #hero p {
+      font-size: 1.25rem;
+      margin: 2rem 0;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+    }
+
+    @keyframes pink-pulse {
+      from {
+        text-shadow: 
+          0 0 10px var(--pink-glow),
+          0 0 20px var(--pink-glow),
+          0 0 30px var(--hot-pink);
+      }
+      to {
+        text-shadow: 
+          0 0 20px var(--pink-glow),
+          0 0 40px var(--pink-glow),
+          0 0 60px var(--hot-pink),
+          0 0 80px var(--hot-pink);
+      }
+    }
+
+    /* Cyber Button */
+    .btn-gallery {
+      padding: 1rem 3rem;
+      background: transparent;
+      border: 2px solid var(--electric-blue);
+      color: var(--electric-blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: 0.3s ease;
+    }
+
+    .btn-gallery::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 243, 255, 0.2),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .btn-gallery:hover {
+      background: rgba(0, 243, 255, 0.1);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+    }
+
+    .btn-gallery:hover::before {
+      left: 100%;
+    }
+
+    /* Hologrid Portfolio */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      background: #111;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portfolio-item {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #000;
+      transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .portfolio-item:hover {
+      transform: scale(1.05);
+      z-index: 2;
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.3s ease;
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Image Overlay */
+    .item-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 1rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .portfolio-item:hover .item-overlay {
+      transform: translateY(0);
+    }
+
+    /* Glitch Animations */
+    @keyframes text-glitch {
+      0%, 100% {
+        text-shadow: 3px 3px 0 var(--neon-pink), -3px -3px 0 var(--electric-blue);
+      }
+      25% {
+        text-shadow: -3px 3px 0 var(--neon-pink), 3px -3px 0 var(--electric-blue);
+      }
+      50% {
+        text-shadow: 3px -3px 0 var(--neon-pink), -3px 3px 0 var(--electric-blue);
+      }
+      75% {
+        text-shadow: -3px -3px 0 var(--neon-pink), 3px 3px 0 var(--electric-blue);
+      }
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: #000;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    footer p span {
+      color: var(--electric-blue);
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .navbar nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      #hero {
+        margin-top: 80px;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="members.html">Members</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <h1>NOVITO9</h1>
+    <p id="welcome-message">Welcome and Thank you for Visiting</p>
+    <p id="dynamic-quote">Loading quote...</p>
+    <button class="btn-gallery" onclick="scrollToGallery()">EXPLORE GALLERY</button>
+  </section>
+
+  <!-- Portfolio Grid -->
+  <div class="portfolio-grid" id="portfolio-grid"></div>
+
+  <script>
+    // Dynamic image loader with fallback
+    async function loadRandomImages() {
+      try {
+        // Try to fetch image list from server
+        const response = await fetch('images/image-list.json');
+        if (response.ok) {
+          const imageData = await response.json();
+          displayImages(imageData);
+          return;
+        }
+      } catch (e) {
+        console.log("Using fallback image data");
+      }
+      
+      // Fallback to hardcoded images if fetch fails
+      const fallbackImages = await getFallbackImages();
+      displayImages(fallbackImages);
+    }
+
+    // Fallback image data
+    async function getFallbackImages() {
+      return [
+        { 
+          url: "images/A layered papier-mâché artwork of distant, softly glowing pyramids with a blurred bokeh effect and strong, hard light. Faint hieroglyphs of Anubis, dogs, and pharaohs are etched into sand dunes, overlaid with a subtle aged pa.jpeg", 
+          alt: "papier artwork",
+          title: "Egypt Ai",
+          desc: "Prompt : A layered papier-mâché artwork of distant, softly glowing pyramids with a blurred bokeh effect and strong, hard light. Faint hieroglyphs of Anubis, dogs, and pharaohs are etched into sand dunes, overlaid with a subtle aged paysage"
+        },
+        { 
+          url: "images/A futuristic sci-fi scene of a rural Egyptian farm at sunrise during a wet rainy scene. Drizzling rain, reflective surfaces, advanced technology, space elements blend with the farm. Oxen, farmers, women, children, houses, and.jpg", 
+          alt: "Holographic Motion",
+          title: "Quantum Flow",
+          desc: "Prompt : A futuristic sci-fi scene of a rural Egyptian farm at sunrise during a wet rainy scene. Drizzling rain, reflective surfaces, advanced technology, space elements blend with the farm. Oxen, farmers, women, children, houses, and.jpg"
+        },
+        { 
+          url: "images/Rich burgundy and deep blue hues, gentle soft light illuminates a sophisticated and elegant golden desert landscape with pyramids and hieroglyphs in soft gradients, diffused shadows, subtle illumination.jpg", 
+          alt: "Neon Architecture",
+          title: "Egypt 0089",
+          desc: "Prompt : Rich burgundy and deep blue hues, gentle soft light illuminates a sophisticated and elegant golden desert landscape with pyramids and hieroglyphs in soft gradients, diffused shadows, subtle illumination"
+        }
+      ];
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function displayImages(imageData) {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = '';
+      
+      shuffleArray(imageData).forEach(item => {
+        const portfolioItem = document.createElement('div');
+        portfolioItem.className = 'portfolio-item';
+        
+        // Create image with loading optimization
+        const img = new Image();
+        img.src = item.url;
+        img.alt = item.alt;
+        img.loading = "lazy";
+        
+        // Create overlay content
+        const overlay = document.createElement('div');
+        overlay.className = 'item-overlay';
+        overlay.innerHTML = `
+          <h3>${item.title}</h3>
+          <p>${item.desc}</p>
+        `;
+        
+        // Build the item
+        portfolioItem.appendChild(img);
+        portfolioItem.appendChild(overlay);
+        grid.appendChild(portfolioItem);
+      });
+    }
+
+    // Quote functionality
+    const quotes = [
+      "Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep. - Scott Adams",
+      "Art enables us to find ourselves and lose ourselves at the same time. - Thomas Merton",
+      "A true artist is not one who is inspired, but one who inspires others. - Salvador Dalí",
+      "Every artist dips his brush in his own soul and paints his own nature into his pictures. - Henry Ward Beecher",
+      "Creativity takes courage. - Henri Matisse",
+      "The principles of true art is not to portray, but to evoke. - Jerzy Kosinski",
+      "A work of art which did not begin in emotion is not art. - Paul Cézanne",
+      "Art should comfort the disturbed and disturb the comfortable. - Cesar Cruz",
+      "Digital art is not a mere reflection of reality but a gateway to imagination. - Unknown",
+      "Design is the silent ambassador of your brand. - Paul Rand",
+      "Everything you can imagine is real. - Pablo Picasso",
+      "Art is not what you see, but what you make others see. - Edgar Degas",
+      "To create one's world in any of the arts takes courage. - Georgia O'Keeffe",
+      "There is no must in art because art is free. - Wassily Kandinsky",
+      "Every great design begins with an even better story. - Lorinda Mamo",
+      "The purpose of art is washing the dust of daily life off our souls. - Pablo Picasso",
+      "You can't use up creativity. The more you use, the more you have. - Maya Angelou",
+      "Inspiration exists, but it has to find you working. - Pablo Picasso",
+      "To practice any art, no matter how well or badly, is a way to make your soul grow. - Kurt Vonnegut",
+      "Design is thinking made visual. - Saul Bass"
+    ];
+
+    let currentQuote = 0;
+    const dynamicQuote = document.getElementById('dynamic-quote');
+    const welcomeMessage = document.getElementById('welcome-message');
+
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        welcomeMessage.style.opacity = 0;
+      }, 4000);
+      
+      showNextQuote();
+      setInterval(showNextQuote, 8000);
+      loadRandomImages();
+    });
+
+    function showNextQuote() {
+      dynamicQuote.style.opacity = 0;
+      setTimeout(() => {
+        currentQuote = (currentQuote + 1) % quotes.length;
+        dynamicQuote.textContent = quotes[currentQuote];
+        dynamicQuote.style.opacity = 1;
+      }, 1000);
+    }
+
+    function scrollToGallery() {
+      document.querySelector('.portfolio-grid').scrollIntoView({ 
+        behavior: 'smooth' 
+      });
+    }
+  </script>
+  
+  <footer>
+    <p>&copy; 2025 Novito9 - All Rights Reserved</p>
+  </footer>
+</body>
+</html>
