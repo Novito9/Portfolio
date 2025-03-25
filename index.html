@@ -13,9 +13,6 @@
       --flashy-pink: #ff00ff;
       --hot-pink: #ff0099;
       --pink-glow: rgba(255, 0, 255, 0.7);
-      --neon-purple: #9d00ff;
-      --cyber-yellow: #fffc00;
-      --acid-green: #00ff66;
     }
 
     body {
@@ -26,7 +23,7 @@
       overflow-x: hidden;
     }
 
-    /* Navigation */
+    /* Original Cyberpunk Navigation */
     .navbar {
       padding: 1.5rem 2rem;
       position: fixed;
@@ -35,8 +32,7 @@
       z-index: 1000;
       background: rgba(0, 0, 0, 0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--neon-purple);
-      box-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .navbar nav ul {
@@ -57,7 +53,6 @@
       position: relative;
       padding: 0.5rem 0;
       transition: 0.3s ease;
-      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     .navbar nav ul li a::after {
@@ -67,7 +62,7 @@
       height: 2px;
       bottom: 0;
       left: 0;
-      background: linear-gradient(90deg, var(--neon-pink), var(--electric-blue));
+      background: var(--electric-blue);
       transition: width 0.3s ease;
     }
 
@@ -77,10 +72,9 @@
 
     .navbar nav ul li a.active {
       color: var(--electric-blue);
-      text-shadow: 0 0 10px var(--electric-blue);
     }
 
-    /* Mobile Menu */
+    /* Mobile Menu Button */
     .menu-btn {
       display: none;
       cursor: pointer;
@@ -97,13 +91,13 @@
     .menu-btn span {
       display: block;
       width: 25px;
-      height: 3px;
+      height: 2px;
       background: var(--electric-blue);
       margin: 5px 0;
       transition: all 0.3s ease;
-      box-shadow: 0 0 5px var(--electric-blue);
     }
 
+    /* Mobile Menu */
     .mobile-menu {
       position: fixed;
       top: 0;
@@ -119,7 +113,6 @@
       align-items: center;
       transform: translateY(-100%);
       transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-      border-bottom: 3px solid var(--neon-pink);
     }
 
     .mobile-menu.active {
@@ -146,22 +139,19 @@
       padding: 0.5rem 1rem;
       transition: all 0.3s ease;
       display: inline-block;
-      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     .mobile-nav-links li a:hover {
       color: var(--electric-blue);
       transform: translateX(5px);
-      text-shadow: 0 0 10px var(--electric-blue);
     }
 
     .mobile-nav-links li a.active {
       color: var(--electric-blue);
       border-left: 3px solid var(--electric-blue);
-      text-shadow: 0 0 15px var(--electric-blue);
     }
 
-    /* Hero Section */
+    /* Glitch Hero Section - Adjusted spacing */
     #hero {
       height: 80vh;
       display: flex;
@@ -172,7 +162,6 @@
       padding: 1rem;
       margin-top: 60px;
       padding-bottom: 0;
-      background: radial-gradient(circle at center, rgba(0, 243, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
     }
 
     #hero h1 {
@@ -196,7 +185,6 @@
       margin: 0.5rem 0;
       color: rgba(255, 255, 255, 0.8);
       max-width: 600px;
-      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     @keyframes pink-pulse {
@@ -215,7 +203,7 @@
       }
     }
 
-    /* Gallery Button */
+    /* Cyber Button */
     .btn-gallery {
       padding: 1rem 3rem;
       background: transparent;
@@ -229,8 +217,6 @@
       overflow: hidden;
       transition: 0.3s ease;
       margin: 1rem 0 0 0;
-      text-shadow: 0 0 5px var(--electric-blue);
-      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
     }
 
     .btn-gallery::before {
@@ -243,24 +229,22 @@
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(0, 243, 255, 0.4),
+        rgba(0, 243, 255, 0.2),
         transparent
       );
       transition: 0.5s;
     }
 
     .btn-gallery:hover {
-      background: rgba(0, 243, 255, 0.2);
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
-      color: var(--cyber-yellow);
-      border-color: var(--cyber-yellow);
+      background: rgba(0, 243, 255, 0.1);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
     }
 
     .btn-gallery:hover::before {
       left: 100%;
     }
 
-    /* Portfolio Grid */
+    /* Hologrid Portfolio - Adjusted spacing */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -270,8 +254,6 @@
       max-width: 1200px;
       margin: 0 auto;
       margin-top: 1rem;
-      border: 1px solid var(--neon-purple);
-      box-shadow: 0 0 30px rgba(157, 0, 255, 0.2);
     }
 
     .portfolio-item {
@@ -281,14 +263,12 @@
       background: #000;
       transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .portfolio-item:hover {
       transform: scale(1.05);
       z-index: 2;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
-      border-color: var(--electric-blue);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
     }
 
     .portfolio-item img {
@@ -300,7 +280,6 @@
 
     .portfolio-item:hover img {
       transform: scale(1.1);
-      filter: brightness(1.2);
     }
 
     /* Image Overlay */
@@ -309,7 +288,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+      background: rgba(0, 0, 0, 0.8);
       color: white;
       padding: 1rem;
       transform: translateY(100%);
@@ -320,61 +299,6 @@
       transform: translateY(0);
     }
 
-    /* Like Button */
-    .like-container {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 20px;
-      padding: 4px 8px;
-      backdrop-filter: blur(5px);
-      border: 1px solid var(--neon-pink);
-    }
-
-    .like-btn {
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      padding: 4px;
-      transition: all 0.3s ease;
-      text-shadow: 0 0 5px currentColor;
-    }
-
-    .like-btn:hover {
-      transform: scale(1.1);
-      color: var(--neon-pink);
-    }
-
-    .like-btn.liked {
-      color: var(--neon-pink);
-      animation: heartBeat 0.5s;
-      text-shadow: 0 0 10px var(--neon-pink);
-    }
-
-    .like-count {
-      margin-left: 4px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: white;
-      text-shadow: 0 0 5px var(--electric-blue);
-    }
-
-    @keyframes heartBeat {
-      0% { transform: scale(1); }
-      25% { transform: scale(1.3); }
-      50% { transform: scale(1); }
-      75% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-
     /* Image Modal */
     .image-modal {
       display: none;
@@ -383,7 +307,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.95);
+      background-color: rgba(0, 0, 0, 0.9);
       z-index: 10000;
       overflow: auto;
       animation: fadeIn 0.3s;
@@ -404,34 +328,24 @@
       max-height: 80vh;
       object-fit: contain;
       margin-bottom: 1rem;
-      border-radius: 4px;
-      box-shadow: 0 0 50px rgba(0, 243, 255, 0.4);
-      border: 2px solid var(--electric-blue);
     }
 
     .modal-details {
-      width: 100%;
       max-width: 800px;
       text-align: center;
       color: white;
       padding: 1rem;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 8px;
-      border: 1px solid var(--neon-pink);
-      box-shadow: 0 0 20px rgba(255, 0, 102, 0.3);
     }
 
     .modal-details h3 {
       color: var(--electric-blue);
       margin-bottom: 0.5rem;
       font-size: 1.5rem;
-      text-shadow: 0 0 10px var(--electric-blue);
     }
 
     .modal-details p {
       margin: 0.5rem 0;
       line-height: 1.5;
-      color: rgba(255, 255, 255, 0.9);
     }
 
     .close-modal {
@@ -443,241 +357,18 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
-      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     .close-modal:hover {
       color: var(--electric-blue);
-      transform: rotate(90deg);
-      text-shadow: 0 0 15px var(--electric-blue);
     }
 
-    /* Comments Section */
-    .comments-section {
-      margin-top: 1rem;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      width: 100%;
-    }
-
-    .comments-section.active {
-      max-height: 500px;
-    }
-
-    .comments-list {
-      margin-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 1rem;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-
-    .comment {
-      margin-bottom: 1rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      animation: fadeIn 0.3s;
-    }
-
-    .comment-author {
-      font-weight: bold;
-      color: var(--acid-green);
-      margin-bottom: 0.3rem;
-      text-shadow: 0 0 5px var(--acid-green);
-    }
-
-    .comment-text {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    /* Comment Form */
-    .comment-form {
-      margin-top: 1rem;
-      display: none;
-      width: 100%;
-    }
-
-    .comment-form.active {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .comment-input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      border-bottom: 2px solid var(--electric-blue);
-      color: white;
-      padding: 0.8rem 0;
-      margin-bottom: 0.5rem;
-      font-family: 'Space Mono', monospace;
-      transition: all 0.3s ease;
-    }
-
-    .comment-input:focus {
-      outline: none;
-      border-bottom: 2px solid var(--neon-pink);
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .submit-comment {
-      background: linear-gradient(90deg, var(--electric-blue), var(--neon-pink));
-      color: black;
-      border: none;
-      padding: 0.8rem;
-      cursor: pointer;
-      font-family: 'Space Mono', monospace;
-      font-weight: bold;
-      border-radius: 4px;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
-    }
-
-    .submit-comment:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 243, 255, 0.5);
-    }
-
-    /* Login Prompt */
-    .login-prompt {
-      color: var(--neon-pink);
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      display: none;
-      text-align: center;
-      text-shadow: 0 0 5px var(--neon-pink);
-    }
-
-    .login-prompt a {
-      color: var(--electric-blue);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      text-shadow: 0 0 5px var(--electric-blue);
-    }
-
-    .login-prompt a:hover {
-      text-decoration: underline;
-      color: var(--cyber-yellow);
-      text-shadow: 0 0 10px var(--cyber-yellow);
-    }
-
-    /* Login Modal */
-    .login-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.95);
-      z-index: 10001;
-      overflow: auto;
-      animation: fadeIn 0.3s;
-    }
-
-    .login-content {
-      background: rgba(0, 0, 0, 0.95);
-      margin: 10% auto;
-      padding: 2rem;
-      border: 2px solid var(--electric-blue);
-      width: 90%;
-      max-width: 400px;
-      border-radius: 4px;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
-    }
-
-    .login-form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .login-input {
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      border-bottom: 2px solid var(--electric-blue);
-      color: white;
-      padding: 0.8rem 0;
-      margin: 0.5rem 0;
-      font-family: 'Space Mono', monospace;
-      transition: all 0.3s ease;
-    }
-
-    .login-input:focus {
-      outline: none;
-      border-bottom: 2px solid var(--neon-pink);
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .login-submit {
-      background: linear-gradient(90deg, var(--electric-blue), var(--neon-pink));
-      color: black;
-      border: none;
-      padding: 0.8rem;
-      margin-top: 1rem;
-      cursor: pointer;
-      font-family: 'Space Mono', monospace;
-      font-weight: bold;
-      border-radius: 4px;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
-    }
-
-    .login-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 243, 255, 0.5);
-    }
-
-    .login-error {
-      color: var(--neon-pink);
-      margin-top: 1rem;
-      display: none;
-      text-shadow: 0 0 5px var(--neon-pink);
-    }
-
-    /* User Profile */
-    .user-profile {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 0.8rem;
-      border-radius: 50%;
-      border: 2px solid var(--electric-blue);
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-    }
-
-    .user-profile:hover {
-      background: rgba(0, 243, 255, 0.2);
-      transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
-    }
-
-    .user-profile.logged-in {
-      background: var(--neon-pink);
-      border-color: var(--flashy-pink);
-      box-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
-    }
-
-    .user-icon {
-      font-size: 1.5rem;
-      text-shadow: 0 0 5px currentColor;
-    }
-
-    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
+    /* Glitch Animations */
     @keyframes text-glitch {
       0%, 100% {
         text-shadow: 3px 3px 0 var(--neon-pink), -3px -3px 0 var(--electric-blue);
@@ -699,15 +390,13 @@
       text-align: center;
       background: #000;
       margin-top: 4rem;
-      border-top: 1px solid var(--neon-purple);
-      box-shadow: 0 0 20px rgba(157, 0, 255, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     footer p {
       margin: 0;
       color: rgba(255, 255, 255, 0.7);
       font-size: 0.9rem;
-      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     footer p span {
@@ -731,19 +420,6 @@
 
       #hero {
         height: 70vh;
-      }
-      
-      .interaction-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .modal-content {
-        padding: 1rem;
-      }
-      
-      .modal-image {
-        max-width: 95%;
       }
     }
 
@@ -774,22 +450,15 @@
         padding: 0.75rem 2rem;
         font-size: 0.9rem;
       }
-      
-      .user-profile {
-        bottom: 10px;
-        right: 10px;
-        width: 40px;
-        height: 40px;
-      }
-      
-      .user-icon {
-        font-size: 1.2rem;
+
+      .modal-image {
+        max-width: 95%;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- Original Navigation with Mobile Toggle -->
   <header class="navbar">
     <nav>
       <ul>
@@ -824,19 +493,6 @@
     </ul>
   </div>
 
-  <!-- Login Modal -->
-  <div id="loginModal" class="login-modal">
-    <div class="login-content">
-      <h3 style="color: var(--cyber-yellow); text-shadow: 0 0 10px var(--cyber-yellow);">Member Login</h3>
-      <form class="login-form" id="loginForm">
-        <input type="text" class="login-input" id="loginUsername" placeholder="Username" required>
-        <input type="password" class="login-input" id="loginPassword" placeholder="Password" required>
-        <button type="submit" class="login-submit">Login</button>
-        <div class="login-error" id="loginError">Invalid credentials</div>
-      </form>
-    </div>
-  </div>
-
   <!-- Image Modal -->
   <div id="imageModal" class="image-modal">
     <span class="close-modal">&times;</span>
@@ -845,31 +501,10 @@
       <div class="modal-details">
         <h3 id="modalTitle"></h3>
         <p id="modalDesc"></p>
-        
-        <!-- Comments Section -->
-        <div class="comments-section">
-          <div class="comments-list" id="commentsList"></div>
-          
-          <!-- Comment form (shown only for members) -->
-          <div class="comment-form" id="commentForm">
-            <textarea class="comment-input" placeholder="Add a comment..."></textarea>
-            <button class="submit-comment">Post Comment</button>
-          </div>
-          
-          <div class="login-prompt">
-            <a href="#" id="showLogin">Login</a> to leave a comment
-          </div>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- User Profile Button -->
-  <div class="user-profile" id="userProfile">
-    <div class="user-icon">👤</div>
-  </div>
-
-  <!-- Hero Section -->
   <section id="hero">
     <h1>NOVITO9</h1>
     <p id="welcome-message">Welcome and Thank you for Visiting</p>
@@ -878,58 +513,7 @@
   </section>
 
   <!-- Portfolio Grid -->
-  <div class="portfolio-grid" id="portfolio-grid">
-    <!-- Images will be dynamically loaded here -->
-    <div class="portfolio-item">
-      <img src="https://source.unsplash.com/random/600x600/?cyberpunk,art" alt="Cyberpunk Art">
-      <div class="like-container">
-        <button class="like-btn">♥</button>
-        <span class="like-count">24</span>
-      </div>
-      <div class="item-overlay">
-        <h3>Cyberpunk Dream</h3>
-        <p>Neon lights and futuristic cityscape</p>
-      </div>
-    </div>
-    <div class="portfolio-item">
-      <img src="https://source.unsplash.com/random/600x600/?abstract,digital" alt="Abstract Digital">
-      <div class="like-container">
-        <button class="like-btn">♥</button>
-        <span class="like-count">18</span>
-      </div>
-      <div class="item-overlay">
-        <h3>Digital Abstract</h3>
-        <p>Vibrant colors and fluid forms</p>
-      </div>
-    </div>
-    <div class="portfolio-item">
-      <img src="https://source.unsplash.com/random/600x600/?sci-fi,concept" alt="Sci-fi Concept">
-      <div class="like-container">
-        <button class="like-btn">♥</button>
-        <span class="like-count">32</span>
-      </div>
-      <div class="item-overlay">
-        <h3>Sci-fi World</h3>
-        <p>Futuristic landscape and technology</p>
-      </div>
-    </div>
-    <div class="portfolio-item">
-      <img src="https://source.unsplash.com/random/600x600/?fantasy,art" alt="Fantasy Art">
-      <div class="like-container">
-        <button class="like-btn">♥</button>
-        <span class="like-count">15</span>
-      </div>
-      <div class="item-overlay">
-        <h3>Fantasy Realm</h3>
-        <p>Magical creatures and landscapes</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>Designed with <span style="color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink);">♥</span> by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
-  </footer>
+  <div class="portfolio-grid" id="portfolio-grid"></div>
 
   <script>
     // Mobile Menu Toggle
@@ -939,6 +523,8 @@
     menuBtn.addEventListener('click', function() {
       this.classList.toggle('active');
       mobileMenu.classList.toggle('active');
+      
+      // Toggle body overflow when menu is open
       document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
     });
     
@@ -952,164 +538,56 @@
       });
     });
 
-    // User Authentication System
-    const CORRECT_USERNAME = "admin";
-    const CORRECT_PASSWORD = "santamuerte";
-    
-    const loginModal = document.getElementById("loginModal");
-    const loginForm = document.getElementById("loginForm");
-    const showLogin = document.getElementById("showLogin");
-    const loginError = document.getElementById("loginError");
-    const userProfile = document.getElementById("userProfile");
-    
-    let isLoggedIn = false;
-    
-    // Show login modal
-    showLogin.addEventListener("click", (e) => {
-      e.preventDefault();
-      loginModal.style.display = "block";
-      document.body.style.overflow = "hidden";
-    });
-    
-    // Close login modal when clicking outside
-    window.addEventListener("click", (e) => {
-      if (e.target === loginModal) {
-        loginModal.style.display = "none";
-        document.body.style.overflow = "";
-      }
-    });
-    
-    // Login form submission
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const username = document.getElementById("loginUsername").value;
-      const password = document.getElementById("loginPassword").value;
-      
-      if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
-        isLoggedIn = true;
-        loginModal.style.display = "none";
-        document.body.style.overflow = "";
-        userProfile.classList.add("logged-in");
-        updateModalInteractions(currentImageId);
-        loginError.style.display = "none";
-      } else {
-        loginError.style.display = "block";
-      }
-    });
-    
-    // Logout functionality
-    userProfile.addEventListener("click", () => {
-      if (isLoggedIn) {
-        isLoggedIn = false;
-        userProfile.classList.remove("logged-in");
-        updateModalInteractions(currentImageId);
-      } else {
-        loginModal.style.display = "block";
-        document.body.style.overflow = "hidden";
-      }
-    });
-
-    // Image Data and Like System
-    let currentImageId = null;
-    const likedImages = new Set();
-    
-    // Mock database for images with likes and comments
-    const imageData = {
-      'images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg': {
-        url: "images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg",
-        alt: "Ai Generation Artwork",
-        title: "Egypt Ai",
-        desc: "Prompt: Anubis, jackal-headed god, towering in judgment hall, holding scales and ankh, souls below. Chiaroscuro lighting, black and gold contrast. Warm golden glow, radiant and luxurious",
-        likes: 42,
-        comments: [
-          { author: "ArtLover42", text: "Amazing work! The lighting is incredible." },
-          { author: "DigitalDreamer", text: "What prompt did you use for this?" }
-        ]
-      },
-      'images/A-stylized-Pharaoh-Hound-slender-and-regal-with-charming-features-wears-a-jeweled-collar-and-sits-beside-an-Egyptian-artifact.-Vibrant-complementary-colors-create-a-balanced-and-adorable-image.jpg': {
-        url: "images/A-stylized-Pharaoh-Hound-slender-and-regal-with-charming-features-wears-a-jeweled-collar-and-sits-beside-an-Egyptian-artifact.-Vibrant-complementary-colors-create-a-balanced-and-adorable-image.jpg",
-        alt: "Holographic Motion",
-        title: "Quantum Flow",
-        desc: "Prompt: A stylized Pharaoh Hound, slender and regal, with charming features, wears a jeweled collar and sits beside an Egyptian artifact. Vibrant complementary colors create a balanced and adorable image.",
-        likes: 28,
-        comments: [
-          { author: "CyberArtFan", text: "Love the colors in this one!" }
-        ]
-      }
-    };
-
-    // Create like button for each image
-    function createLikeButton(item) {
-      const likeContainer = document.createElement('div');
-      likeContainer.className = 'like-container';
-      
-      const likeBtn = document.createElement('button');
-      likeBtn.className = 'like-btn';
-      likeBtn.innerHTML = '♥';
-      
-      const likeCount = document.createElement('span');
-      likeCount.className = 'like-count';
-      likeCount.textContent = item.likes || 0;
-      
-      likeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        // Toggle like state
-        if (likedImages.has(item.url)) {
-          item.likes--;
-          likedImages.delete(item.url);
-          likeBtn.classList.remove('liked');
-        } else {
-          item.likes++;
-          likedImages.add(item.url);
-          likeBtn.classList.add('liked');
-        }
-        
-        likeCount.textContent = item.likes;
-      });
-      
-      // Set initial like state
-      if (likedImages.has(item.url)) {
-        likeBtn.classList.add('liked');
-      }
-      
-      likeContainer.appendChild(likeBtn);
-      likeContainer.appendChild(likeCount);
-      return likeContainer;
+    // Helper function to validate image file extensions
+    function isValidImage(url) {
+      if (!url) return false;
+      const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
+      const extension = url.split('.').pop().toLowerCase();
+      return validExtensions.includes(extension);
     }
 
-    // Update modal with interaction data
-    function updateModalInteractions(imageUrl) {
-      if (!imageUrl) return;
-      
-      currentImageId = imageUrl;
-      const data = imageData[imageUrl] || { likes: 0, comments: [] };
-      
-      // Update comments
-      const commentsList = document.getElementById('commentsList');
-      commentsList.innerHTML = '';
-      
-      data.comments.forEach(comment => {
-        const commentEl = document.createElement('div');
-        commentEl.className = 'comment';
-        commentEl.innerHTML = `
-          <div class="comment-author">${comment.author}</div>
-          <div class="comment-text">${comment.text}</div>
-        `;
-        commentsList.appendChild(commentEl);
-      });
-      
-      // Show/hide comment form based on login status
-      const commentForm = document.getElementById('commentForm');
-      const loginPrompt = document.querySelector('.login-prompt');
-      
-      if (isLoggedIn) {
-        commentForm.classList.add('active');
-        loginPrompt.style.display = 'none';
-      } else {
-        commentForm.classList.remove('active');
-        loginPrompt.style.display = 'block';
+    // Dynamic image loader with fallback and validation
+    async function loadRandomImages() {
+      try {
+        const response = await fetch('images/image-list.json');
+        if (response.ok) {
+          const imageData = await response.json();
+          // Filter to ensure only valid images are displayed
+          const validImages = imageData.filter(item => isValidImage(item.url));
+          if (validImages.length > 0) {
+            displayImages(validImages);
+            return;
+          }
+        }
+      } catch (e) {
+        console.log("Using fallback image data");
       }
+      
+      // Fallback to hardcoded image data (with validation)
+      const fallbackImages = [
+        { 
+          url: "images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg", 
+          alt: "Ai Generation Artwork", 
+          title: "Egypt Ai", 
+          desc: "Prompt : Anubis, jackal-headed god, towering in judgment hall, holding scales and ankh, souls below. Chiaroscuro lighting, black and gold contrast. Warm golden glow, radiant and luxurious" 
+        },
+        { 
+          url: "images/A-stylized-Pharaoh-Hound-slender-and-regal-with-charming-features-wears-a-jeweled-collar-and-sits-beside-an-Egyptian-artifact.-Vibrant-complementary-colors-create-a-balanced-and-adorable-image.jpg", 
+          alt: "Holographic Motion", 
+          title: "Quantum Flow", 
+          desc: "Prompt : A stylized Pharaoh Hound, slender and regal, with charming features, wears a jeweled collar and sits beside an Egyptian artifact. Vibrant complementary colors create a balanced and adorable image." 
+        }
+      ].filter(item => isValidImage(item.url));
+      
+      displayImages(fallbackImages);
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
     }
 
     // Modal functionality
@@ -1118,9 +596,6 @@
     const modalTitle = document.getElementById("modalTitle");
     const modalDesc = document.getElementById("modalDesc");
     const closeModal = document.querySelector(".close-modal");
-    const commentForm = document.getElementById("commentForm");
-    const commentInput = document.querySelector(".comment-input");
-    const submitCommentBtn = document.querySelector(".submit-comment");
 
     function openModal(imgSrc, title, desc) {
       modal.style.display = "flex";
@@ -1129,9 +604,6 @@
       modalTitle.textContent = title;
       modalDesc.textContent = desc;
       document.body.style.overflow = "hidden";
-      
-      // Initialize comments
-      updateModalInteractions(imgSrc);
     }
 
     closeModal.addEventListener("click", function() {
@@ -1146,48 +618,18 @@
       }
     });
 
-    // Comment functionality
-    submitCommentBtn.addEventListener('click', () => {
-      if (!currentImageId || !commentInput.value.trim()) return;
-      
-      const data = imageData[currentImageId];
-      const newComment = {
-        author: "CurrentUser", // In a real app, this would be the logged in user's name
-        text: commentInput.value.trim()
-      };
-      
-      if (!data.comments) {
-        data.comments = [];
-      }
-      
-      data.comments.push(newComment);
-      
-      // Update comments display
-      const commentsList = document.getElementById('commentsList');
-      const commentEl = document.createElement('div');
-      commentEl.className = 'comment';
-      commentEl.innerHTML = `
-        <div class="comment-author">${newComment.author}</div>
-        <div class="comment-text">${newComment.text}</div>
-      `;
-      commentsList.appendChild(commentEl);
-      
-      // Clear input
-      commentInput.value = '';
-    });
-
-    // Toggle comments section
-    document.querySelector('.comment-btn')?.addEventListener('click', () => {
-      document.querySelector('.comments-section').classList.toggle('active');
-    });
-
-    // Load and display images
-    function displayImages(images) {
+    // Updated displayImages function with modal support
+    function displayImages(imageData) {
       const grid = document.getElementById('portfolio-grid');
       grid.innerHTML = '';
       
-      // Display images
-      images.forEach(item => {
+      // Filter and shuffle the images
+      const validImages = shuffleArray(imageData.filter(item => {
+        return item.url && item.alt && isValidImage(item.url);
+      }));
+      
+      // Display only valid images
+      validImages.forEach(item => {
         const portfolioItem = document.createElement('div');
         portfolioItem.className = 'portfolio-item';
         
@@ -1199,12 +641,8 @@
         // Handle image loading errors
         img.onerror = function() {
           console.error('Failed to load image:', item.url);
-          portfolioItem.style.display = 'none';
+          portfolioItem.style.display = 'none'; // Hide the item if image fails to load
         };
-        
-        // Add like button
-        const likeButton = createLikeButton(item);
-        portfolioItem.appendChild(likeButton);
         
         // Add click event for modal
         portfolioItem.addEventListener('click', () => {
@@ -1223,7 +661,8 @@
         grid.appendChild(portfolioItem);
       });
       
-      if (images.length === 0) {
+      // Show message if no images found
+      if (validImages.length === 0) {
         grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:white;">No images found in the gallery</p>';
       }
     }
@@ -1239,6 +678,16 @@
     const dynamicQuote = document.getElementById('dynamic-quote');
     const welcomeMessage = document.getElementById('welcome-message');
 
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        welcomeMessage.style.opacity = 0;
+      }, 4000);
+      
+      showNextQuote();
+      setInterval(showNextQuote, 8000);
+      loadRandomImages();
+    });
+
     function showNextQuote() {
       dynamicQuote.style.opacity = 0;
       setTimeout(() => {
@@ -1248,43 +697,15 @@
       }, 1000);
     }
 
-    // Initialize the page
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(() => {
-        welcomeMessage.style.opacity = 0;
-      }, 4000);
-      
-      showNextQuote();
-      setInterval(showNextQuote, 8000);
-      
-      // Load and display images
-      displayImages(Object.values(imageData));
-      
-      // Add click handlers for portfolio items
-      document.querySelectorAll('.portfolio-item').forEach(item => {
-        item.addEventListener('click', function() {
-          const img = this.querySelector('img');
-          const title = this.querySelector('.item-overlay h3').textContent;
-          const desc = this.querySelector('.item-overlay p').textContent;
-          openModal(img.src, title, desc);
-        });
+    function scrollToGallery() {
+      document.querySelector('.portfolio-grid').scrollIntoView({
+        behavior: 'smooth'
       });
-      
-      // Add like button functionality for demo items
-      document.querySelectorAll('.like-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const likeCount = this.nextElementSibling;
-          if (this.classList.contains('liked')) {
-            this.classList.remove('liked');
-            likeCount.textContent = parseInt(likeCount.textContent) - 1;
-          } else {
-            this.classList.add('liked');
-            likeCount.textContent = parseInt(likeCount.textContent) + 1;
-          }
-        });
-      });
-    });
+    }
   </script>
+
+  <footer>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
+  </footer>
 </body>
 </html>
