@@ -331,6 +331,7 @@
     }
 
     .modal-details {
+      width: 100%;
       max-width: 800px;
       text-align: center;
       color: white;
@@ -361,6 +362,135 @@
 
     .close-modal:hover {
       color: var(--electric-blue);
+    }
+
+    /* Like and Comment Styles */
+    .interaction-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    
+    .like-btn, .comment-btn {
+      background: rgba(0, 243, 255, 0.1);
+      border: 1px solid var(--electric-blue);
+      color: var(--electric-blue);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+    }
+    
+    .like-btn:hover, .comment-btn:hover {
+      background: rgba(0, 243, 255, 0.2);
+    }
+    
+    .like-btn.liked {
+      background: var(--neon-pink);
+      border-color: var(--neon-pink);
+      color: white;
+    }
+    
+    .comments-section {
+      margin-top: 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    
+    .comments-section.active {
+      max-height: 500px;
+    }
+    
+    .comments-list {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .comment {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .comment-author {
+      font-weight: bold;
+      color: var(--electric-blue);
+    }
+    
+    .comment-form {
+      margin-top: 1rem;
+      display: none;
+    }
+    
+    .comment-form.active {
+      display: block;
+    }
+    
+    .comment-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--electric-blue);
+      color: white;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-family: 'Space Mono', monospace;
+    }
+    
+    .submit-comment {
+      background: var(--electric-blue);
+      color: black;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      font-weight: bold;
+    }
+    
+    .login-prompt {
+      color: var(--neon-pink);
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+    
+    .login-prompt a {
+      color: var(--electric-blue);
+      text-decoration: none;
+    }
+    
+    .login-prompt a:hover {
+      text-decoration: underline;
+    }
+    
+    /* User controls */
+    .user-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 1rem;
+      border-radius: 4px;
+      border: 1px solid var(--electric-blue);
+    }
+    
+    .user-toggle {
+      background: var(--electric-blue);
+      color: black;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      font-weight: bold;
     }
 
     @keyframes fadeIn {
@@ -421,6 +551,11 @@
       #hero {
         height: 70vh;
       }
+      
+      .interaction-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
     }
 
     @media (max-width: 480px) {
@@ -453,6 +588,12 @@
 
       .modal-image {
         max-width: 95%;
+      }
+      
+      .user-controls {
+        bottom: 10px;
+        right: 10px;
+        padding: 0.5rem;
       }
     }
   </style>
@@ -493,7 +634,7 @@
     </ul>
   </div>
 
-  <!-- Image Modal -->
+  <!-- Image Modal with Like/Comment functionality -->
   <div id="imageModal" class="image-modal">
     <span class="close-modal">&times;</span>
     <div class="modal-content">
@@ -501,8 +642,37 @@
       <div class="modal-details">
         <h3 id="modalTitle"></h3>
         <p id="modalDesc"></p>
+        
+        <!-- Like/Comment Section -->
+        <div class="interaction-buttons">
+          <button class="like-btn">
+            <span class="like-count">0</span> Likes
+          </button>
+          <button class="comment-btn">Comments</button>
+        </div>
+        
+        <div class="comments-section">
+          <div class="comments-list" id="commentsList"></div>
+          
+          <!-- Comment form (shown only for members) -->
+          <div class="comment-form" id="commentForm">
+            <textarea class="comment-input" placeholder="Add a comment..."></textarea>
+            <button class="submit-comment">Post Comment</button>
+          </div>
+          
+          <div class="login-prompt">
+            Please <a href="login.html">login</a> to leave a comment.
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+
+  <!-- User controls for demo purposes -->
+  <div class="user-controls">
+    <p>Demo Controls:</p>
+    <button class="user-toggle" id="toggleUser">Login as Member</button>
+    <p id="userStatus">Status: Visitor</p>
   </div>
 
   <section id="hero">
@@ -545,6 +715,155 @@
       const extension = url.split('.').pop().toLowerCase();
       return validExtensions.includes(extension);
     }
+
+    // User system (for demo purposes)
+    let isLoggedIn = false;
+    const toggleUserBtn = document.getElementById('toggleUser');
+    const userStatus = document.getElementById('userStatus');
+    
+    toggleUserBtn.addEventListener('click', () => {
+      isLoggedIn = !isLoggedIn;
+      if (isLoggedIn) {
+        toggleUserBtn.textContent = 'Logout';
+        userStatus.textContent = 'Status: Member';
+      } else {
+        toggleUserBtn.textContent = 'Login as Member';
+        userStatus.textContent = 'Status: Visitor';
+      }
+      
+      // Update comment form visibility if modal is open
+      if (currentImageId) {
+        updateModalInteractions(currentImageId);
+      }
+    });
+
+    // Like and comment functionality
+    let currentImageId = null;
+    const likeBtn = document.querySelector('.like-btn');
+    const commentBtn = document.querySelector('.comment-btn');
+    const commentsSection = document.querySelector('.comments-section');
+    const commentForm = document.getElementById('commentForm');
+    const loginPrompt = document.querySelector('.login-prompt');
+    const commentsList = document.getElementById('commentsList');
+    const commentInput = document.querySelector('.comment-input');
+    const submitCommentBtn = document.querySelector('.submit-comment');
+    const likeCount = document.querySelector('.like-count');
+    
+    // Mock database for likes and comments
+    const imageData = {
+      // This would come from your actual database in a real app
+      'images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg': {
+        likes: 42,
+        comments: [
+          { author: "ArtLover42", text: "Amazing work! The lighting is incredible." },
+          { author: "DigitalDreamer", text: "What prompt did you use for this?" }
+        ]
+      },
+      'images/A-stylized-Pharaoh-Hound-slender-and-regal-with-charming-features-wears-a-jeweled-collar-and-sits-beside-an-Egyptian-artifact.-Vibrant-complementary-colors-create-a-balanced-and-adorable-image.jpg': {
+        likes: 28,
+        comments: [
+          { author: "CyberArtFan", text: "Love the colors in this one!" }
+        ]
+      }
+    };
+    
+    // Track liked images
+    const likedImages = new Set();
+    
+    // Toggle comments section
+    commentBtn.addEventListener('click', () => {
+      commentsSection.classList.toggle('active');
+    });
+    
+    // Update modal with interaction data
+    function updateModalInteractions(imageUrl) {
+      currentImageId = imageUrl;
+      const data = imageData[imageUrl] || { likes: 0, comments: [] };
+      
+      // Update like count
+      likeCount.textContent = data.likes;
+      
+      // Update like button state
+      if (likedImages.has(imageUrl)) {
+        likeBtn.classList.add('liked');
+      } else {
+        likeBtn.classList.remove('liked');
+      }
+      
+      // Update comments
+      commentsList.innerHTML = '';
+      data.comments.forEach(comment => {
+        const commentEl = document.createElement('div');
+        commentEl.className = 'comment';
+        commentEl.innerHTML = `
+          <div class="comment-author">${comment.author}</div>
+          <div class="comment-text">${comment.text}</div>
+        `;
+        commentsList.appendChild(commentEl);
+      });
+      
+      // Show/hide comment form based on login status
+      if (isLoggedIn) {
+        commentForm.classList.add('active');
+        loginPrompt.style.display = 'none';
+      } else {
+        commentForm.classList.remove('active');
+        loginPrompt.style.display = 'block';
+      }
+    }
+    
+    // Like functionality
+    likeBtn.addEventListener('click', () => {
+      if (!currentImageId) return;
+      
+      const data = imageData[currentImageId] || { likes: 0, comments: [] };
+      
+      if (likedImages.has(currentImageId)) {
+        // Unlike
+        data.likes--;
+        likedImages.delete(currentImageId);
+        likeBtn.classList.remove('liked');
+      } else {
+        // Like
+        data.likes++;
+        likedImages.add(currentImageId);
+        likeBtn.classList.add('liked');
+      }
+      
+      // Update display
+      likeCount.textContent = data.likes;
+      imageData[currentImageId] = data;
+      
+      // In a real app, you would send this to your server here
+    });
+    
+    // Comment functionality
+    submitCommentBtn.addEventListener('click', () => {
+      if (!currentImageId || !commentInput.value.trim()) return;
+      
+      const data = imageData[currentImageId] || { likes: 0, comments: [] };
+      const newComment = {
+        author: "CurrentUser", // In a real app, this would be the logged in user's name
+        text: commentInput.value.trim()
+      };
+      
+      data.comments.push(newComment);
+      imageData[currentImageId] = data;
+      
+      // Update comments display
+      const commentEl = document.createElement('div');
+      commentEl.className = 'comment';
+      commentEl.innerHTML = `
+        <div class="comment-author">${newComment.author}</div>
+        <div class="comment-text">${newComment.text}</div>
+      `;
+      commentsList.appendChild(commentEl);
+      
+      // Clear input
+      commentInput.value = '';
+      
+      // In a real app, you would send this to your server here
+    });
 
     // Dynamic image loader with fallback and validation
     async function loadRandomImages() {
@@ -604,6 +923,9 @@
       modalTitle.textContent = title;
       modalDesc.textContent = desc;
       document.body.style.overflow = "hidden";
+      
+      // Initialize like and comment data
+      updateModalInteractions(imgSrc);
     }
 
     closeModal.addEventListener("click", function() {
