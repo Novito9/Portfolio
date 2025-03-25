@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Novito9</title>
+  <title>Novito9 - Contact</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
   <style>
     :root {
@@ -74,9 +74,9 @@
       color: var(--electric-blue);
     }
 
-    /* Glitch Hero Section */
-    #hero {
-      height: 100vh;
+    /* Contact Header */
+    .page-header {
+      height: 40vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -84,154 +84,134 @@
       text-align: center;
       padding: 2rem;
       margin-top: 60px;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('images/contact-bg.jpg') center/cover;
     }
 
-    #hero h1 {
-      font-size: clamp(3rem, 10vw, 6rem);
+    .page-header h1 {
+      font-size: clamp(2.5rem, 8vw, 4rem);
       margin: 0;
       line-height: 1;
       color: var(--flashy-pink);
       text-shadow: 
         0 0 10px var(--pink-glow),
-        0 0 20px var(--pink-glow),
-        0 0 30px var(--pink-glow),
-        0 0 60px var(--hot-pink);
-      animation: 
-        pink-pulse 0.8s infinite alternate,
-        text-glitch 4s infinite;
+        0 0 20px var(--pink-glow);
       position: relative;
     }
 
-    #hero p {
+    .page-header p {
       font-size: 1.25rem;
-      margin: 2rem 0;
+      margin: 1rem 0 0;
       color: rgba(255, 255, 255, 0.8);
       max-width: 600px;
     }
 
-    @keyframes pink-pulse {
-      from {
-        text-shadow: 
-          0 0 10px var(--pink-glow),
-          0 0 20px var(--pink-glow),
-          0 0 30px var(--hot-pink);
-      }
-      to {
-        text-shadow: 
-          0 0 20px var(--pink-glow),
-          0 0 40px var(--pink-glow),
-          0 0 60px var(--hot-pink),
-          0 0 80px var(--hot-pink);
-      }
+    /* Contact Content */
+    .contact-container {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
     }
 
-    /* Cyber Button */
-    .btn-gallery {
-      padding: 1rem 3rem;
+    .contact-info {
+      background: rgba(20, 20, 20, 0.8);
+      padding: 2rem;
+      border-top: 3px solid var(--electric-blue);
+    }
+
+    .contact-info h2 {
+      color: var(--electric-blue);
+      margin-top: 0;
+    }
+
+    .info-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .info-item h3 {
+      color: var(--neon-pink);
+      margin-bottom: 0.5rem;
+    }
+
+    .info-item p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      color: #fff;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--electric-blue);
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: rgba(20, 20, 20, 0.8);
+      padding: 2rem;
+      border-top: 3px solid var(--neon-pink);
+    }
+
+    .contact-form h2 {
+      color: var(--neon-pink);
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--electric-blue);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      padding: 1rem 2rem;
       background: transparent;
       border: 2px solid var(--electric-blue);
       color: var(--electric-blue);
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
       transition: 0.3s ease;
     }
 
-    .btn-gallery::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(0, 243, 255, 0.2),
-        transparent
-      );
-      transition: 0.5s;
-    }
-
-    .btn-gallery:hover {
+    .submit-btn:hover {
       background: rgba(0, 243, 255, 0.1);
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
-    }
-
-    .btn-gallery:hover::before {
-      left: 100%;
-    }
-
-    /* Hologrid Portfolio */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1px;
-      background: #111;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .portfolio-item {
-      position: relative;
-      aspect-ratio: 1;
-      overflow: hidden;
-      background: #000;
-      transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    .portfolio-item:hover {
-      transform: scale(1.05);
-      z-index: 2;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
-    }
-
-    .portfolio-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: 0.3s ease;
-    }
-
-    .portfolio-item:hover img {
-      transform: scale(1.1);
-    }
-
-    /* Image Overlay */
-    .item-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 1rem;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-    }
-
-    .portfolio-item:hover .item-overlay {
-      transform: translateY(0);
-    }
-
-    /* Glitch Animations */
-    @keyframes text-glitch {
-      0%, 100% {
-        text-shadow: 3px 3px 0 var(--neon-pink), -3px -3px 0 var(--electric-blue);
-      }
-      25% {
-        text-shadow: -3px 3px 0 var(--neon-pink), 3px -3px 0 var(--electric-blue);
-      }
-      50% {
-        text-shadow: 3px -3px 0 var(--neon-pink), -3px 3px 0 var(--electric-blue);
-      }
-      75% {
-        text-shadow: -3px -3px 0 var(--neon-pink), 3px 3px 0 var(--electric-blue);
-      }
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
     }
 
     /* Footer */
@@ -249,23 +229,19 @@
       font-size: 0.9rem;
     }
 
-    footer p span {
-      color: var(--electric-blue);
-      font-weight: 700;
-    }
-
     @media (max-width: 768px) {
       .navbar nav ul {
         gap: 1rem;
         flex-wrap: wrap;
       }
       
-      #hero {
+      .page-header {
         margin-top: 80px;
       }
 
-      .portfolio-grid {
+      .contact-container {
         grid-template-columns: 1fr;
+        gap: 2rem;
       }
     }
   </style>
@@ -275,132 +251,100 @@
   <header class="navbar">
     <nav>
       <ul>
-        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
         <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
         <li><a href="members.html">Members</a></li>
       </ul>
     </nav>
   </header>
 
-  <section id="hero">
-    <h1>NOVITO9</h1>
-    <p id="welcome-message">Welcome and Thank you for Visiting</p>
-    <p id="dynamic-quote">Loading quote...</p>
-    <button class="btn-gallery" onclick="scrollToGallery()">EXPLORE GALLERY</button>
+  <!-- Contact Header -->
+  <section class="page-header">
+    <h1>GET IN TOUCH</h1>
+    <p>Have a project in mind or just want to say hello? Drop me a message!</p>
   </section>
 
-  <!-- Portfolio Grid -->
-  <div class="portfolio-grid" id="portfolio-grid"></div>
-
-  <script>
-    // Image data array
-    const imageData = [
-      { 
-        url: "images/A layered papier-mâché artwork of distant, softly glowing pyramids with a blurred bokeh effect and strong, hard light. Faint hieroglyphs of Anubis, dogs, and pharaohs are etched into sand dunes, overlaid with a subtle aged pa.jpeg", 
-        alt: "papier artwork",
-        title: "Egypt Ai",
-        desc: "Prompt : A layered papier-mâché artwork of distant, softly glowing pyramids with a blurred bokeh effect and strong, hard light. Faint hieroglyphs of Anubis, dogs, and pharaohs are etched into sand dunes, overlaid with a subtle aged paysage"
-      },
-      { 
-        url: "images/A futuristic sci-fi scene of a rural Egyptian farm at sunrise during a wet rainy scene. Drizzling rain, reflective surfaces, advanced technology, space elements blend with the farm. Oxen, farmers, women, children, houses, and.jpg", 
-        alt: "Holographic Motion",
-        title: "Quantum Flow",
-        desc: "Prompt : A futuristic sci-fi scene of a rural Egyptian farm at sunrise during a wet rainy scene. Drizzling rain, reflective surfaces, advanced technology, space elements blend with the farm. Oxen, farmers, women, children, houses, and.jpg"
-      },
-      { 
-        url: "images/Rich burgundy and deep blue hues, gentle soft light illuminates a sophisticated and elegant golden desert landscape with pyramids and hieroglyphs in soft gradients, diffused shadows, subtle illumination.jpg", 
-        alt: "Neon Architecture",
-        title: "Egypt 0089",
-        desc: "Prompt : Rich burgundy and deep blue hues, gentle soft light illuminates a sophisticated and elegant golden desert landscape with pyramids and hieroglyphs in soft gradients, diffused shadows, subtle illumination"
-      }
-      // Add new images here:
-      // { url: "images/Strong moody style candid street photography of a Regal portrait lineup Saluki, Basenji, Pharaoh Hound against desert ruins, studio lighting, low contrast, urban scenes, spontaneous moments, sharp focus, historical accuracy.jpg", alt: "...", title: "...", desc: "..." }
-    ];
-
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    function loadRandomImages() {
-      const grid = document.getElementById('portfolio-grid');
-      grid.innerHTML = '';
+  <!-- Contact Content -->
+  <div class="contact-container">
+    <div class="contact-info">
+      <h2>Contact Information</h2>
       
-      shuffleArray(imageData).forEach(item => {
-        const portfolioItem = document.createElement('div');
-        portfolioItem.className = 'portfolio-item';
-        portfolioItem.innerHTML = `
-          <img src="${item.url}" alt="${item.alt}">
-          <div class="item-overlay">
-            <h3>${item.title}</h3>
-            <p>${item.desc}</p>
-          </div>
-        `;
-        grid.appendChild(portfolioItem);
-      });
-    }
-
-    // ===== Existing Quote Functionality =====
-    const quotes = [
-      "Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep. - Scott Adams",
-      "Art enables us to find ourselves and lose ourselves at the same time. - Thomas Merton",
-      "A true artist is not one who is inspired, but one who inspires others. - Salvador Dalí",
-      "Every artist dips his brush in his own soul and paints his own nature into his pictures. - Henry Ward Beecher",
-      "Creativity takes courage. - Henri Matisse",
-      "The principles of true art is not to portray, but to evoke. - Jerzy Kosinski",
-      "A work of art which did not begin in emotion is not art. - Paul Cézanne",
-      "Art should comfort the disturbed and disturb the comfortable. - Cesar Cruz",
-      "Digital art is not a mere reflection of reality but a gateway to imagination. - Unknown",
-      "Design is the silent ambassador of your brand. - Paul Rand",
-      "Everything you can imagine is real. - Pablo Picasso",
-      "Art is not what you see, but what you make others see. - Edgar Degas",
-      "To create one's world in any of the arts takes courage. - Georgia O'Keeffe",
-      "There is no must in art because art is free. - Wassily Kandinsky",
-      "Every great design begins with an even better story. - Lorinda Mamo",
-      "The purpose of art is washing the dust of daily life off our souls. - Pablo Picasso",
-      "You can't use up creativity. The more you use, the more you have. - Maya Angelou",
-      "Inspiration exists, but it has to find you working. - Pablo Picasso",
-      "To practice any art, no matter how well or badly, is a way to make your soul grow. - Kurt Vonnegut",
-      "Design is thinking made visual. - Saul Bass"
-    ];
-
-    let currentQuote = 0;
-    const dynamicQuote = document.getElementById('dynamic-quote');
-    const welcomeMessage = document.getElementById('welcome-message');
-
-    window.onload = function() {
-      setTimeout(() => {
-        welcomeMessage.style.opacity = 0;
-      }, 4000);
+      <div class="info-item">
+        <h3>Email</h3>
+        <p>contact@novito9.com</p>
+      </div>
       
-      showNextQuote();
-      setInterval(showNextQuote, 8000);
-      loadRandomImages(); // Initialize random images
-    };
+      <div class="info-item">
+        <h3>Social Media</h3>
+        <div class="social-links">
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="Behance"><i class="fab fa-behance"></i></a>
+          <a href="#" title="Dribbble"><i class="fab fa-dribbble"></i></a>
+        </div>
+      </div>
+      
+      <div class="info-item">
+        <h3>Availability</h3>
+        <p>Available for freelance work and collaborations</p>
+      </div>
+    </div>
+    
+    <div class="contact-form">
+      <h2>Send a Message</h2>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" class="form-control" required></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">SEND MESSAGE</button>
+      </form>
+    </div>
+  </div>
 
-    function showNextQuote() {
-      dynamicQuote.style.opacity = 0;
-      setTimeout(() => {
-        currentQuote = (currentQuote + 1) % quotes.length;
-        dynamicQuote.textContent = quotes[currentQuote];
-        dynamicQuote.style.opacity = 1;
-      }, 1000);
-    }
-
-    function scrollToGallery() {
-      document.querySelector('.portfolio-grid').scrollIntoView({ 
-        behavior: 'smooth' 
-      });
-    }
-  </script>
-  
   <footer>
-    <p>&copy; 2025 Novito9 - All Rights Reserved</p>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
   </footer>
+
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  
+  <script>
+    // Form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Here you would typically send the form data to a server
+      // For this example, we'll just log it and show an alert
+      console.log({name, email, subject, message});
+      
+      alert('Thank you for your message! I will get back to you soon.');
+      this.reset();
+    });
+  </script>
 </body>
 </html>

@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Novito9</title>
+  <title>Novito9 - Logos/Branding/Print</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
   <style>
+    /* Base styles with purple/orange variation */
     :root {
-      --electric-blue: #00f3ff;
-      --neon-pink: #ff0066;
+      --electric-purple: #aa00ff;
+      --neon-orange: #ff5500;
       --dark-bg: #000;
-      --flashy-pink: #ff00ff;
-      --hot-pink: #ff0099;
-      --pink-glow: rgba(255, 0, 255, 0.7);
+      --flashy-purple: #cc00ff;
+      --hot-orange: #ff3300;
+      --purple-glow: rgba(170, 0, 255, 0.7);
     }
 
     body {
@@ -23,7 +24,6 @@
       overflow-x: hidden;
     }
 
-    /* Cyberpunk Navigation */
     .navbar {
       padding: 1.5rem 2rem;
       position: fixed;
@@ -62,7 +62,7 @@
       height: 2px;
       bottom: 0;
       left: 0;
-      background: var(--electric-blue);
+      background: var(--electric-purple);
       transition: width 0.3s ease;
     }
 
@@ -71,12 +71,12 @@
     }
 
     .navbar nav ul li a.active {
-      color: var(--electric-blue);
+      color: var(--electric-purple);
     }
 
-    /* Glitch Hero Section */
-    #hero {
-      height: 100vh;
+    /* Category Header */
+    .category-header {
+      height: 50vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -84,153 +84,136 @@
       text-align: center;
       padding: 2rem;
       margin-top: 60px;
+      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9));
     }
 
-    #hero h1 {
-      font-size: clamp(3rem, 10vw, 6rem);
+    .category-header h1 {
+      font-size: clamp(2.5rem, 8vw, 4rem);
       margin: 0;
-      line-height: 1;
-      color: var(--flashy-pink);
+      color: var(--electric-purple);
       text-shadow: 
-        0 0 10px var(--pink-glow),
-        0 0 20px var(--pink-glow),
-        0 0 30px var(--pink-glow),
-        0 0 60px var(--hot-pink);
-      animation: 
-        pink-pulse 0.8s infinite alternate,
-        text-glitch 4s infinite;
-      position: relative;
+        0 0 10px var(--purple-glow),
+        0 0 20px var(--purple-glow);
+      animation: purple-glitch 4s infinite;
     }
 
-    #hero p {
+    .category-header p {
       font-size: 1.25rem;
-      margin: 2rem 0;
+      margin: 1rem 0 0;
       color: rgba(255, 255, 255, 0.8);
       max-width: 600px;
     }
 
-    @keyframes pink-pulse {
-      from {
-        text-shadow: 
-          0 0 10px var(--pink-glow),
-          0 0 20px var(--pink-glow),
-          0 0 30px var(--hot-pink);
-      }
-      to {
-        text-shadow: 
-          0 0 20px var(--pink-glow),
-          0 0 40px var(--pink-glow),
-          0 0 60px var(--hot-pink),
-          0 0 80px var(--hot-pink);
-      }
+    /* Filter Buttons */
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 2rem;
+      background: #111;
     }
 
-    /* Cyber Button */
-    .btn-gallery {
-      padding: 1rem 3rem;
+    .filter-btn {
+      padding: 0.8rem 1.8rem;
       background: transparent;
-      border: 2px solid var(--electric-blue);
-      color: var(--electric-blue);
+      border: 2px solid var(--neon-orange);
+      color: var(--neon-orange);
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: 0.3s ease;
+      transition: all 0.3s ease;
     }
 
-    .btn-gallery::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(0, 243, 255, 0.2),
-        transparent
-      );
-      transition: 0.5s;
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--neon-orange);
+      color: #000;
+      box-shadow: 0 0 20px rgba(255, 85, 0, 0.5);
     }
 
-    .btn-gallery:hover {
-      background: rgba(0, 243, 255, 0.1);
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
-    }
-
-    .btn-gallery:hover::before {
-      left: 100%;
-    }
-
-    /* Hologrid Portfolio */
-    .portfolio-grid {
+    /* Work Grid */
+    .work-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1px;
-      background: #111;
-      padding: 2rem;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
-    .portfolio-item {
+    .work-item {
       position: relative;
-      aspect-ratio: 1;
       overflow: hidden;
-      background: #000;
-      transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 2px solid rgba(255,255,255,0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .portfolio-item:hover {
-      transform: scale(1.05);
-      z-index: 2;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+    .work-item:hover {
+      transform: translateY(-10px);
+      border-color: var(--electric-purple);
+      box-shadow: 
+        0 10px 20px rgba(170, 0, 255, 0.3),
+        0 0 30px rgba(255, 85, 0, 0.2);
     }
 
-    .portfolio-item img {
+    .work-item img {
       width: 100%;
-      height: 100%;
+      height: 250px;
       object-fit: cover;
-      transition: 0.3s ease;
+      transition: transform 0.5s ease;
     }
 
-    .portfolio-item:hover img {
+    .work-item:hover img {
       transform: scale(1.1);
     }
 
-    /* Image Overlay */
-    .item-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 1rem;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
+    .work-info {
+      padding: 1.5rem;
+      background: rgba(20,20,20,0.9);
     }
 
-    .portfolio-item:hover .item-overlay {
-      transform: translateY(0);
+    .work-info h3 {
+      color: var(--electric-purple);
+      margin-top: 0;
     }
 
-    /* Glitch Animations */
-    @keyframes text-glitch {
+    .work-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .work-tag {
+      padding: 0.3rem 0.8rem;
+      background: rgba(255,85,0,0.2);
+      color: var(--neon-orange);
+      font-size: 0.8rem;
+      border-radius: 20px;
+    }
+
+    /* Glitch Animation (purple/orange version) */
+    @keyframes purple-glitch {
       0%, 100% {
-        text-shadow: 3px 3px 0 var(--neon-pink), -3px -3px 0 var(--electric-blue);
+        text-shadow: 
+          2px 2px 0 var(--neon-orange),
+          -2px -2px 0 var(--electric-purple);
       }
       25% {
-        text-shadow: -3px 3px 0 var(--neon-pink), 3px -3px 0 var(--electric-blue);
+        text-shadow: 
+          -2px 2px 0 var(--neon-orange),
+          2px -2px 0 var(--electric-purple);
       }
       50% {
-        text-shadow: 3px -3px 0 var(--neon-pink), -3px 3px 0 var(--electric-blue);
+        text-shadow: 
+          2px -2px 0 var(--neon-orange),
+          -2px 2px 0 var(--electric-purple);
       }
       75% {
-        text-shadow: -3px -3px 0 var(--neon-pink), 3px 3px 0 var(--electric-blue);
+        text-shadow: 
+          -2px -2px 0 var(--neon-orange),
+          2px 2px 0 var(--electric-purple);
       }
     }
 
@@ -249,23 +232,20 @@
       font-size: 0.9rem;
     }
 
-    footer p span {
-      color: var(--electric-blue);
-      font-weight: 700;
-    }
-
     @media (max-width: 768px) {
       .navbar nav ul {
         gap: 1rem;
         flex-wrap: wrap;
       }
       
-      #hero {
+      .category-header {
         margin-top: 80px;
+        height: 40vh;
       }
 
-      .portfolio-grid {
+      .work-grid {
         grid-template-columns: 1fr;
+        padding: 1.5rem;
       }
     }
   </style>
@@ -275,162 +255,131 @@
   <header class="navbar">
     <nav>
       <ul>
-        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="logos-branding-print.html" class="active">Logos/Branding/Print</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="members.html">Members</a></li>
       </ul>
     </nav>
   </header>
 
-  <section id="hero">
-    <h1>NOVITO9</h1>
-    <p id="welcome-message">Welcome and Thank you for Visiting</p>
-    <p id="dynamic-quote">Loading quote...</p>
-    <button class="btn-gallery" onclick="scrollToGallery()">EXPLORE GALLERY</button>
+  <!-- Category Header -->
+  <section class="category-header">
+    <h1>LOGOS • BRANDING • PRINT</h1>
+    <p>Professional identity designs and physical media creations</p>
   </section>
 
-  <!-- Portfolio Grid -->
-  <div class="portfolio-grid" id="portfolio-grid"></div>
+  <!-- Filter Buttons -->
+  <div class="filter-buttons">
+    <button class="filter-btn active" data-filter="all">All Work</button>
+    <button class="filter-btn" data-filter="logo">Logos</button>
+    <button class="filter-btn" data-filter="branding">Branding</button>
+    <button class="filter-btn" data-filter="print">Print</button>
+  </div>
+
+  <!-- Work Grid -->
+  <div class="work-grid" id="workGrid">
+    <!-- Items will be loaded here -->
+  </div>
 
   <script>
-    // Dynamic image loader with fallback
-    async function loadRandomImages() {
-      try {
-        // Try to fetch image list from server
-        const response = await fetch('images/image-list.json');
-        if (response.ok) {
-          const imageData = await response.json();
-          displayImages(imageData);
-          return;
-        }
-      } catch (e) {
-        console.log("Using fallback image data");
+    // Work items data
+    const workItems = [
+      {
+        id: 1,
+        title: "CyberNova Logo",
+        image: "images/cybernova-logo.jpg",
+        tags: ["logo", "branding"],
+        description: "Futuristic logo design for tech startup"
+      },
+      {
+        id: 2,
+        title: "Retro Wave Brand Package",
+        image: "images/retrowave-brand.jpg",
+        tags: ["branding", "print"],
+        description: "Complete brand identity system"
+      },
+      {
+        id: 3,
+        title: "Neon Dreams Business Cards",
+        image: "images/neon-cards.jpg",
+        tags: ["print", "branding"],
+        description: "Glow-in-the-dark business card design"
+      },
+      {
+        id: 4,
+        title: "PixelHunt Logo",
+        image: "images/pixelhunt-logo.jpg",
+        tags: ["logo"],
+        description: "Gaming company logo design"
+      },
+      {
+        id: 5,
+        title: "SynthWave Poster Series",
+        image: "images/synthwave-posters.jpg",
+        tags: ["print"],
+        description: "Limited edition concert posters"
+      },
+      {
+        id: 6,
+        title: "Quantum Brand Guidelines",
+        image: "images/quantum-brand.jpg",
+        tags: ["branding"],
+        description: "Brand manual for science tech firm"
       }
-      
-      // Fallback to hardcoded images if fetch fails
-      const fallbackImages = await getFallbackImages();
-      displayImages(fallbackImages);
-    }
-
-    // Fallback image data
-    async function getFallbackImages() {
-      return [
-        { 
-          url: "images/A layered papier-mâché artwork of distant, softly glowing pyramids with a blurred bokeh effect and strong, hard light. Faint hieroglyphs of Anubis, dogs, and pharaohs are etched into sand dunes, overlaid with a subtle aged pa.jpeg", 
-          alt: "papier artwork",
-          title: "Egypt Ai",
-          desc: "Prompt : A layered papier-mâché artwork of distant, softly glowing pyramids with a blurred bokeh effect and strong, hard light. Faint hieroglyphs of Anubis, dogs, and pharaohs are etched into sand dunes, overlaid with a subtle aged paysage"
-        },
-        { 
-          url: "images/A futuristic sci-fi scene of a rural Egyptian farm at sunrise during a wet rainy scene. Drizzling rain, reflective surfaces, advanced technology, space elements blend with the farm. Oxen, farmers, women, children, houses, and.jpg", 
-          alt: "Holographic Motion",
-          title: "Quantum Flow",
-          desc: "Prompt : A futuristic sci-fi scene of a rural Egyptian farm at sunrise during a wet rainy scene. Drizzling rain, reflective surfaces, advanced technology, space elements blend with the farm. Oxen, farmers, women, children, houses, and.jpg"
-        },
-        { 
-          url: "images/Rich burgundy and deep blue hues, gentle soft light illuminates a sophisticated and elegant golden desert landscape with pyramids and hieroglyphs in soft gradients, diffused shadows, subtle illumination.jpg", 
-          alt: "Neon Architecture",
-          title: "Egypt 0089",
-          desc: "Prompt : Rich burgundy and deep blue hues, gentle soft light illuminates a sophisticated and elegant golden desert landscape with pyramids and hieroglyphs in soft gradients, diffused shadows, subtle illumination"
-        }
-      ];
-    }
-
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    function displayImages(imageData) {
-      const grid = document.getElementById('portfolio-grid');
-      grid.innerHTML = '';
-      
-      shuffleArray(imageData).forEach(item => {
-        const portfolioItem = document.createElement('div');
-        portfolioItem.className = 'portfolio-item';
-        
-        // Create image with loading optimization
-        const img = new Image();
-        img.src = item.url;
-        img.alt = item.alt;
-        img.loading = "lazy";
-        
-        // Create overlay content
-        const overlay = document.createElement('div');
-        overlay.className = 'item-overlay';
-        overlay.innerHTML = `
-          <h3>${item.title}</h3>
-          <p>${item.desc}</p>
-        `;
-        
-        // Build the item
-        portfolioItem.appendChild(img);
-        portfolioItem.appendChild(overlay);
-        grid.appendChild(portfolioItem);
-      });
-    }
-
-    // Quote functionality
-    const quotes = [
-      "Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep. - Scott Adams",
-      "Art enables us to find ourselves and lose ourselves at the same time. - Thomas Merton",
-      "A true artist is not one who is inspired, but one who inspires others. - Salvador Dalí",
-      "Every artist dips his brush in his own soul and paints his own nature into his pictures. - Henry Ward Beecher",
-      "Creativity takes courage. - Henri Matisse",
-      "The principles of true art is not to portray, but to evoke. - Jerzy Kosinski",
-      "A work of art which did not begin in emotion is not art. - Paul Cézanne",
-      "Art should comfort the disturbed and disturb the comfortable. - Cesar Cruz",
-      "Digital art is not a mere reflection of reality but a gateway to imagination. - Unknown",
-      "Design is the silent ambassador of your brand. - Paul Rand",
-      "Everything you can imagine is real. - Pablo Picasso",
-      "Art is not what you see, but what you make others see. - Edgar Degas",
-      "To create one's world in any of the arts takes courage. - Georgia O'Keeffe",
-      "There is no must in art because art is free. - Wassily Kandinsky",
-      "Every great design begins with an even better story. - Lorinda Mamo",
-      "The purpose of art is washing the dust of daily life off our souls. - Pablo Picasso",
-      "You can't use up creativity. The more you use, the more you have. - Maya Angelou",
-      "Inspiration exists, but it has to find you working. - Pablo Picasso",
-      "To practice any art, no matter how well or badly, is a way to make your soul grow. - Kurt Vonnegut",
-      "Design is thinking made visual. - Saul Bass"
     ];
 
-    let currentQuote = 0;
-    const dynamicQuote = document.getElementById('dynamic-quote');
-    const welcomeMessage = document.getElementById('welcome-message');
-
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(() => {
-        welcomeMessage.style.opacity = 0;
-      }, 4000);
+    // Initialize work grid
+    document.addEventListener('DOMContentLoaded', function() {
+      displayWorkItems(workItems);
       
-      showNextQuote();
-      setInterval(showNextQuote, 8000);
-      loadRandomImages();
+      // Filter functionality
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filter = this.dataset.filter;
+          if (filter === 'all') {
+            displayWorkItems(workItems);
+          } else {
+            const filteredItems = workItems.filter(item => 
+              item.tags.includes(filter)
+            );
+            displayWorkItems(filteredItems);
+          }
+        });
+      });
     });
 
-    function showNextQuote() {
-      dynamicQuote.style.opacity = 0;
-      setTimeout(() => {
-        currentQuote = (currentQuote + 1) % quotes.length;
-        dynamicQuote.textContent = quotes[currentQuote];
-        dynamicQuote.style.opacity = 1;
-      }, 1000);
-    }
-
-    function scrollToGallery() {
-      document.querySelector('.portfolio-grid').scrollIntoView({ 
-        behavior: 'smooth' 
+    function displayWorkItems(items) {
+      const grid = document.getElementById('workGrid');
+      grid.innerHTML = '';
+      
+      items.forEach(item => {
+        const workItem = document.createElement('div');
+        workItem.className = 'work-item';
+        
+        workItem.innerHTML = `
+          <img src="${item.image}" alt="${item.title}">
+          <div class="work-info">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <div class="work-tags">
+              ${item.tags.map(tag => `<span class="work-tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        `;
+        
+        grid.appendChild(workItem);
       });
     }
   </script>
-  
+
   <footer>
-    <p>&copy; 2025 Novito9 - All Rights Reserved</p>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
   </footer>
 </body>
 </html>

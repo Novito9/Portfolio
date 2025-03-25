@@ -1,55 +1,514 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creative Portfolio - Admin Panel</title>
-  <link rel="stylesheet" href="css/admin.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novito9 - Admin Panel</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    /* Base styles with admin color scheme */
+    :root {
+      --admin-blue: #0066ff;
+      --admin-red: #ff3333;
+      --dark-bg: #111;
+      --panel-bg: #1a1a1a;
+      --text-light: #eee;
+      --text-muted: #999;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+    /* Admin Navigation */
+    .admin-navbar {
+      padding: 1rem 2rem;
+      background: #000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-navbar h1 {
+      color: var(--admin-blue);
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .admin-logout {
+      color: var(--admin-red);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    /* Admin Container */
+    .admin-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      min-height: calc(100vh - 61px);
+    }
+
+    /* Sidebar */
+    .admin-sidebar {
+      background: var(--panel-bg);
+      padding: 2rem 1rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .admin-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .admin-menu li {
+      margin-bottom: 0.5rem;
+    }
+
+    .admin-menu a {
+      display: block;
+      padding: 0.8rem 1rem;
+      color: var(--text-light);
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .admin-menu a:hover,
+    .admin-menu a.active {
+      background: rgba(0, 102, 255, 0.2);
+      color: var(--admin-blue);
+    }
+
+    .admin-menu i {
+      width: 20px;
+      text-align: center;
+      margin-right: 0.5rem;
+    }
+
+    /* Main Content */
+    .admin-main {
+      padding: 2rem;
+    }
+
+    .admin-panel {
+      background: var(--panel-bg);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-panel h2 {
+      color: var(--admin-blue);
+      margin-top: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1rem;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.8rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-light);
+      font-family: 'Space Mono', monospace;
+      border-radius: 4px;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--admin-blue);
+      box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.3);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23eee'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 16px;
+    }
+
+    .form-file {
+      position: relative;
+    }
+
+    .form-file input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    .form-file-label {
+      display: block;
+      padding: 0.8rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .form-file-label:hover {
+      border-color: var(--admin-blue);
+      background: rgba(0, 102, 255, 0.1);
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      background: var(--admin-blue);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #0052cc;
+    }
+
+    .btn-danger {
+      background: var(--admin-red);
+    }
+
+    .btn-danger:hover {
+      background: #cc0000;
+    }
+
+    /* Comment Moderation */
+    .comment-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .comment-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 3px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .comment-item.pending {
+      border-left-color: var(--admin-blue);
+    }
+
+    .comment-item.spam {
+      border-left-color: var(--admin-red);
+    }
+
+    .comment-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .comment-author {
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .comment-actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    /* Preview Area */
+    .preview-area {
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      padding: 1rem;
+      border-radius: 4px;
+      margin-top: 1rem;
+      min-height: 100px;
+    }
+
+    .preview-image {
+      max-width: 100%;
+      max-height: 200px;
+      display: block;
+      margin: 1rem 0;
+    }
+
+    /* Login Protection */
+    .login-protection {
+      max-width: 500px;
+      margin: 5rem auto;
+      padding: 2rem;
+      background: var(--panel-bg);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .login-protection h2 {
+      color: var(--admin-blue);
+    }
+
+    @media (max-width: 768px) {
+      .admin-container {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-sidebar {
+        display: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <header>
-    <h1>Admin Panel</h1>
+  <!-- Admin Navigation -->
+  <header class="admin-navbar">
+    <h1>NOVITO9 ADMIN PANEL</h1>
+    <a href="#" class="admin-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
   </header>
-  <main>
-    <!-- Admin Login Form -->
-    <section id="login-section">
-      <h2>Admin Login</h2>
-      <form id="loginForm" action="#" method="post" onsubmit="return loginAdmin()">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required />
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
-        
-        <button type="submit">Login</button>
-      </form>
-    </section>
 
-    <!-- Upload Content Form (shown after login) -->
-    <section id="upload-section" style="display:none;">
-      <h2>Upload Content</h2>
-      <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
-        <label for="contentTitle">Title:</label>
-        <input type="text" id="contentTitle" name="contentTitle" required />
+  <!-- Admin Container -->
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <ul class="admin-menu">
+        <li><a href="#upload" class="active"><i class="fas fa-upload"></i> Upload Content</a></li>
+        <li><a href="#comments"><i class="fas fa-comments"></i> Moderate Comments</a></li>
+        <li><a href="#stats"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+        <li><a href="#users"><i class="fas fa-users"></i> User Management</a></li>
+        <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <!-- Upload Panel -->
+      <section id="upload" class="admin-panel">
+        <h2><i class="fas fa-upload"></i> Upload New Content</h2>
         
-        <label for="contentType">Content Type:</label>
-        <select id="contentType" name="contentType">
-          <option value="image">Image</option>
-          <option value="video">Video</option>
-          <option value="blog">Blog Post</option>
-        </select>
+        <form id="uploadForm">
+          <div class="form-group">
+            <label for="contentType">Content Type</label>
+            <select id="contentType" class="form-control form-select" required>
+              <option value="">Select type...</option>
+              <option value="blog">Blog Article</option>
+              <option value="image">AI Image</option>
+              <option value="video">Video</option>
+              <option value="prompt">AI Prompt</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="contentTitle">Title</label>
+            <input type="text" id="contentTitle" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="contentCategory">Category</label>
+            <select id="contentCategory" class="form-control form-select">
+              <option value="">Select category...</option>
+              <option value="cyberpunk">Cyberpunk</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="portrait">Portrait</option>
+              <option value="landscape">Landscape</option>
+              <option value="tutorial">Tutorial</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="promptGroup" style="display:none;">
+            <label for="aiPrompt">AI Prompt</label>
+            <textarea id="aiPrompt" class="form-control" placeholder="The exact prompt used to generate this content"></textarea>
+          </div>
+
+          <div class="form-group" id="contentGroup">
+            <label for="contentText">Content</label>
+            <textarea id="contentText" class="form-control" placeholder="Article content or description"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Upload File</label>
+            <div class="form-file">
+              <label for="fileUpload" class="form-file-label">
+                <i class="fas fa-cloud-upload-alt"></i> Choose file or drag here
+                <div id="fileName">No file selected</div>
+              </label>
+              <input type="file" id="fileUpload" class="form-control">
+            </div>
+            <div id="previewArea" class="preview-area" style="display:none;">
+              <h4>Preview:</h4>
+              <img id="imagePreview" class="preview-image" src="" alt="Preview">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contentTags">Tags (comma separated)</label>
+            <input type="text" id="contentTags" class="form-control" placeholder="ai, cyberpunk, art, etc.">
+          </div>
+
+          <button type="submit" class="btn"><i class="fas fa-save"></i> Publish Content</button>
+        </form>
+      </section>
+
+      <!-- Comments Panel -->
+      <section id="comments" class="admin-panel" style="display:none;">
+        <h2><i class="fas fa-comments"></i> Comment Moderation</h2>
         
-        <label for="contentFile">Upload File (optional):</label>
-        <input type="file" id="contentFile" name="contentFile" />
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search comments...">
+        </div>
+
+        <ul class="comment-list">
+          <li class="comment-item pending">
+            <div class="comment-meta">
+              <span class="comment-author">CyberArtFan42</span>
+              <span>2025-06-15 14:32</span>
+            </div>
+            <p>This artwork is amazing! How did you achieve that lighting effect?</p>
+            <div class="comment-actions">
+              <button class="btn"><i class="fas fa-check"></i> Approve</button>
+              <button class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+              <button class="btn"><i class="fas fa-ban"></i> Mark as Spam</button>
+            </div>
+          </li>
+
+          <li class="comment-item">
+            <div class="comment-meta">
+              <span class="comment-author">DigitalCreator</span>
+              <span>2025-06-14 09:15</span>
+            </div>
+            <p>Thanks for the tutorial, it helped me improve my workflow significantly.</p>
+            <div class="comment-actions">
+              <button class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+            </div>
+          </li>
+
+          <li class="comment-item spam">
+            <div class="comment-meta">
+              <span class="comment-author">SpamBot2000</span>
+              <span>2025-06-14 05:42</span>
+            </div>
+            <p>Check out my cheap viagra!!!</p>
+            <div class="comment-actions">
+              <button class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- Login Protection (initially hidden) -->
+  <div id="loginProtection" class="login-protection" style="display:none;">
+    <h2><i class="fas fa-lock"></i> Admin Access Required</h2>
+    <p>Please enter your admin credentials to access this page.</p>
+    
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="Admin Password">
+    </div>
+    
+    <button class="btn"><i class="fas fa-unlock"></i> Unlock Admin Panel</button>
+  </div>
+
+  <script>
+    // This would be replaced with actual authentication in production
+    document.addEventListener('DOMContentLoaded', function() {
+      // Simulate admin check (remove this in production)
+      const isAdmin = true; // Would check session/cookie in real implementation
+      
+      if (!isAdmin) {
+        document.querySelector('.admin-container').style.display = 'none';
+        document.getElementById('loginProtection').style.display = 'block';
+      }
+
+      // Content type toggle
+      document.getElementById('contentType').addEventListener('change', function() {
+        const type = this.value;
+        document.getElementById('promptGroup').style.display = 
+          (type === 'image' || type === 'prompt') ? 'block' : 'none';
         
-        <label for="contentText">Content/Description:</label>
-        <textarea id="contentText" name="contentText" placeholder="Write your content here"></textarea>
-        
-        <button type="submit">Upload Content</button>
-      </form>
-    </section>
-  </main>
-  <script src="js/admin.js"></script>
+        document.getElementById('contentGroup').style.display =
+          (type === 'blog' || type === 'video') ? 'block' : 'none';
+      });
+
+      // File upload preview
+      document.getElementById('fileUpload').addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          document.getElementById('fileName').textContent = file.name;
+          
+          if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const preview = document.getElementById('imagePreview');
+              preview.src = e.target.result;
+              document.getElementById('previewArea').style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+          }
+        }
+      });
+
+      // Form submission
+      document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Content uploaded successfully!');
+        this.reset();
+        document.getElementById('previewArea').style.display = 'none';
+        document.getElementById('fileName').textContent = 'No file selected';
+      });
+
+      // Menu navigation
+      document.querySelectorAll('.admin-menu a').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
+          this.classList.add('active');
+          
+          document.querySelectorAll('.admin-panel').forEach(panel => {
+            panel.style.display = 'none';
+          });
+          
+          document.querySelector(this.getAttribute('href')).style.display = 'block';
+        });
+      });
+
+      // In a real implementation, you would:
+      // 1. Verify admin status on page load (server-side)
+      // 2. Implement proper authentication
+      // 3. Handle file uploads via AJAX
+      // 4. Load comments dynamically
+      // 5. Add CSRF protection
+    });
+  </script>
 </body>
 </html>
-

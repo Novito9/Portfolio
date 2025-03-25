@@ -23,7 +23,7 @@
       overflow-x: hidden;
     }
 
-    /* Cyberpunk Navigation */
+    /* Original Cyberpunk Navigation */
     .navbar {
       padding: 1.5rem 2rem;
       position: fixed;
@@ -72,6 +72,83 @@
 
     .navbar nav ul li a.active {
       color: var(--electric-blue);
+    }
+
+    /* Mobile Menu Button */
+    .menu-btn {
+      display: none;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0.5rem;
+      position: absolute;
+      right: 2rem;
+      top: 1.5rem;
+      z-index: 1001;
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: var(--electric-blue);
+      margin: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(15px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: translateY(-100%);
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .mobile-menu.active {
+      transform: translateY(0);
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .mobile-nav-links li a {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-size: 1.5rem;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .mobile-nav-links li a:hover {
+      color: var(--electric-blue);
+      transform: translateX(5px);
+    }
+
+    .mobile-nav-links li a.active {
+      color: var(--electric-blue);
+      border-left: 3px solid var(--electric-blue);
     }
 
     /* Glitch Hero Section */
@@ -131,8 +208,7 @@
       background: transparent;
       border: 2px solid var(--electric-blue);
       color: var(--electric-blue);
-      font-weight: 7
-00;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 3px;
       cursor: pointer;
@@ -255,51 +331,122 @@
       font-weight: 700;
     }
 
+    /* Responsive Design */
     @media (max-width: 768px) {
       .navbar nav ul {
-        gap: 1rem;
-        flex-wrap: wrap;
+        display: none;
+      }
+      
+      .menu-btn {
+        display: block;
+      }
+      
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 1rem;
       }
       
       #hero {
         margin-top: 80px;
+        padding: 1rem;
       }
-
-      .portfolio-grid {
-        grid-template-columns: 1fr;
+      
+      #hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      #hero p {
+        font-size: 1rem;
+      }
+      
+      .mobile-nav-links li a {
+        font-size: 1.2rem;
+      }
+      
+      .btn-gallery {
+        padding: 0.75rem 2rem;
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- Original Navigation with Mobile Toggle -->
   <header class="navbar">
     <nav>
       <ul>
         <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
         <li><a href="blog.html">Blog</a></li>
+        <li><a href="prompting.html">Prompting</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="members.html">Members</a></li>
+        <li><a href="promo.html">Promo</a></li>
+        <li><a href="fund-help.html">Fund Help</a></li>
       </ul>
     </nav>
+    <button class="menu-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="prompting.html">Prompting</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="promo.html">Promo</a></li>
+      <li><a href="fund-help.html">Fund Help</a></li>
+    </ul>
+  </div>
 
   <section id="hero">
     <h1>NOVITO9</h1>
     <p id="welcome-message">Welcome and Thank you for Visiting</p>
     <p id="dynamic-quote">Loading quote...</p>
-    <button class="btn-gallery" onclick="scrollToGallery()">EXPLORE GALLERY</button>
+    <button class="btn-gallery" onclick="location.href='gallery.html'">EXPLORE GALLERY</button>
   </section>
 
   <!-- Portfolio Grid -->
   <div class="portfolio-grid" id="portfolio-grid"></div>
 
   <script>
+    // Mobile Menu Toggle
+    const menuBtn = document.querySelector('.menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    menuBtn.addEventListener('click', function() {
+      this.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      
+      // Toggle body overflow when menu is open
+      document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close mobile menu when clicking a link
+    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
     // Dynamic image loader with fallback
     async function loadRandomImages() {
       try {
-        // Try to fetch image list from server
         const response = await fetch('images/image-list.json');
         if (response.ok) {
           const imageData = await response.json();
@@ -309,8 +456,6 @@
       } catch (e) {
         console.log("Using fallback image data");
       }
-      
-      // Fallback to hardcoded images if fetch fails
       const fallbackImages = await getFallbackImages();
       displayImages(fallbackImages);
     }
@@ -320,21 +465,15 @@
       return [
         { 
           url: "images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg", 
-          alt: "Ai Generation Artwork",
-          title: "Egypt Ai",
-          desc: "Prompt : Anubis, jackal-headed god, towering in judgment hall, holding scales and ankh, souls below. Chiaroscuro lighting, black and gold contrast. Warm golden glow, radiant and luxurious"
+          alt: "Ai Generation Artwork", 
+          title: "Egypt Ai", 
+          desc: "Prompt : Anubis, jackal-headed god, towering in judgment hall, holding scales and ankh, souls below. Chiaroscuro lighting, black and gold contrast. Warm golden glow, radiant and luxurious" 
         },
         { 
           url: "images/A-stylized-Pharaoh-Hound-slender-and-regal-with-charming-features-wears-a-jeweled-collar-and-sits-beside-an-Egyptian-artifact.-Vibrant-complementary-colors-create-a-balanced-and-adorable-image.jpg", 
-          alt: "Holographic Motion",
-          title: "Quantum Flow",
-          desc: "Prompt : A stylized Pharaoh Hound, slender and regal, with charming features, wears a jeweled collar and sits beside an Egyptian artifact. Vibrant complementary colors create a balanced and adorable image."
-        },
-        { 
-          url: "images/Rich-burgundy-and-deep-blue-hues-gentle-soft-light-illuminates-a-sophisticated-and-elegant-golden-desert-landscape-with-pyramids-and-hieroglyphs-in-soft-gradients-diffused-shadows-subtle-illumination.jpg", 
-          alt: "Neon Architecture",
-          title: "Egypt 0089",
-          desc: "Prompt : Rich burgundy and deep blue hues, gentle soft light illuminates a sophisticated and elegant golden desert landscape with pyramids and hieroglyphs in soft gradients, diffused shadows, subtle illumination"
+          alt: "Holographic Motion", 
+          title: "Quantum Flow", 
+          desc: "Prompt : A stylized Pharaoh Hound, slender and regal, with charming features, wears a jeweled collar and sits beside an Egyptian artifact. Vibrant complementary colors create a balanced and adorable image." 
         }
       ];
     }
@@ -355,13 +494,11 @@
         const portfolioItem = document.createElement('div');
         portfolioItem.className = 'portfolio-item';
         
-        // Create image with loading optimization
         const img = new Image();
         img.src = item.url;
         img.alt = item.alt;
         img.loading = "lazy";
         
-        // Create overlay content
         const overlay = document.createElement('div');
         overlay.className = 'item-overlay';
         overlay.innerHTML = `
@@ -369,7 +506,6 @@
           <p>${item.desc}</p>
         `;
         
-        // Build the item
         portfolioItem.appendChild(img);
         portfolioItem.appendChild(overlay);
         grid.appendChild(portfolioItem);
@@ -380,24 +516,7 @@
     const quotes = [
       "Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep. - Scott Adams",
       "Art enables us to find ourselves and lose ourselves at the same time. - Thomas Merton",
-      "A true artist is not one who is inspired, but one who inspires others. - Salvador Dalí",
-      "Every artist dips his brush in his own soul and paints his own nature into his pictures. - Henry Ward Beecher",
-      "Creativity takes courage. - Henri Matisse",
-      "The principles of true art is not to portray, but to evoke. - Jerzy Kosinski",
-      "A work of art which did not begin in emotion is not art. - Paul Cézanne",
-      "Art should comfort the disturbed and disturb the comfortable. - Cesar Cruz",
-      "Digital art is not a mere reflection of reality but a gateway to imagination. - Unknown",
-      "Design is the silent ambassador of your brand. - Paul Rand",
-      "Everything you can imagine is real. - Pablo Picasso",
-      "Art is not what you see, but what you make others see. - Edgar Degas",
-      "To create one's world in any of the arts takes courage. - Georgia O'Keeffe",
-      "There is no must in art because art is free. - Wassily Kandinsky",
-      "Every great design begins with an even better story. - Lorinda Mamo",
-      "The purpose of art is washing the dust of daily life off our souls. - Pablo Picasso",
-      "You can't use up creativity. The more you use, the more you have. - Maya Angelou",
-      "Inspiration exists, but it has to find you working. - Pablo Picasso",
-      "To practice any art, no matter how well or badly, is a way to make your soul grow. - Kurt Vonnegut",
-      "Design is thinking made visual. - Saul Bass"
+      "A true artist is not one who is inspired, but one who inspires others. - Salvador Dalí"
     ];
 
     let currentQuote = 0;
@@ -424,14 +543,14 @@
     }
 
     function scrollToGallery() {
-      document.querySelector('.portfolio-grid').scrollIntoView({ 
-        behavior: 'smooth' 
+      document.querySelector('.portfolio-grid').scrollIntoView({
+        behavior: 'smooth'
       });
     }
   </script>
-  
+
   <footer>
-    <p>&copy; 2025 Novito9 - All Rights Reserved</p>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
   </footer>
 </body>
 </html>

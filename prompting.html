@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novito9 - Prompting Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    /* Base styles with teal/red variation */
+    :root {
+      --electric-teal: #00ffcc;
+      --neon-red: #ff3366;
+      --dark-bg: #000;
+      --flashy-teal: #00ffdd;
+      --hot-red: #ff0033;
+      --teal-glow: rgba(0, 255, 204, 0.7);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+      background-color: var(--dark-bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      padding: 1.5rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: 0.3s ease;
+    }
+
+    .navbar nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: var(--electric-teal);
+      transition: width 0.3s ease;
+    }
+
+    .navbar nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .navbar nav ul li a.active {
+      color: var(--electric-teal);
+    }
+
+    /* Page Header */
+    .prompt-header {
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 60px;
+      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9));
+    }
+
+    .prompt-header h1 {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      margin: 0;
+      color: var(--electric-teal);
+      text-shadow: 
+        0 0 10px var(--teal-glow),
+        0 0 20px var(--teal-glow);
+      animation: teal-glitch 4s infinite;
+    }
+
+    .prompt-header p {
+      font-size: 1.25rem;
+      margin: 1rem 0 0;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+    }
+
+    /* Filter Section */
+    .filter-section {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 2rem;
+      background: #111;
+      position: sticky;
+      top: 80px;
+      z-index: 900;
+    }
+
+    .filter-btn {
+      padding: 0.8rem 1.5rem;
+      background: transparent;
+      border: 2px solid var(--neon-red);
+      color: var(--neon-red);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--neon-red);
+      color: #000;
+      box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+    }
+
+    /* Main Content */
+    .content-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Prompt Sections */
+    .prompt-section {
+      margin-bottom: 4rem;
+      border-left: 3px solid var(--electric-teal);
+      padding-left: 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-icon {
+      font-size: 2rem;
+      margin-right: 1rem;
+      color: var(--electric-teal);
+    }
+
+    .section-title {
+      color: var(--electric-teal);
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .prompt-card {
+      background: rgba(20,20,20,0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .prompt-card:hover {
+      border-color: var(--neon-red);
+      box-shadow: 0 5px 15px rgba(0, 255, 204, 0.1);
+    }
+
+    .prompt-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+    }
+
+    .prompt-type {
+      background: rgba(255,51,102,0.2);
+      color: var(--neon-red);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .prompt-date {
+      color: var(--electric-teal);
+    }
+
+    .prompt-content {
+      background: rgba(0,0,0,0.3);
+      padding: 1rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+      border-left: 2px solid var(--electric-teal);
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+
+    .prompt-desc {
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+    }
+
+    /* Command Section */
+    .command-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .command-card {
+      background: rgba(20,20,20,0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem;
+    }
+
+    .command-title {
+      color: var(--electric-teal);
+      margin-top: 0;
+    }
+
+    .command-code {
+      background: rgba(0,0,0,0.3);
+      padding: 1rem;
+      font-family: monospace;
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-left: 2px solid var(--neon-red);
+    }
+
+    .command-desc {
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+    }
+
+    /* Glitch Animation (teal/red version) */
+    @keyframes teal-glitch {
+      0%, 100% {
+        text-shadow: 
+          2px 2px 0 var(--neon-red),
+          -2px -2px 0 var(--electric-teal);
+      }
+      25% {
+        text-shadow: 
+          -2px 2px 0 var(--neon-red),
+          2px -2px 0 var(--electric-teal);
+      }
+      50% {
+        text-shadow: 
+          2px -2px 0 var(--neon-red),
+          -2px 2px 0 var(--electric-teal);
+      }
+      75% {
+        text-shadow: 
+          -2px -2px 0 var(--neon-red),
+          2px 2px 0 var(--electric-teal);
+      }
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: #000;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .navbar nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .prompt-header {
+        margin-top: 80px;
+        height: 40vh;
+      }
+
+      .filter-section {
+        top: 120px;
+      }
+
+      .command-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="prompting.html" class="active">Prompting</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="prompt-header">
+    <h1>PROMPTING GUIDE</h1>
+    <p>Curated collection of AI prompts and useful command line scripts</p>
+  </section>
+
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="image">Image Generation</button>
+    <button class="filter-btn" data-filter="chat">Chatbot</button>
+    <button class="filter-btn" data-filter="code">Coding</button>
+    <button class="filter-btn" data-filter="fix">Debugging</button>
+    <button class="filter-btn" data-filter="bash">Bash</button>
+    <button class="filter-btn" data-filter="git">Git</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-container">
+    <!-- AI Prompts Section -->
+    <section class="prompt-section" id="ai-prompts">
+      <div class="section-header">
+        <i class="fas fa-robot section-icon"></i>
+        <h2 class="section-title">AI Prompts</h2>
+      </div>
+
+      <div class="prompt-card" data-type="image">
+        <div class="prompt-meta">
+          <span class="prompt-type">Image Generation</span>
+          <span class="prompt-date">May 2025</span>
+        </div>
+        <div class="prompt-content">
+Create a cyberpunk cityscape at night with neon lights reflecting on wet streets. Include towering skyscrapers with holographic advertisements, flying cars, and diverse futuristic characters in the foreground. Use a color palette dominated by electric blues, hot pinks, and neon purples with high contrast lighting.
+        </div>
+        <p class="prompt-desc">
+          This prompt generates detailed cyberpunk urban scenes with specific lighting and color requirements.
+        </p>
+      </div>
+
+      <div class="prompt-card" data-type="chat">
+        <div class="prompt-meta">
+          <span class="prompt-type">Chatbot</span>
+          <span class="prompt-date">April 2025</span>
+        </div>
+        <div class="prompt-content">
+You are a sarcastic but helpful AI assistant named Nova. Respond to user queries with a mix of technical accuracy and dry humor. When asked for help, provide concise solutions first, then optional humorous commentary. Never be outright rude, but maintain a playful, cyberpunk persona with occasional pop culture references.
+        </div>
+        <p class="prompt-desc">
+          Creates a chatbot personality with specific tone guidelines for more engaging interactions.
+        </p>
+      </div>
+
+      <div class="prompt-card" data-type="code">
+        <div class="prompt-meta">
+          <span class="prompt-type">Coding</span>
+          <span class="prompt-date">June 2025</span>
+        </div>
+        <div class="prompt-content">
+Create a responsive navigation bar in React with the following requirements:
+- Dark theme with neon accent colors
+- Smooth hover animations
+- Mobile-friendly hamburger menu
+- Sticky positioning
+- Accessibility compliant
+Include PropTypes validation and styled-components for CSS.
+
+Provide the complete code with comments explaining key sections.
+        </div>
+        <p class="prompt-desc">
+          Detailed technical prompt for generating specific React component code with styling requirements.
+        </p>
+      </div>
+
+      <div class="prompt-card" data-type="fix">
+        <div class="prompt-meta">
+          <span class="prompt-type">Debugging</span>
+          <span class="prompt-date">March 2025</span>
+        </div>
+        <div class="prompt-content">
+I'm getting this error in my Python script: "ValueError: invalid literal for int() with base 10". The problematic line is converting user input to integer. Provide:
+1. Explanation of why this occurs
+2. Three different ways to handle this safely
+3. Best practice recommendation
+4. Example code for each solution
+        </div>
+        <p class="prompt-desc">
+          Structured debugging prompt that requests comprehensive solutions for a common Python error.
+        </p>
+      </div>
+    </section>
+
+    <!-- Command Line Section -->
+    <section class="prompt-section" id="commands">
+      <div class="section-header">
+        <i class="fas fa-terminal section-icon"></i>
+        <h2 class="section-title">Command Line Tools</h2>
+      </div>
+
+      <div class="command-grid">
+        <!-- Bash Commands -->
+        <div class="command-card" data-type="bash">
+          <h3 class="command-title">Find and Replace in Files</h3>
+          <div class="command-code">
+find . -type f -name "*.js" -exec sed -i 's/oldText/newText/g' {} +
+          </div>
+          <p class="command-desc">
+            Recursively finds all JavaScript files and replaces text patterns.
+          </p>
+        </div>
+
+        <div class="command-card" data-type="bash">
+          <h3 class="command-title">Process Monitoring</h3>
+          <div class="command-code">
+watch -n 1 "ps aux | grep node | grep -v grep"
+          </div>
+          <p class="command-desc">
+            Continuously monitors Node.js processes with 1-second refresh rate.
+          </p>
+        </div>
+
+        <!-- Git Commands -->
+        <div class="command-card" data-type="git">
+          <h3 class="command-title">Clean Git History</h3>
+          <div class="command-code">
+git filter-branch --force --index-filter \
+  "git rm --cached --ignore-unmatch sensitive_file.txt" \
+  --prune-empty --tag-name-filter cat -- --all
+          </div>
+          <p class="command-desc">
+            Permanently removes a file from Git history including all commits.
+          </p>
+        </div>
+
+        <div class="command-card" data-type="git">
+          <h3 class="command-title">Interactive Rebase</h3>
+          <div class="command-code">
+git rebase -i HEAD~5
+          </div>
+          <p class="command-desc">
+            Opens interactive rebase editor for last 5 commits to squash, edit, or reorder.
+          </p>
+        </div>
+
+        <div class="command-card" data-type="bash">
+          <h3 class="command-title">Directory Size Analysis</h3>
+          <div class="command-code">
+du -h --max-depth=1 | sort -hr
+          </div>
+          <p class="command-desc">
+            Shows directory sizes in human-readable format, sorted by largest first.
+          </p>
+        </div>
+
+        <div class="command-card" data-type="git">
+          <h3 class="command-title">Stash Workflow</h3>
+          <div class="command-code">
+git stash save "work in progress"
+git stash list
+git stash apply stash@{1}
+          </div>
+          <p class="command-desc">
+            Saves current changes, lists all stashes, and applies a specific stash.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const promptCards = document.querySelectorAll('.prompt-card, .command-card');
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filter = this.dataset.filter;
+          
+          promptCards.forEach(card => {
+            if (filter === 'all' || card.dataset.type === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

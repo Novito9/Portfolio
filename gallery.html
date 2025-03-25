@@ -1,19 +1,19 @@
-as a webmaster of the most skilled ever existed, please help me solve my html home page code for https://novito.netlify.app/  and https://github.com/Novito9/Portfolio.git, please fix the code to show random images from my images folder , code : 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Novito9</title>
+  <title>Novito9 - Digital Gallery</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
   <style>
+    /* Base styles with gold/indigo variation */
     :root {
-      --electric-blue: #00f3ff;
-      --neon-pink: #ff0066;
+      --electric-gold: #ffd700;
+      --neon-indigo: #6a00ff;
       --dark-bg: #000;
-      --flashy-pink: #ff00ff;
-      --hot-pink: #ff0099;
-      --pink-glow: rgba(255, 0, 255, 0.7);
+      --flashy-gold: #ffea00;
+      --hot-indigo: #7f00ff;
+      --gold-glow: rgba(255, 215, 0, 0.7);
     }
 
     body {
@@ -24,7 +24,6 @@ as a webmaster of the most skilled ever existed, please help me solve my html ho
       overflow-x: hidden;
     }
 
-    /* Cyberpunk Navigation */
     .navbar {
       padding: 1.5rem 2rem;
       position: fixed;
@@ -63,7 +62,7 @@ as a webmaster of the most skilled ever existed, please help me solve my html ho
       height: 2px;
       bottom: 0;
       left: 0;
-      background: var(--electric-blue);
+      background: var(--electric-gold);
       transition: width 0.3s ease;
     }
 
@@ -72,12 +71,12 @@ as a webmaster of the most skilled ever existed, please help me solve my html ho
     }
 
     .navbar nav ul li a.active {
-      color: var(--electric-blue);
+      color: var(--electric-gold);
     }
 
-    /* Glitch Hero Section */
-    #hero {
-      height: 100vh;
+    /* Gallery Header */
+    .gallery-header {
+      height: 80vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -85,154 +84,224 @@ as a webmaster of the most skilled ever existed, please help me solve my html ho
       text-align: center;
       padding: 2rem;
       margin-top: 60px;
-    }
-
-    #hero h1 {
-      font-size: clamp(3rem, 10vw, 6rem);
-      margin: 0;
-      line-height: 1;
-      color: var(--flashy-pink);
-      text-shadow: 
-        0 0 10px var(--pink-glow),
-        0 0 20px var(--pink-glow),
-        0 0 30px var(--pink-glow),
-        0 0 60px var(--hot-pink);
-      animation: 
-        pink-pulse 0.8s infinite alternate,
-        text-glitch 4s infinite;
+      background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.95));
       position: relative;
+      overflow: hidden;
     }
 
-    #hero p {
+    .gallery-header h1 {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      margin: 0;
+      color: var(--electric-gold);
+      text-shadow: 
+        0 0 10px var(--gold-glow),
+        0 0 20px var(--gold-glow);
+      position: relative;
+      z-index: 2;
+    }
+
+    .gallery-header p {
       font-size: 1.25rem;
-      margin: 2rem 0;
+      margin: 1rem 0 0;
       color: rgba(255, 255, 255, 0.8);
       max-width: 600px;
-    }
-
-    @keyframes pink-pulse {
-      from {
-        text-shadow: 
-          0 0 10px var(--pink-glow),
-          0 0 20px var(--pink-glow),
-          0 0 30px var(--hot-pink);
-      }
-      to {
-        text-shadow: 
-          0 0 20px var(--pink-glow),
-          0 0 40px var(--pink-glow),
-          0 0 60px var(--hot-pink),
-          0 0 80px var(--hot-pink);
-      }
-    }
-
-    /* Cyber Button */
-    .btn-gallery {
-      padding: 1rem 3rem;
-      background: transparent;
-      border: 2px solid var(--electric-blue);
-      color: var(--electric-blue);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      cursor: pointer;
       position: relative;
-      overflow: hidden;
-      transition: 0.3s ease;
+      z-index: 2;
     }
 
-    .btn-gallery::before {
-      content: '';
+    .header-bg {
       position: absolute;
       top: 0;
-      left: -100%;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(0, 243, 255, 0.2),
-        transparent
-      );
-      transition: 0.5s;
+      background: url('images/gallery-header-bg.jpg') center/cover;
+      opacity: 0.3;
+      animation: bgPan 60s infinite linear;
     }
 
-    .btn-gallery:hover {
-      background: rgba(0, 243, 255, 0.1);
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+    @keyframes bgPan {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
     }
 
-    .btn-gallery:hover::before {
-      left: 100%;
+    /* Gallery Navigation */
+    .gallery-nav {
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(20,20,20,0.8);
+      position: sticky;
+      top: 80px;
+      z-index: 900;
     }
 
-    /* Hologrid Portfolio */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1px;
-      background: #111;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .portfolio-item {
+    .gallery-nav button {
+      padding: 0.8rem 1.5rem;
+      background: transparent;
+      border: none;
+      color: var(--electric-gold);
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
       position: relative;
-      aspect-ratio: 1;
+    }
+
+    .gallery-nav button::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--neon-indigo);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-nav button:hover::after,
+    .gallery-nav button.active::after {
+      width: 100%;
+      left: 0;
+    }
+
+    .gallery-nav button.active {
+      color: var(--neon-indigo);
+    }
+
+    /* Gallery Grid */
+    .gallery-container {
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .art-piece {
+      position: relative;
       overflow: hidden;
+      aspect-ratio: 1;
       background: #000;
-      transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .portfolio-item:hover {
-      transform: scale(1.05);
-      z-index: 2;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+    .art-piece:hover {
+      transform: translateY(-10px);
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.5),
+        0 0 0 1px var(--electric-gold);
     }
 
-    .portfolio-item img {
+    .art-piece img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: 0.3s ease;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .portfolio-item:hover img {
-      transform: scale(1.1);
+    .art-piece:hover img {
+      transform: scale(1.05);
     }
 
-    /* Image Overlay */
-    .item-overlay {
+    .art-info {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 1rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      padding: 2rem;
       transform: translateY(100%);
-      transition: transform 0.3s ease;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .portfolio-item:hover .item-overlay {
+    .art-piece:hover .art-info {
       transform: translateY(0);
     }
 
-    /* Glitch Animations */
-    @keyframes text-glitch {
-      0%, 100% {
-        text-shadow: 3px 3px 0 var(--neon-pink), -3px -3px 0 var(--electric-blue);
-      }
-      25% {
-        text-shadow: -3px 3px 0 var(--neon-pink), 3px -3px 0 var(--electric-blue);
-      }
-      50% {
-        text-shadow: 3px -3px 0 var(--neon-pink), -3px 3px 0 var(--electric-blue);
-      }
-      75% {
-        text-shadow: -3px -3px 0 var(--neon-pink), 3px 3px 0 var(--electric-blue);
-      }
+    .art-title {
+      color: var(--electric-gold);
+      margin: 0 0 0.5rem;
+    }
+
+    .art-meta {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .art-desc {
+      color: rgba(255,255,255,0.9);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .lightbox-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(106, 0, 255, 0.3);
+    }
+
+    .lightbox-info {
+      max-width: 800px;
+      margin: 2rem auto 0;
+      text-align: center;
+    }
+
+    .lightbox-title {
+      color: var(--electric-gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .lightbox-desc {
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+    }
+
+    .close-lightbox {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      color: var(--electric-gold);
+      font-size: 2.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-lightbox:hover {
+      color: var(--neon-indigo);
     }
 
     /* Footer */
@@ -250,9 +319,24 @@ as a webmaster of the most skilled ever existed, please help me solve my html ho
       font-size: 0.9rem;
     }
 
-    footer p span {
-      color: var(--electric-blue);
-      font-weight: 700;
+    /* Loading Animation */
+    .loading {
+      display: flex;
+      justify-content: center;
+      padding: 3rem;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 215, 0, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--electric-gold);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     @media (max-width: 768px) {
@@ -261,12 +345,22 @@ as a webmaster of the most skilled ever existed, please help me solve my html ho
         flex-wrap: wrap;
       }
       
-      #hero {
+      .gallery-header {
         margin-top: 80px;
+        height: 60vh;
       }
 
-      .portfolio-grid {
+      .gallery-nav {
+        top: 120px;
+        flex-wrap: wrap;
+      }
+
+      .art-grid {
         grid-template-columns: 1fr;
+      }
+
+      .art-info {
+        padding: 1.5rem;
       }
     }
   </style>
@@ -276,132 +370,210 @@ as a webmaster of the most skilled ever existed, please help me solve my html ho
   <header class="navbar">
     <nav>
       <ul>
-        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="ai-creations.html">AI Creations</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="members.html">Members</a></li>
       </ul>
     </nav>
   </header>
 
-  <section id="hero">
-    <h1>NOVITO9</h1>
-    <p id="welcome-message">Welcome and Thank you for Visiting</p>
-    <p id="dynamic-quote">Loading quote...</p>
-    <button class="btn-gallery" onclick="scrollToGallery()">EXPLORE GALLERY</button>
+  <!-- Gallery Header -->
+  <section class="gallery-header">
+    <div class="header-bg"></div>
+    <h1>DIGITAL GALLERY</h1>
+    <p>A curated collection of cyberpunk-inspired artworks and digital creations</p>
   </section>
 
-  <!-- Portfolio Grid -->
-  <div class="portfolio-grid" id="portfolio-grid"></div>
+  <!-- Gallery Navigation -->
+  <div class="gallery-nav">
+    <button class="active" data-category="all">All Works</button>
+    <button data-category="cyberpunk">Cyberpunk</button>
+    <button data-category="abstract">Abstract</button>
+    <button data-category="portrait">Portraits</button>
+    <button data-category="landscape">Landscapes</button>
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="gallery-container">
+    <div class="art-grid" id="artGrid">
+      <div class="loading">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <div class="lightbox-content">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <div class="lightbox-info">
+        <h2 class="lightbox-title" id="lightboxTitle"></h2>
+        <p class="lightbox-desc" id="lightboxDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
+  </footer>
 
   <script>
-    // Image data array
-    const imageData = [
-      { 
-        url: "images/A layered papier-mâché artwork of distant, softly glowing pyramids with a blurred bokeh effect and strong, hard light. Faint hieroglyphs of Anubis, dogs, and pharaohs are etched into sand dunes, overlaid with a subtle aged pa.jpeg", 
-        alt: "papier artwork",
-        title: "Egypt Ai",
-        desc: "Prompt : A layered papier-mâché artwork of distant, softly glowing pyramids with a blurred bokeh effect and strong, hard light. Faint hieroglyphs of Anubis, dogs, and pharaohs are etched into sand dunes, overlaid with a subtle aged paysage"
+    // Artwork data
+    const artworks = [
+      {
+        id: 1,
+        title: "Neon Metropolis",
+        image: "images/neon-metropolis.jpg",
+        category: "cyberpunk",
+        description: "A sprawling cyberpunk cityscape with towering skyscrapers and vibrant neon signs reflecting on rain-soaked streets. Created using a blend of 3D rendering and digital painting techniques.",
+        year: 2025,
+        size: "4000 × 6000 px"
       },
-      { 
-        url: "images/A futuristic sci-fi scene of a rural Egyptian farm at sunrise during a wet rainy scene. Drizzling rain, reflective surfaces, advanced technology, space elements blend with the farm. Oxen, farmers, women, children, houses, and.jpg", 
-        alt: "Holographic Motion",
-        title: "Quantum Flow",
-        desc: "Prompt : A futuristic sci-fi scene of a rural Egyptian farm at sunrise during a wet rainy scene. Drizzling rain, reflective surfaces, advanced technology, space elements blend with the farm. Oxen, farmers, women, children, houses, and.jpg"
+      {
+        id: 2,
+        title: "Digital Dreams",
+        image: "images/digital-dreams.jpg",
+        category: "abstract",
+        description: "Abstract representation of data flow in a neural network. This piece explores the intersection of technology and human consciousness through fluid digital forms.",
+        year: 2024,
+        size: "5000 × 5000 px"
       },
-      { 
-        url: "images/Rich burgundy and deep blue hues, gentle soft light illuminates a sophisticated and elegant golden desert landscape with pyramids and hieroglyphs in soft gradients, diffused shadows, subtle illumination.jpg", 
-        alt: "Neon Architecture",
-        title: "Egypt 0089",
-        desc: "Prompt : Rich burgundy and deep blue hues, gentle soft light illuminates a sophisticated and elegant golden desert landscape with pyramids and hieroglyphs in soft gradients, diffused shadows, subtle illumination"
+      {
+        id: 3,
+        title: "Cyber Samurai",
+        image: "images/cyber-samurai.jpg",
+        category: "portrait",
+        description: "Futuristic warrior portrait combining traditional Japanese elements with cybernetic enhancements. Rendered in Unreal Engine with post-processing in Photoshop.",
+        year: 2025,
+        size: "3500 × 5250 px"
+      },
+      {
+        id: 4,
+        title: "Fractal Dimensions",
+        image: "images/fractal-dimensions.jpg",
+        category: "abstract",
+        description: "Mathematically-generated fractal artwork with infinite detail. Zoom reveals ever more complex patterns within the golden ratio structure.",
+        year: 2023,
+        size: "6000 × 6000 px"
+      },
+      {
+        id: 5,
+        title: "Tokyo 2089",
+        image: "images/tokyo-2089.jpg",
+        category: "cyberpunk",
+        description: "Reimagined Tokyo cityscape with futuristic architecture and holographic advertisements. Inspired by classic cyberpunk literature with a modern aesthetic.",
+        year: 2025,
+        size: "4500 × 3000 px"
+      },
+      {
+        id: 6,
+        title: "Quantum Portrait",
+        image: "images/quantum-portrait.jpg",
+        category: "portrait",
+        description: "Experimental portrait that exists in multiple quantum states simultaneously. Created using AI-assisted rendering and manual digital painting.",
+        year: 2024,
+        size: "4000 × 4000 px"
+      },
+      {
+        id: 7,
+        title: "Alien Flora",
+        image: "images/alien-flora.jpg",
+        category: "landscape",
+        description: "Bioluminescent plant life on an exoplanet with three suns. This speculative biology piece imagines photosynthesis in an alien environment.",
+        year: 2025,
+        size: "5000 × 3000 px"
+      },
+      {
+        id: 8,
+        title: "Data Storm",
+        image: "images/data-storm.jpg",
+        category: "abstract",
+        description: "Visualization of a digital information storm. Each particle represents a packet of data flowing through a global network.",
+        year: 2023,
+        size: "4000 × 6000 px"
       }
-      // Add new images here: images
-
     ];
 
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
+    // Initialize gallery
+    document.addEventListener('DOMContentLoaded', function() {
+      // Simulate loading from JSON
+      setTimeout(() => {
+        displayArtworks(artworks);
+        
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.gallery-nav button');
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const category = this.dataset.category;
+            if (category === 'all') {
+              displayArtworks(artworks);
+            } else {
+              const filteredArt = artworks.filter(art => art.category === category);
+              displayArtworks(filteredArt);
+            }
+          });
+        });
+        
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const closeBtn = document.querySelector('.close-lightbox');
+        
+        closeBtn.addEventListener('click', function() {
+          lightbox.style.display = 'none';
+        });
+        
+        window.addEventListener('click', function(e) {
+          if(e.target === lightbox) {
+            lightbox.style.display = 'none';
+          }
+        });
+      }, 1000);
+    });
 
-    function loadRandomImages() {
-      const grid = document.getElementById('portfolio-grid');
+    function displayArtworks(artworks) {
+      const grid = document.getElementById('artGrid');
       grid.innerHTML = '';
       
-      shuffleArray(imageData).forEach(item => {
-        const portfolioItem = document.createElement('div');
-        portfolioItem.className = 'portfolio-item';
-        portfolioItem.innerHTML = `
-          <img src="${item.url}" alt="${item.alt}">
-          <div class="item-overlay">
-            <h3>${item.title}</h3>
-            <p>${item.desc}</p>
-          </div>
-        `;
-        grid.appendChild(portfolioItem);
-      });
-    }
-
-    // ===== Existing Quote Functionality =====
-    const quotes = [
-      "Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep. - Scott Adams",
-      "Art enables us to find ourselves and lose ourselves at the same time. - Thomas Merton",
-      "A true artist is not one who is inspired, but one who inspires others. - Salvador Dalí",
-      "Every artist dips his brush in his own soul and paints his own nature into his pictures. - Henry Ward Beecher",
-      "Creativity takes courage. - Henri Matisse",
-      "The principles of true art is not to portray, but to evoke. - Jerzy Kosinski",
-      "A work of art which did not begin in emotion is not art. - Paul Cézanne",
-      "Art should comfort the disturbed and disturb the comfortable. - Cesar Cruz",
-      "Digital art is not a mere reflection of reality but a gateway to imagination. - Unknown",
-      "Design is the silent ambassador of your brand. - Paul Rand",
-      "Everything you can imagine is real. - Pablo Picasso",
-      "Art is not what you see, but what you make others see. - Edgar Degas",
-      "To create one's world in any of the arts takes courage. - Georgia O'Keeffe",
-      "There is no must in art because art is free. - Wassily Kandinsky",
-      "Every great design begins with an even better story. - Lorinda Mamo",
-      "The purpose of art is washing the dust of daily life off our souls. - Pablo Picasso",
-      "You can't use up creativity. The more you use, the more you have. - Maya Angelou",
-      "Inspiration exists, but it has to find you working. - Pablo Picasso",
-      "To practice any art, no matter how well or badly, is a way to make your soul grow. - Kurt Vonnegut",
-      "Design is thinking made visual. - Saul Bass"
-    ];
-
-    let currentQuote = 0;
-    const dynamicQuote = document.getElementById('dynamic-quote');
-    const welcomeMessage = document.getElementById('welcome-message');
-
-    window.onload = function() {
-      setTimeout(() => {
-        welcomeMessage.style.opacity = 0;
-      }, 4000);
+      // Randomize display order
+      const shuffled = [...artworks].sort(() => 0.5 - Math.random());
       
-      showNextQuote();
-      setInterval(showNextQuote, 8000);
-      loadRandomImages(); // Initialize random images
-    };
-
-    function showNextQuote() {
-      dynamicQuote.style.opacity = 0;
-      setTimeout(() => {
-        currentQuote = (currentQuote + 1) % quotes.length;
-        dynamicQuote.textContent = quotes[currentQuote];
-        dynamicQuote.style.opacity = 1;
-      }, 1000);
-    }
-
-    function scrollToGallery() {
-      document.querySelector('.portfolio-grid').scrollIntoView({ 
-        behavior: 'smooth' 
+      shuffled.forEach(art => {
+        const artPiece = document.createElement('div');
+        artPiece.className = 'art-piece';
+        artPiece.dataset.category = art.category;
+        
+        const img = new Image();
+        img.src = art.image;
+        img.alt = art.title;
+        img.loading = "lazy";
+        
+        img.addEventListener('click', function() {
+          document.getElementById('lightbox').style.display = 'block';
+          document.getElementById('lightboxImg').src = art.image;
+          document.getElementById('lightboxImg').alt = art.title;
+          document.getElementById('lightboxTitle').textContent = art.title;
+          document.getElementById('lightboxDesc').textContent = `${art.description} (${art.year}, ${art.size})`;
+        });
+        
+        const info = document.createElement('div');
+        info.className = 'art-info';
+        info.innerHTML = `
+          <h3 class="art-title">${art.title}</h3>
+          <div class="art-meta">${art.year} • ${art.size}</div>
+          <p class="art-desc">${art.description}</p>
+        `;
+        
+        artPiece.appendChild(img);
+        artPiece.appendChild(info);
+        grid.appendChild(artPiece);
       });
     }
   </script>
-  
-  <footer>
-    <p>&copy; 2025 Novito9 - All Rights Reserved</p>
-  </footer>
 </body>
 </html>

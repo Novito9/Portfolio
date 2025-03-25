@@ -3,41 +3,395 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Novito9's creative portfolio showcasing designs, logos, and more.">
-  <meta name="keywords" content="portfolio, design, logos, creative, Novito9">
-  <meta property="og:title" content="Novito9's Portfolio">
-  <meta property="og:description" content="Explore Novito9's creative portfolio, including designs and logos.">
-  <meta property="og:image" content="path/to/social-image.jpg">
-  <meta property="og:url" content="https://github.com/Novito9/Portfolio">
+  <title>Novito9 - AI Creations</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <title>Novito9</title>
+  <style>
+    /* Base styles with yellow/purple variation */
+    :root {
+      --electric-yellow: #ffee00;
+      --neon-purple: #aa00ff;
+      --dark-bg: #000;
+      --flashy-yellow: #ffea00;
+      --hot-purple: #cc00ff;
+      --yellow-glow: rgba(255, 238, 0, 0.7);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+      background-color: var(--dark-bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      padding: 1.5rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: 0.3s ease;
+    }
+
+    .navbar nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: var(--electric-yellow);
+      transition: width 0.3s ease;
+    }
+
+    .navbar nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .navbar nav ul li a.active {
+      color: var(--electric-yellow);
+    }
+
+    /* Gallery Header */
+    .gallery-header {
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 60px;
+      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9));
+    }
+
+    .gallery-header h1 {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      margin: 0;
+      color: var(--electric-yellow);
+      text-shadow: 
+        0 0 10px var(--yellow-glow),
+        0 0 20px var(--yellow-glow);
+      animation: yellow-glitch 4s infinite;
+    }
+
+    .gallery-header p {
+      font-size: 1.25rem;
+      margin: 1rem 0 0;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: #111;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #000;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+      z-index: 2;
+      box-shadow: 
+        0 0 20px var(--yellow-glow),
+        0 0 40px rgba(170, 0, 255, 0.3);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Prompt Overlay */
+    .prompt-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1.5rem;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      overflow-y: auto;
+      max-height: 90%;
+    }
+
+    .gallery-item:hover .prompt-overlay {
+      transform: translateY(0);
+    }
+
+    .prompt-overlay h3 {
+      color: var(--electric-yellow);
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .prompt-overlay p {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+
+    .prompt-text {
+      background: rgba(20, 20, 20, 0.7);
+      padding: 1rem;
+      border-left: 3px solid var(--neon-purple);
+      font-family: monospace;
+      white-space: pre-wrap;
+      margin: 1rem 0;
+    }
+
+    /* Glitch Animation (yellow/purple version) */
+    @keyframes yellow-glitch {
+      0%, 100% {
+        text-shadow: 
+          2px 2px 0 var(--neon-purple),
+          -2px -2px 0 var(--electric-yellow);
+      }
+      25% {
+        text-shadow: 
+          -2px 2px 0 var(--neon-purple),
+          2px -2px 0 var(--electric-yellow);
+      }
+      50% {
+        text-shadow: 
+          2px -2px 0 var(--neon-purple),
+          -2px 2px 0 var(--electric-yellow);
+      }
+      75% {
+        text-shadow: 
+          -2px -2px 0 var(--neon-purple),
+          2px 2px 0 var(--electric-yellow);
+      }
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: #000;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    /* Loading Animation */
+    .loading {
+      display: flex;
+      justify-content: center;
+      padding: 3rem;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 238, 0, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--electric-yellow);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .navbar nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .gallery-header {
+        margin-top: 80px;
+        height: 40vh;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .prompt-overlay {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
   <header class="navbar">
     <nav>
       <ul>
-        <li><a href="index.html" class="active" aria-label="Home">Home</a></li>
-        <li><a href="portfolio.html" aria-label="Portfolio">Portfolio</a></li>
-        <li><a href="blog.html" aria-label="Blog">Blog</a></li>
-        <li><a href="contact.html" aria-label="Contact">Contact</a></li>
-        <li><a href="members.html" aria-label="Members">Members</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="ai-creations.html" class="active">AI Creations</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="prompting.html">Prompting</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <section id="hero">
-    <h1>NOVITO9</h1>
-    <p id="welcome-message">Welcome and Thank you for Visiting</p>
-    <p id="dynamic-quote">Loading quote...</p>
-    <button class="btn-gallery" onclick="scrollToGallery()" aria-label="Explore Gallery">EXPLORE GALLERY</button>
+  <!-- Gallery Header -->
+  <section class="gallery-header">
+    <h1>AI GENERATIONS</h1>
+    <p>Explore my collection of AI-generated artworks with their creation prompts</p>
   </section>
 
-  <!-- Portfolio Grid -->
-  <div class="portfolio-grid" id="portfolio-grid"></div>
+  <!-- Gallery Grid -->
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="loading">
+      <div class="spinner"></div>
+    </div>
+  </div>
 
-  <script src="scripts.js"></script>
+  <footer>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // AI Creations data (would typically be loaded from JSON)
+    const aiCreations = [
+      {
+        "id": 1,
+        "title": "Cyberpunk Metropolis",
+        "image": "images/cyberpunk-city.jpg",
+        "prompt": "Create a sprawling cyberpunk city at night, with towering neon skyscrapers, flying cars, and crowded streets. The scene should have a dark, rainy atmosphere with vibrant neon signs reflecting on wet pavement. Include diverse futuristic characters in the foreground wearing high-tech clothing and cybernetic enhancements. Use a color palette dominated by electric blues, hot pinks, and neon purples with strong contrast between light and shadow.",
+        "model": "Stable Diffusion 2.1",
+        "date": "2025-03-15"
+      },
+      {
+        "id": 2,
+        "title": "Ancient Egypt Reimagined",
+        "image": "images/egypt-future.jpg",
+        "prompt": "Generate a futuristic interpretation of ancient Egypt, where advanced technology coexists with traditional architecture. Show the pyramids with glowing hieroglyphs and floating obelisks. Include futuristic Egyptians wearing a blend of traditional clothing and cybernetic accessories. The scene should be set at sunset with a warm golden glow contrasting with cool blue energy effects. Make it highly detailed with a focus on texture and lighting.",
+        "model": "MidJourney v6",
+        "date": "2025-02-28"
+      },
+      {
+        "id": 3,
+        "title": "Neon Jungle",
+        "image": "images/neon-jungle.jpg",
+        "prompt": "Create a surreal jungle scene where all plants and animals glow with neon colors. Imagine bioluminescent trees, flowers that pulse with light, and exotic creatures with glowing patterns. The setting should be at night with mist between the trees catching the colored light. Include a small human explorer in the foreground wearing a high-tech suit, looking in awe at the environment. Use vibrant colors that pop against the dark background.",
+        "model": "DALL-E 3",
+        "date": "2025-04-02"
+      },
+      {
+        "id": 4,
+        "title": "Steampunk Airship",
+        "image": "images/steampunk-airship.jpg",
+        "prompt": "Design an elaborate steampunk airship with brass fittings, visible gears, and multiple balloon compartments. The ship should be flying through cloudy skies at sunset, with warm light reflecting off its metal surfaces. Include crew members in steampunk outfits performing various tasks on deck. Add intricate details like copper pipes, pressure gauges, and ornate railings. The style should be realistic but slightly fantastical.",
+        "model": "Stable Diffusion XL",
+        "date": "2025-01-18"
+      },
+      {
+        "id": 5,
+        "title": "Digital Deity",
+        "image": "images/digital-god.jpg",
+        "prompt": "Generate an image of a futuristic digital deity composed of glowing code and energy. The figure should have a humanoid shape but be made entirely of interconnected data streams and holographic components. Surround it with floating symbols and equations that glow in different colors. The background should suggest it exists in a vast digital space. Use a mix of cool blues and purples with accents of bright yellow or white for contrast.",
+        "model": "MidJourney v6",
+        "date": "2025-03-30"
+      },
+      {
+        "id": 6,
+        "title": "Alien Marketplace",
+        "image": "images/alien-market.jpg",
+        "prompt": "Create a bustling alien marketplace on a distant planet. Show diverse extraterrestrial species buying and selling exotic goods. The architecture should be organic and strange, with glowing stalls and floating platforms. Include unusual plants and creatures in the scene. The lighting should be otherworldly, perhaps with multiple light sources of different colors. Make the scene rich with details that suggest a fully realized alien culture.",
+        "model": "DALL-E 3",
+        "date": "2025-02-10"
+      }
+    ];
+
+    // Function to shuffle array
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Display gallery items
+    function displayGallery(items) {
+      const grid = document.getElementById('galleryGrid');
+      grid.innerHTML = '';
+      
+      shuffleArray(items).forEach(item => {
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'gallery-item';
+        
+        const img = new Image();
+        img.src = item.image;
+        img.alt = item.title;
+        img.loading = "lazy";
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'prompt-overlay';
+        overlay.innerHTML = `
+          <h3>${item.title}</h3>
+          <p><strong>Model:</strong> ${item.model} | <strong>Created:</strong> ${item.date}</p>
+          <div class="prompt-text">${item.prompt}</div>
+        `;
+        
+        galleryItem.appendChild(img);
+        galleryItem.appendChild(overlay);
+        grid.appendChild(galleryItem);
+      });
+    }
+
+    // Load gallery (simulating JSON fetch)
+    document.addEventListener('DOMContentLoaded', function() {
+      // In a real implementation, you would fetch from a JSON file:
+      // fetch('ai-creations.json').then(response => response.json()).then(data => displayGallery(data));
+      
+      // For this demo, we'll use the hardcoded data after a short delay
+      setTimeout(() => {
+        displayGallery(aiCreations);
+      }, 1000);
+    });
+  </script>
 </body>
 </html>

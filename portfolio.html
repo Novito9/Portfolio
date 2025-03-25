@@ -1,10 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creative Portfolio - Portfolio</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novito9 | Portfolio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    :root {
+      --electric-blue: #00f3ff;
+      --neon-pink: #ff0066;
+      --dark-bg: #000;
+      --flashy-pink: #ff00ff;
+      --hot-pink: #ff0099;
+      --pink-glow: rgba(255, 0, 255, 0.7);
+      --portfolio-accent: #00ff88; /* New accent color for portfolio */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+      background-color: var(--dark-bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Cyberpunk Navigation */
+    .navbar {
+      padding: 1.5rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: 0.3s ease;
+    }
+
+    .navbar nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: var(--portfolio-accent);
+      transition: width 0.3s ease;
+    }
+
+    .navbar nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .navbar nav ul li a.active {
+      color: var(--portfolio-accent);
+    }
+
+    /* Portfolio Hero Section */
+    #portfolio-hero {
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 60px;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('images/portfolio-bg.jpg') center/cover;
+    }
+
+    #portfolio-hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      margin: 0;
+      line-height: 1;
+      color: var(--portfolio-accent);
+      text-shadow: 
+        0 0 10px rgba(0, 255, 136, 0.7),
+        0 0 20px rgba(0, 255, 136, 0.5),
+        0 0 40px rgba(0, 255, 136, 0.3);
+      animation: 
+        accent-pulse 1s infinite alternate;
+    }
+
+    #portfolio-hero p {
+      font-size: 1.25rem;
+      margin: 2rem 0;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+    }
+
+    @keyframes accent-pulse {
+      from {
+        text-shadow: 
+          0 0 10px rgba(0, 255, 136, 0.7),
+          0 0 20px rgba(0, 255, 136, 0.5);
+      }
+      to {
+        text-shadow: 
+          0 0 20px rgba(0, 255, 136, 0.7),
+          0 0 40px rgba(0, 255, 136, 0.5),
+          0 0 60px rgba(0, 255, 136, 0.3);
+      }
+    }
+
+    /* Portfolio Categories */
+    .portfolio-categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .category-btn {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: 2px solid var(--portfolio-accent);
+      color: var(--portfolio-accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .category-btn:hover, .category-btn.active {
+      background: rgba(0, 255, 136, 0.1);
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+    }
+
+    /* Hologrid Portfolio */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      background: #111;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portfolio-item {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #000;
+      transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .portfolio-item:hover {
+      transform: scale(1.05);
+      z-index: 2;
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.3s ease;
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Image Overlay */
+    .item-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 1rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .portfolio-item:hover .item-overlay {
+      transform: translateY(0);
+    }
+
+    .item-overlay h3 {
+      color: var(--portfolio-accent);
+      margin-top: 0;
+    }
+
+    /* Project Details Modal */
+    .project-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 2000;
+      padding: 2rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: #111;
+      padding: 2rem;
+      border: 1px solid var(--portfolio-accent);
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: var(--portfolio-accent);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-modal:hover {
+      transform: rotate(90deg);
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: #000;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    footer p span {
+      color: var(--portfolio-accent);
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .navbar nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      #portfolio-hero {
+        margin-top: 80px;
+        height: 50vh;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -15,35 +292,229 @@
         <li><a href="portfolio.html" class="active">Portfolio</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="admin.html">Admin</a></li>
+        <li><a href="members.html">Members</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Portfolio Page Content -->
-  <section id="portfolio">
-    <h1>Portfolio</h1>
-    <p>Browse through my creative works.</p>
-    <div class="portfolio-items">
-      <div class="portfolio-item">
-        <img src="images/sample1.jpg" alt="Design 1" />
-        <p>Design 1 description</p>
-      </div>
-      <div class="portfolio-item">
-        <img src="images/sample2.jpg" alt="Design 2" />
-        <p>Design 2 description</p>
-      </div>
-      <div class="portfolio-item">
-        <img src="images/sample3.jpg" alt="Design 3" />
-        <p>Design 3 description</p>
-      </div>
-    </div>
+  <section id="portfolio-hero">
+    <h1>MY WORK</h1>
+    <p>Explore my collection of digital creations and projects</p>
   </section>
 
-  <!-- Footer -->
+  <div class="portfolio-categories">
+    <button class="category-btn active" data-category="all">All Projects</button>
+    <button class="category-btn" data-category="ai-art">AI Art</button>
+    <button class="category-btn" data-category="digital">Digital Art</button>
+    <button class="category-btn" data-category="design">Design</button>
+    <button class="category-btn" data-category="experimental">Experimental</button>
+  </div>
+
+  <!-- Portfolio Grid -->
+  <div class="portfolio-grid" id="portfolio-grid"></div>
+
+  <!-- Project Modal -->
+  <div id="project-modal" class="project-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2 id="modal-title">Project Title</h2>
+      <div id="modal-image-container"></div>
+      <p id="modal-description">Project description goes here.</p>
+      <p id="modal-date"><strong>Created:</strong> <span>January 2024</span></p>
+      <p id="modal-tags"><strong>Tags:</strong> <span>AI Art, Digital</span></p>
+    </div>
+  </div>
+
+  <script>
+    // Portfolio data
+    const portfolioItems = [
+      {
+        id: 1,
+        title: "Anubis Judgment",
+        category: "ai-art",
+        image: "images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg",
+        description: "AI-generated artwork depicting Anubis, the jackal-headed god, in a grand judgment hall with dramatic lighting.",
+        date: "March 2024",
+        tags: ["AI Art", "Mythology", "Egyptian"]
+      },
+      {
+        id: 2,
+        title: "Pharaoh Hound",
+        category: "ai-art",
+        image: "images/A-stylized-Pharaoh-Hound-slender-and-regal-with-charming-features-wears-a-jeweled-collar-and-sits-beside-an-Egyptian-artifact.-Vibrant-complementary-colors-create-a-balanced-and-adorable-image.jpg",
+        description: "Stylized Pharaoh Hound with vibrant colors sitting beside ancient Egyptian artifacts.",
+        date: "February 2024",
+        tags: ["AI Art", "Animals", "Egyptian"]
+      },
+      {
+        id: 3,
+        title: "Desert Pyramids",
+        category: "ai-art",
+        image: "images/Rich-burgundy-and-deep-blue-hues-gentle-soft-light-illuminates-a-sophisticated-and-elegant-golden-desert-landscape-with-pyramids-and-hieroglyphs-in-soft-gradients-diffused-shadows-subtle-illumination.jpg",
+        description: "Golden desert landscape with pyramids and hieroglyphs in soft gradients and diffused lighting.",
+        date: "January 2024",
+        tags: ["AI Art", "Landscape", "Egyptian"]
+      },
+      {
+        id: 4,
+        title: "Cyber Neon City",
+        category: "digital",
+        image: "https://source.unsplash.com/random/600x600/?cyberpunk,neon",
+        description: "Digital painting of a futuristic neon city with cyberpunk aesthetics.",
+        date: "December 2023",
+        tags: ["Digital Art", "Cyberpunk", "Cityscape"]
+      },
+      {
+        id: 5,
+        title: "Abstract Waves",
+        category: "digital",
+        image: "https://source.unsplash.com/random/600x600/?abstract,digital",
+        description: "Colorful abstract wave patterns created with digital tools.",
+        date: "November 2023",
+        tags: ["Digital Art", "Abstract", "Colorful"]
+      },
+      {
+        id: 6,
+        title: "Minimal UI Kit",
+        category: "design",
+        image: "https://source.unsplash.com/random/600x600/?ui,design",
+        description: "Minimalist UI design kit for modern applications.",
+        date: "October 2023",
+        tags: ["Design", "UI/UX", "Minimal"]
+      },
+      {
+        id: 7,
+        title: "Data Visualization",
+        category: "design",
+        image: "https://source.unsplash.com/random/600x600/?data,visualization",
+        description: "Creative data visualization for complex datasets.",
+        date: "September 2023",
+        tags: ["Design", "Data", "Infographic"]
+      },
+      {
+        id: 8,
+        title: "Generative Art",
+        category: "experimental",
+        image: "https://source.unsplash.com/random/600x600/?generative,art",
+        description: "Algorithmic generative art created with custom code.",
+        date: "August 2023",
+        tags: ["Experimental", "Generative", "Algorithmic"]
+      }
+    ];
+
+    // DOM elements
+    const portfolioGrid = document.getElementById('portfolio-grid');
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const modal = document.getElementById('project-modal');
+    const closeModal = document.querySelector('.close-modal');
+
+    // Initialize portfolio
+    function initPortfolio() {
+      displayPortfolioItems(portfolioItems);
+      setupEventListeners();
+    }
+
+    // Display portfolio items
+    function displayPortfolioItems(items) {
+      portfolioGrid.innerHTML = '';
+      
+      items.forEach(item => {
+        const portfolioItem = document.createElement('div');
+        portfolioItem.className = 'portfolio-item';
+        portfolioItem.dataset.category = item.category;
+        portfolioItem.dataset.id = item.id;
+        
+        const img = new Image();
+        img.src = item.image;
+        img.alt = item.title;
+        img.loading = "lazy";
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'item-overlay';
+        overlay.innerHTML = `
+          <h3>${item.title}</h3>
+          <p>${item.category.replace('-', ' ').toUpperCase()}</p>
+        `;
+        
+        portfolioItem.appendChild(img);
+        portfolioItem.appendChild(overlay);
+        portfolioGrid.appendChild(portfolioItem);
+      });
+    }
+
+    // Filter portfolio by category
+    function filterPortfolio(category) {
+      if (category === 'all') {
+        displayPortfolioItems(portfolioItems);
+      } else {
+        const filteredItems = portfolioItems.filter(item => item.category === category);
+        displayPortfolioItems(filteredItems);
+      }
+    }
+
+    // Open project modal
+    function openProjectModal(id) {
+      const project = portfolioItems.find(item => item.id === parseInt(id));
+      if (!project) return;
+      
+      document.getElementById('modal-title').textContent = project.title;
+      document.getElementById('modal-description').textContent = project.description;
+      document.getElementById('modal-date').querySelector('span').textContent = project.date;
+      document.getElementById('modal-tags').querySelector('span').textContent = project.tags.join(', ');
+      
+      const imageContainer = document.getElementById('modal-image-container');
+      imageContainer.innerHTML = '';
+      const img = new Image();
+      img.src = project.image;
+      img.alt = project.title;
+      img.style.width = '100%';
+      imageContainer.appendChild(img);
+      
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close project modal
+    function closeProjectModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Category filter buttons
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          categoryButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          filterPortfolio(button.dataset.category);
+        });
+      });
+      
+      // Portfolio item clicks
+      document.querySelectorAll('.portfolio-item').forEach(item => {
+        item.addEventListener('click', () => {
+          openProjectModal(item.dataset.id);
+        });
+      });
+      
+      // Close modal
+      closeModal.addEventListener('click', closeProjectModal);
+      
+      // Close modal when clicking outside
+      window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeProjectModal();
+        }
+      });
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initPortfolio);
+  </script>
+  
   <footer>
-    <p>&copy; 2025 Creative Portfolio. All rights reserved.</p>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
   </footer>
-  <script src="js/app.js"></script>
 </body>
 </html>

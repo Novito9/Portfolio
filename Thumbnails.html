@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novito9 - Thumbnails</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    /* Base styles with green/pink variation */
+    :root {
+      --electric-green: #00ff88;
+      --neon-pink: #ff0066;
+      --dark-bg: #000;
+      --flashy-green: #00ffaa;
+      --hot-pink: #ff0099;
+      --green-glow: rgba(0, 255, 170, 0.7);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+      background-color: var(--dark-bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      padding: 1.5rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: 0.3s ease;
+    }
+
+    .navbar nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: var(--electric-green);
+      transition: width 0.3s ease;
+    }
+
+    .navbar nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .navbar nav ul li a.active {
+      color: var(--electric-green);
+    }
+
+    /* Thumbnails Header */
+    .thumb-header {
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 60px;
+      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9));
+    }
+
+    .thumb-header h1 {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      margin: 0;
+      color: var(--electric-green);
+      text-shadow: 
+        0 0 10px var(--green-glow),
+        0 0 20px var(--green-glow);
+      animation: text-glitch 4s infinite;
+    }
+
+    .thumb-header p {
+      font-size: 1.25rem;
+      margin: 1rem 0 0;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+    }
+
+    /* Thumbnail Grid */
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .thumb-item {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .thumb-item:hover {
+      transform: scale(1.05);
+      border-color: var(--neon-pink);
+      box-shadow: 
+        0 0 15px var(--green-glow),
+        0 0 30px rgba(255, 0, 102, 0.3);
+      z-index: 2;
+    }
+
+    .thumb-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .thumb-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .thumb-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      padding: 1rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .thumb-item:hover .thumb-label {
+      transform: translateY(0);
+    }
+
+    .thumb-label h3 {
+      color: var(--electric-green);
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+    }
+
+    .thumb-label p {
+      color: rgba(255,255,255,0.7);
+      margin: 0;
+      font-size: 0.8rem;
+    }
+
+    /* Glitch Animation (green/pink version) */
+    @keyframes text-glitch {
+      0%, 100% {
+        text-shadow: 
+          2px 2px 0 var(--neon-pink),
+          -2px -2px 0 var(--electric-green);
+      }
+      25% {
+        text-shadow: 
+          -2px 2px 0 var(--neon-pink),
+          2px -2px 0 var(--electric-green);
+      }
+      50% {
+        text-shadow: 
+          2px -2px 0 var(--neon-pink),
+          -2px 2px 0 var(--electric-green);
+      }
+      75% {
+        text-shadow: 
+          -2px -2px 0 var(--neon-pink),
+          2px 2px 0 var(--electric-green);
+      }
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: #000;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .navbar nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .thumb-header {
+        margin-top: 80px;
+        height: 40vh;
+      }
+
+      .thumb-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="thumbnails.html" class="active">Thumbnails</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Thumbnails Header -->
+  <section class="thumb-header">
+    <h1>THUMBNAIL COLLECTION</h1>
+    <p>A grid of my digital creations in thumbnail format</p>
+  </section>
+
+  <!-- Thumbnail Grid -->
+  <div class="thumb-grid" id="thumbGrid"></div>
+
+  <script>
+    // Thumbnail data
+    const thumbnails = [
+      {
+        url: "images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg",
+        title: "Anubis Art",
+        desc: "Egyptian god digital illustration"
+      },
+      {
+        url: "images/A-stylized-Pharaoh-Hound-slender-and-regal-with-charming-features-wears-a-jeweled-collar-and-sits-beside-an-Egyptian-artifact.-Vibrant-complementary-colors-create-a-balanced-and-adorable-image.jpg",
+        title: "Pharaoh Hound",
+        desc: "AI generated canine artwork"
+      },
+      // Add more thumbnails as needed
+      {
+        url: "images/Rich-burgundy-and-deep-blue-hues-gentle-soft-light-illuminates-a-sophisticated-and-elegant-golden-desert-landscape-with-pyramids-and-hieroglyphs-in-soft-gradients-diffused-shadows-subtle-illumination.jpg",
+        title: "Desert Dreams",
+        desc: "Egyptian landscape generation"
+      },
+      {
+        url: "images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg",
+        title: "Anubis Art 2",
+        desc: "Alternate version"
+      },
+      {
+        url: "images/A-stylized-Pharaoh-Hound-slender-and-regal-with-charming-features-wears-a-jeweled-collar-and-sits-beside-an-Egyptian-artifact.-Vibrant-complementary-colors-create-a-balanced-and-adorable-image.jpg",
+        title: "Hound Variant",
+        desc: "Different color scheme"
+      },
+      {
+        url: "images/Rich-burgundy-and-deep-blue-hues-gentle-soft-light-illuminates-a-sophisticated-and-elegant-golden-desert-landscape-with-pyramids-and-hieroglyphs-in-soft-gradients-diffused-shadows-subtle-illumination.jpg",
+        title: "Night Desert",
+        desc: "Moonlit version"
+      }
+    ];
+
+    // Initialize thumbnails
+    document.addEventListener('DOMContentLoaded', function() {
+      const grid = document.getElementById('thumbGrid');
+      
+      thumbnails.forEach(thumb => {
+        const item = document.createElement('div');
+        item.className = 'thumb-item';
+        
+        const img = new Image();
+        img.src = thumb.url;
+        img.alt = thumb.title;
+        img.loading = "lazy";
+        
+        const label = document.createElement('div');
+        label.className = 'thumb-label';
+        label.innerHTML = `
+          <h3>${thumb.title}</h3>
+          <p>${thumb.desc}</p>
+        `;
+        
+        item.appendChild(img);
+        item.appendChild(label);
+        grid.appendChild(item);
+      });
+    });
+  </script>
+
+  <footer>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
+  </footer>
+</body>
+</html>

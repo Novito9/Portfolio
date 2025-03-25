@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novito9 - Help Fund</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    /* Base styles identical to main page */
+    :root {
+      --electric-blue: #00f3ff;
+      --neon-pink: #ff0066;
+      --dark-bg: #000;
+      --flashy-pink: #ff00ff;
+      --hot-pink: #ff0099;
+      --pink-glow: rgba(255, 0, 255, 0.7);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+      background-color: var(--dark-bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      padding: 1.5rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: 0.3s ease;
+    }
+
+    .navbar nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: var(--electric-blue);
+      transition: width 0.3s ease;
+    }
+
+    .navbar nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .navbar nav ul li a.active {
+      color: var(--electric-blue);
+    }
+
+    /* Help Fund specific styles */
+    .fund-header {
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 60px;
+      background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.95));
+    }
+
+    .rainbow-title {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      margin-bottom: 1.5rem;
+      background: linear-gradient(
+        to right,
+        #ff0000,
+        #ff7f00,
+        #ffff00,
+        #00ff00,
+        #0000ff,
+        #4b0082,
+        #9400d3
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbow-glide 8s linear infinite;
+      background-size: 200% auto;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    @keyframes rainbow-glide {
+      0% {
+        background-position: 0% center;
+      }
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    .fund-header p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .fund-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .fund-card {
+      background: rgba(20,20,20,0.8);
+      border: 1px solid var(--electric-blue);
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .fund-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+    }
+
+    .fund-card h3 {
+      color: var(--electric-blue);
+      font-size: 1.5rem;
+      margin-top: 0;
+    }
+
+    .fund-card .price {
+      font-size: 2rem;
+      color: var(--neon-pink);
+      margin: 1rem 0;
+      font-weight: 700;
+    }
+
+    .fund-card ul {
+      text-align: left;
+      padding-left: 1rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .fund-card li {
+      margin-bottom: 0.5rem;
+    }
+
+    .fund-btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      margin-top: 1.5rem;
+      background: var(--neon-pink);
+      color: #000;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .fund-btn:hover {
+      background: var(--electric-blue);
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+    }
+
+    .crypto-section {
+      padding: 3rem;
+      text-align: center;
+      background: rgba(0,0,0,0.5);
+      margin-top: 2rem;
+    }
+
+    .crypto-address {
+      background: rgba(0,0,0,0.3);
+      padding: 1rem;
+      font-family: 'Space Mono', monospace;
+      word-break: break-all;
+      color: var(--electric-blue);
+      border: 1px dashed var(--electric-blue);
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: #000;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .navbar nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .fund-header {
+        margin-top: 80px;
+        height: 60vh;
+      }
+
+      .fund-options {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="help-fund.html" class="active">Help Fund</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Fund Header -->
+  <section class="fund-header">
+    <h1 class="rainbow-title">SUPPORT MY WORK</h1>
+    <p>Your support helps me create more amazing digital art and share it with the world</p>
+  </section>
+
+  <!-- Funding Options -->
+  <div class="fund-options">
+    <div class="fund-card">
+      <h3>Digital Tip</h3>
+      <div class="price">$5</div>
+      <ul>
+        <li>My eternal gratitude</li>
+        <li>Your name in my supporters list</li>
+        <li>Exclusive behind-the-scenes content</li>
+      </ul>
+      <a href="#" class="fund-btn">SEND TIP</a>
+    </div>
+
+    <div class="fund-card">
+      <h3>Art Patron</h3>
+      <div class="price">$20</div>
+      <ul>
+        <li>All previous perks</li>
+        <li>Digital thank you card</li>
+        <li>Early access to new works</li>
+        <li>Monthly desktop wallpapers</li>
+      </ul>
+      <a href="#" class="fund-btn">BECOME PATRON</a>
+    </div>
+
+    <div class="fund-card">
+      <h3>Creative Collaborator</h3>
+      <div class="price">$50+</div>
+      <ul>
+        <li>All previous perks</li>
+        <li>Personalized digital artwork</li>
+        <li>Quarterly video call</li>
+        <li>Input on future projects</li>
+      </ul>
+      <a href="#" class="fund-btn">COLLABORATE</a>
+    </div>
+  </div>
+
+  <!-- Crypto Section -->
+  <section class="crypto-section">
+    <h2>Prefer Crypto?</h2>
+    <p>Send support via cryptocurrency</p>
+    <div class="crypto-address">
+      <p>Bitcoin: bc1qnovit09exampleaddressxyz1234567890abcdefg</p>
+      <p>Ethereum: 0x71C7656EC7exampleaddressxyz9876543210</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // Rainbow title effect enhancement
+    document.addEventListener('DOMContentLoaded', function() {
+      const rainbowTitle = document.querySelector('.rainbow-title');
+      
+      // Add subtle pulse effect
+      setInterval(() => {
+        rainbowTitle.style.textShadow = `0 0 ${10 + Math.random() * 5}px rgba(255,255,255,0.3)`;
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
