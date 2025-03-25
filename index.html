@@ -444,25 +444,33 @@
       });
     });
 
-    // Dynamic image loader with fallback
+    // Helper function to validate image file extensions
+    function isValidImage(url) {
+      if (!url) return false;
+      const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
+      const extension = url.split('.').pop().toLowerCase();
+      return validExtensions.includes(extension);
+    }
+
+    // Dynamic image loader with fallback and validation
     async function loadRandomImages() {
       try {
         const response = await fetch('images/image-list.json');
         if (response.ok) {
           const imageData = await response.json();
-          displayImages(imageData);
-          return;
+          // Filter to ensure only valid images are displayed
+          const validImages = imageData.filter(item => isValidImage(item.url));
+          if (validImages.length > 0) {
+            displayImages(validImages);
+            return;
+          }
         }
       } catch (e) {
         console.log("Using fallback image data");
       }
-      const fallbackImages = await getFallbackImages();
-      displayImages(fallbackImages);
-    }
-
-    // Fallback image data
-    async function getFallbackImages() {
-      return [
+      
+      // Fallback to hardcoded image data (with validation)
+      const fallbackImages = [
         { 
           url: "images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg", 
           alt: "Ai Generation Artwork", 
@@ -475,7 +483,9 @@
           title: "Quantum Flow", 
           desc: "Prompt : A stylized Pharaoh Hound, slender and regal, with charming features, wears a jeweled collar and sits beside an Egyptian artifact. Vibrant complementary colors create a balanced and adorable image." 
         }
-      ];
+      ].filter(item => isValidImage(item.url));
+      
+      displayImages(fallbackImages);
     }
 
     function shuffleArray(array) {
@@ -486,30 +496,48 @@
       return array;
     }
 
+    // Updated displayImages function with additional validation
     function displayImages(imageData) {
       const grid = document.getElementById('portfolio-grid');
       grid.innerHTML = '';
       
-      shuffleArray(imageData).forEach(item => {
+      // Filter and shuffle the images
+      const validImages = shuffleArray(imageData.filter(item => {
+        return item.url && item.alt && isValidImage(item.url);
+      }));
+      
+      // Display only valid images
+      validImages.forEach(item => {
         const portfolioItem = document.createElement('div');
         portfolioItem.className = 'portfolio-item';
         
         const img = new Image();
         img.src = item.url;
-        img.alt = item.alt;
+        img.alt = item.alt || 'Artwork image';
         img.loading = "lazy";
+        
+        // Handle image loading errors
+        img.onerror = function() {
+          console.error('Failed to load image:', item.url);
+          portfolioItem.style.display = 'none'; // Hide the item if image fails to load
+        };
         
         const overlay = document.createElement('div');
         overlay.className = 'item-overlay';
         overlay.innerHTML = `
-          <h3>${item.title}</h3>
-          <p>${item.desc}</p>
+          <h3>${item.title || 'Untitled'}</h3>
+          <p>${item.desc || ''}</p>
         `;
         
         portfolioItem.appendChild(img);
         portfolioItem.appendChild(overlay);
         grid.appendChild(portfolioItem);
       });
+      
+      // Show message if no images found
+      if (validImages.length === 0) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:white;">No images found in the gallery</p>';
+      }
     }
 
     // Quote functionality
