@@ -151,21 +151,22 @@
       border-left: 3px solid var(--electric-blue);
     }
 
-    /* Glitch Hero Section */
+    /* Glitch Hero Section - Adjusted spacing */
     #hero {
-      height: 100vh;
+      height: 80vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 2rem;
+      padding: 1rem;
       margin-top: 60px;
+      padding-bottom: 0;
     }
 
     #hero h1 {
       font-size: clamp(3rem, 10vw, 6rem);
-      margin: 0;
+      margin: 0 0 0.5rem 0;
       line-height: 1;
       color: var(--flashy-pink);
       text-shadow: 
@@ -181,7 +182,7 @@
 
     #hero p {
       font-size: 1.25rem;
-      margin: 2rem 0;
+      margin: 0.5rem 0;
       color: rgba(255, 255, 255, 0.8);
       max-width: 600px;
     }
@@ -215,6 +216,7 @@
       position: relative;
       overflow: hidden;
       transition: 0.3s ease;
+      margin: 1rem 0 0 0;
     }
 
     .btn-gallery::before {
@@ -242,15 +244,16 @@
       left: 100%;
     }
 
-    /* Hologrid Portfolio */
+    /* Hologrid Portfolio - Adjusted spacing */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1px;
       background: #111;
-      padding: 2rem;
+      padding: 1rem;
       max-width: 1200px;
       margin: 0 auto;
+      margin-top: 1rem;
     }
 
     .portfolio-item {
@@ -259,6 +262,7 @@
       overflow: hidden;
       background: #000;
       transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      cursor: pointer;
     }
 
     .portfolio-item:hover {
@@ -293,6 +297,75 @@
 
     .portfolio-item:hover .item-overlay {
       transform: translateY(0);
+    }
+
+    /* Image Modal */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 10000;
+      overflow: auto;
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .modal-image {
+      max-width: 90%;
+      max-height: 80vh;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+
+    .modal-details {
+      max-width: 800px;
+      text-align: center;
+      color: white;
+      padding: 1rem;
+    }
+
+    .modal-details h3 {
+      color: var(--electric-blue);
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .modal-details p {
+      margin: 0.5rem 0;
+      line-height: 1.5;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-modal:hover {
+      color: var(--electric-blue);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* Glitch Animations */
@@ -344,6 +417,10 @@
       .portfolio-grid {
         grid-template-columns: 1fr;
       }
+
+      #hero {
+        height: 70vh;
+      }
     }
 
     @media (max-width: 480px) {
@@ -354,6 +431,7 @@
       #hero {
         margin-top: 80px;
         padding: 1rem;
+        height: 65vh;
       }
       
       #hero h1 {
@@ -371,6 +449,10 @@
       .btn-gallery {
         padding: 0.75rem 2rem;
         font-size: 0.9rem;
+      }
+
+      .modal-image {
+        max-width: 95%;
       }
     }
   </style>
@@ -409,6 +491,18 @@
       <li><a href="promo.html">Promo</a></li>
       <li><a href="Tip-Jar.html">Tip-Jar</a></li>
     </ul>
+  </div>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="image-modal">
+    <span class="close-modal">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" class="modal-image" src="" alt="">
+      <div class="modal-details">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+      </div>
+    </div>
   </div>
 
   <section id="hero">
@@ -496,7 +590,35 @@
       return array;
     }
 
-    // Updated displayImages function with additional validation
+    // Modal functionality
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const closeModal = document.querySelector(".close-modal");
+
+    function openModal(imgSrc, title, desc) {
+      modal.style.display = "flex";
+      modalImg.src = imgSrc;
+      modalImg.alt = title;
+      modalTitle.textContent = title;
+      modalDesc.textContent = desc;
+      document.body.style.overflow = "hidden";
+    }
+
+    closeModal.addEventListener("click", function() {
+      modal.style.display = "none";
+      document.body.style.overflow = "";
+    });
+
+    window.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+    });
+
+    // Updated displayImages function with modal support
     function displayImages(imageData) {
       const grid = document.getElementById('portfolio-grid');
       grid.innerHTML = '';
@@ -521,6 +643,11 @@
           console.error('Failed to load image:', item.url);
           portfolioItem.style.display = 'none'; // Hide the item if image fails to load
         };
+        
+        // Add click event for modal
+        portfolioItem.addEventListener('click', () => {
+          openModal(item.url, item.title || 'Untitled', item.desc || '');
+        });
         
         const overlay = document.createElement('div');
         overlay.className = 'item-overlay';
