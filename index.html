@@ -13,6 +13,9 @@
       --flashy-pink: #ff00ff;
       --hot-pink: #ff0099;
       --pink-glow: rgba(255, 0, 255, 0.7);
+      --neon-purple: #9d00ff;
+      --cyber-yellow: #fffc00;
+      --acid-green: #00ff66;
     }
 
     body {
@@ -32,7 +35,8 @@
       z-index: 1000;
       background: rgba(0, 0, 0, 0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--neon-purple);
+      box-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
     }
 
     .navbar nav ul {
@@ -53,6 +57,7 @@
       position: relative;
       padding: 0.5rem 0;
       transition: 0.3s ease;
+      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     .navbar nav ul li a::after {
@@ -62,7 +67,7 @@
       height: 2px;
       bottom: 0;
       left: 0;
-      background: var(--electric-blue);
+      background: linear-gradient(90deg, var(--neon-pink), var(--electric-blue));
       transition: width 0.3s ease;
     }
 
@@ -72,6 +77,7 @@
 
     .navbar nav ul li a.active {
       color: var(--electric-blue);
+      text-shadow: 0 0 10px var(--electric-blue);
     }
 
     /* Mobile Menu */
@@ -91,10 +97,11 @@
     .menu-btn span {
       display: block;
       width: 25px;
-      height: 2px;
+      height: 3px;
       background: var(--electric-blue);
       margin: 5px 0;
       transition: all 0.3s ease;
+      box-shadow: 0 0 5px var(--electric-blue);
     }
 
     .mobile-menu {
@@ -112,6 +119,7 @@
       align-items: center;
       transform: translateY(-100%);
       transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border-bottom: 3px solid var(--neon-pink);
     }
 
     .mobile-menu.active {
@@ -138,16 +146,19 @@
       padding: 0.5rem 1rem;
       transition: all 0.3s ease;
       display: inline-block;
+      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     .mobile-nav-links li a:hover {
       color: var(--electric-blue);
       transform: translateX(5px);
+      text-shadow: 0 0 10px var(--electric-blue);
     }
 
     .mobile-nav-links li a.active {
       color: var(--electric-blue);
       border-left: 3px solid var(--electric-blue);
+      text-shadow: 0 0 15px var(--electric-blue);
     }
 
     /* Hero Section */
@@ -161,6 +172,7 @@
       padding: 1rem;
       margin-top: 60px;
       padding-bottom: 0;
+      background: radial-gradient(circle at center, rgba(0, 243, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
     }
 
     #hero h1 {
@@ -184,6 +196,7 @@
       margin: 0.5rem 0;
       color: rgba(255, 255, 255, 0.8);
       max-width: 600px;
+      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     @keyframes pink-pulse {
@@ -216,6 +229,8 @@
       overflow: hidden;
       transition: 0.3s ease;
       margin: 1rem 0 0 0;
+      text-shadow: 0 0 5px var(--electric-blue);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
     }
 
     .btn-gallery::before {
@@ -228,15 +243,17 @@
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(0, 243, 255, 0.2),
+        rgba(0, 243, 255, 0.4),
         transparent
       );
       transition: 0.5s;
     }
 
     .btn-gallery:hover {
-      background: rgba(0, 243, 255, 0.1);
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+      background: rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+      color: var(--cyber-yellow);
+      border-color: var(--cyber-yellow);
     }
 
     .btn-gallery:hover::before {
@@ -253,6 +270,8 @@
       max-width: 1200px;
       margin: 0 auto;
       margin-top: 1rem;
+      border: 1px solid var(--neon-purple);
+      box-shadow: 0 0 30px rgba(157, 0, 255, 0.2);
     }
 
     .portfolio-item {
@@ -262,12 +281,14 @@
       background: #000;
       transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .portfolio-item:hover {
       transform: scale(1.05);
       z-index: 2;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+      border-color: var(--electric-blue);
     }
 
     .portfolio-item img {
@@ -279,6 +300,7 @@
 
     .portfolio-item:hover img {
       transform: scale(1.1);
+      filter: brightness(1.2);
     }
 
     /* Image Overlay */
@@ -287,7 +309,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
       color: white;
       padding: 1rem;
       transform: translateY(100%);
@@ -310,6 +332,7 @@
       border-radius: 20px;
       padding: 4px 8px;
       backdrop-filter: blur(5px);
+      border: 1px solid var(--neon-pink);
     }
 
     .like-btn {
@@ -322,21 +345,26 @@
       align-items: center;
       padding: 4px;
       transition: all 0.3s ease;
+      text-shadow: 0 0 5px currentColor;
     }
 
     .like-btn:hover {
       transform: scale(1.1);
+      color: var(--neon-pink);
     }
 
     .like-btn.liked {
       color: var(--neon-pink);
       animation: heartBeat 0.5s;
+      text-shadow: 0 0 10px var(--neon-pink);
     }
 
     .like-count {
       margin-left: 4px;
       font-size: 0.9rem;
       font-weight: bold;
+      color: white;
+      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     @keyframes heartBeat {
@@ -355,7 +383,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0, 0, 0, 0.95);
       z-index: 10000;
       overflow: auto;
       animation: fadeIn 0.3s;
@@ -377,7 +405,8 @@
       object-fit: contain;
       margin-bottom: 1rem;
       border-radius: 4px;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 50px rgba(0, 243, 255, 0.4);
+      border: 2px solid var(--electric-blue);
     }
 
     .modal-details {
@@ -386,17 +415,23 @@
       text-align: center;
       color: white;
       padding: 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 8px;
+      border: 1px solid var(--neon-pink);
+      box-shadow: 0 0 20px rgba(255, 0, 102, 0.3);
     }
 
     .modal-details h3 {
       color: var(--electric-blue);
       margin-bottom: 0.5rem;
       font-size: 1.5rem;
+      text-shadow: 0 0 10px var(--electric-blue);
     }
 
     .modal-details p {
       margin: 0.5rem 0;
       line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .close-modal {
@@ -408,11 +443,13 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
+      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     .close-modal:hover {
       color: var(--electric-blue);
       transform: rotate(90deg);
+      text-shadow: 0 0 15px var(--electric-blue);
     }
 
     /* Comments Section */
@@ -445,8 +482,9 @@
 
     .comment-author {
       font-weight: bold;
-      color: var(--electric-blue);
+      color: var(--acid-green);
       margin-bottom: 0.3rem;
+      text-shadow: 0 0 5px var(--acid-green);
     }
 
     .comment-text {
@@ -469,7 +507,7 @@
       width: 100%;
       background: rgba(255, 255, 255, 0.1);
       border: none;
-      border-bottom: 1px solid var(--electric-blue);
+      border-bottom: 2px solid var(--electric-blue);
       color: white;
       padding: 0.8rem 0;
       margin-bottom: 0.5rem;
@@ -479,7 +517,8 @@
 
     .comment-input:focus {
       outline: none;
-      border-bottom: 1px solid var(--neon-pink);
+      border-bottom: 2px solid var(--neon-pink);
+      background: rgba(255, 255, 255, 0.15);
     }
 
     .submit-comment {
@@ -492,12 +531,12 @@
       font-weight: bold;
       border-radius: 4px;
       transition: all 0.3s ease;
-      align-self: flex-end;
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
     }
 
     .submit-comment:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0, 243, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 243, 255, 0.5);
     }
 
     /* Login Prompt */
@@ -507,16 +546,20 @@
       font-size: 0.9rem;
       display: none;
       text-align: center;
+      text-shadow: 0 0 5px var(--neon-pink);
     }
 
     .login-prompt a {
       color: var(--electric-blue);
       text-decoration: none;
       transition: all 0.3s ease;
+      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     .login-prompt a:hover {
       text-decoration: underline;
+      color: var(--cyber-yellow);
+      text-shadow: 0 0 10px var(--cyber-yellow);
     }
 
     /* Login Modal */
@@ -527,21 +570,21 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0, 0, 0, 0.95);
       z-index: 10001;
       overflow: auto;
       animation: fadeIn 0.3s;
     }
 
     .login-content {
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       margin: 10% auto;
       padding: 2rem;
-      border: 1px solid var(--electric-blue);
+      border: 2px solid var(--electric-blue);
       width: 90%;
       max-width: 400px;
       border-radius: 4px;
-      box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
     }
 
     .login-form {
@@ -552,16 +595,18 @@
     .login-input {
       background: rgba(255, 255, 255, 0.1);
       border: none;
-      border-bottom: 1px solid var(--electric-blue);
+      border-bottom: 2px solid var(--electric-blue);
       color: white;
       padding: 0.8rem 0;
       margin: 0.5rem 0;
       font-family: 'Space Mono', monospace;
+      transition: all 0.3s ease;
     }
 
     .login-input:focus {
       outline: none;
-      border-bottom: 1px solid var(--neon-pink);
+      border-bottom: 2px solid var(--neon-pink);
+      background: rgba(255, 255, 255, 0.15);
     }
 
     .login-submit {
@@ -575,17 +620,19 @@
       font-weight: bold;
       border-radius: 4px;
       transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
     }
 
     .login-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0, 243, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 243, 255, 0.5);
     }
 
     .login-error {
       color: var(--neon-pink);
       margin-top: 1rem;
       display: none;
+      text-shadow: 0 0 5px var(--neon-pink);
     }
 
     /* User Profile */
@@ -597,7 +644,7 @@
       background: rgba(0, 0, 0, 0.8);
       padding: 0.8rem;
       border-radius: 50%;
-      border: 1px solid var(--electric-blue);
+      border: 2px solid var(--electric-blue);
       width: 50px;
       height: 50px;
       display: flex;
@@ -605,18 +652,24 @@
       justify-content: center;
       cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
     }
 
     .user-profile:hover {
-      background: rgba(0, 243, 255, 0.1);
+      background: rgba(0, 243, 255, 0.2);
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
     }
 
     .user-profile.logged-in {
       background: var(--neon-pink);
+      border-color: var(--flashy-pink);
+      box-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
     }
 
     .user-icon {
       font-size: 1.5rem;
+      text-shadow: 0 0 5px currentColor;
     }
 
     /* Animations */
@@ -646,13 +699,15 @@
       text-align: center;
       background: #000;
       margin-top: 4rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid var(--neon-purple);
+      box-shadow: 0 0 20px rgba(157, 0, 255, 0.2);
     }
 
     footer p {
       margin: 0;
       color: rgba(255, 255, 255, 0.7);
       font-size: 0.9rem;
+      text-shadow: 0 0 5px var(--electric-blue);
     }
 
     footer p span {
@@ -772,7 +827,7 @@
   <!-- Login Modal -->
   <div id="loginModal" class="login-modal">
     <div class="login-content">
-      <h3>Member Login</h3>
+      <h3 style="color: var(--cyber-yellow); text-shadow: 0 0 10px var(--cyber-yellow);">Member Login</h3>
       <form class="login-form" id="loginForm">
         <input type="text" class="login-input" id="loginUsername" placeholder="Username" required>
         <input type="password" class="login-input" id="loginPassword" placeholder="Password" required>
@@ -823,11 +878,57 @@
   </section>
 
   <!-- Portfolio Grid -->
-  <div class="portfolio-grid" id="portfolio-grid"></div>
+  <div class="portfolio-grid" id="portfolio-grid">
+    <!-- Images will be dynamically loaded here -->
+    <div class="portfolio-item">
+      <img src="https://source.unsplash.com/random/600x600/?cyberpunk,art" alt="Cyberpunk Art">
+      <div class="like-container">
+        <button class="like-btn">♥</button>
+        <span class="like-count">24</span>
+      </div>
+      <div class="item-overlay">
+        <h3>Cyberpunk Dream</h3>
+        <p>Neon lights and futuristic cityscape</p>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://source.unsplash.com/random/600x600/?abstract,digital" alt="Abstract Digital">
+      <div class="like-container">
+        <button class="like-btn">♥</button>
+        <span class="like-count">18</span>
+      </div>
+      <div class="item-overlay">
+        <h3>Digital Abstract</h3>
+        <p>Vibrant colors and fluid forms</p>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://source.unsplash.com/random/600x600/?sci-fi,concept" alt="Sci-fi Concept">
+      <div class="like-container">
+        <button class="like-btn">♥</button>
+        <span class="like-count">32</span>
+      </div>
+      <div class="item-overlay">
+        <h3>Sci-fi World</h3>
+        <p>Futuristic landscape and technology</p>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://source.unsplash.com/random/600x600/?fantasy,art" alt="Fantasy Art">
+      <div class="like-container">
+        <button class="like-btn">♥</button>
+        <span class="like-count">15</span>
+      </div>
+      <div class="item-overlay">
+        <h3>Fantasy Realm</h3>
+        <p>Magical creatures and landscapes</p>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer>
-    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
+    <p>Designed with <span style="color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink);">♥</span> by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
   </footer>
 
   <script>
@@ -1158,6 +1259,31 @@
       
       // Load and display images
       displayImages(Object.values(imageData));
+      
+      // Add click handlers for portfolio items
+      document.querySelectorAll('.portfolio-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const img = this.querySelector('img');
+          const title = this.querySelector('.item-overlay h3').textContent;
+          const desc = this.querySelector('.item-overlay p').textContent;
+          openModal(img.src, title, desc);
+        });
+      });
+      
+      // Add like button functionality for demo items
+      document.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const likeCount = this.nextElementSibling;
+          if (this.classList.contains('liked')) {
+            this.classList.remove('liked');
+            likeCount.textContent = parseInt(likeCount.textContent) - 1;
+          } else {
+            this.classList.add('liked');
+            likeCount.textContent = parseInt(likeCount.textContent) + 1;
+          }
+        });
+      });
     });
   </script>
 </body>
