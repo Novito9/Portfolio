@@ -195,7 +195,15 @@
       color: var(--text-secondary);
       max-width: 600px;
     }
-
+    
+    #welcome-message {
+      transition: opacity 1.5s ease-out, visibility 1.5s ease-out;
+    }
+    
+    #welcome-message.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
     @keyframes green-pulse {
       from {
         text-shadow: 
@@ -382,16 +390,6 @@
       text-align: center;
       color: white;
       padding: 1rem;
-    }
-
-    
-    #welcome-message {
-      transition: opacity 1.5s ease-out, visibility 1.5s ease-out;
-    }
-    
-    #welcome-message.fade-out {
-      opacity: 0;
-      visibility: hidden;
     }
     
     .modal-details h2 {
@@ -752,7 +750,7 @@
     // Image Loading and Display
     async function loadImages() {
       try {
-        const response = await fetch('images/image-list.json');
+        const response = await fetch('images/3image-list.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
