@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Novito9 - gallery</title>
+  <title>Novito9 - blogs</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;500&display=swap">
   <style>
     :root {
@@ -15,6 +15,12 @@
       --card-bg: #1a1a1a;
       --text-primary: rgba(255, 255, 255, 0.9);
       --text-secondary: rgba(255, 255, 255, 0.7);
+    --electric-blue: #00f3ff;
+      --neon-pink: #ff0066;
+      --dark-bg: #000;
+      --flashy-pink: #ff00ff;
+      --hot-pink: #ff0099;
+      --pink-glow: rgba(255, 0, 255, 0.7);
     }
 
     body {
@@ -171,7 +177,7 @@
     }
 
     #hero h1 {
-      font-size: clamp(2.5rem, 10vw, 5rem);
+      font-size: clamp(2.5rem, 8vw, 5rem);
       margin: 0 0 0.5rem 0;
       line-height: 1;
       color: var(--electric-orange);
@@ -238,263 +244,75 @@
       }
     }
 
-    /* Gallery Controls - Three-column layout */
-    .gallery-controls {
-      padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 140, 0, 0.2);
-      border-bottom: 1px solid rgba(255, 140, 0, 0.2);
-      margin-bottom: 1rem;
-    }
-
-    .controls-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: nowrap;
-    }
-
-    .search-bar {
-      flex: 1;
-      min-width: 200px;
-      position: relative;
-    }
-
-    .search-bar input {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--electric-orange);
-      color: white;
-      font-family: 'Space Mono', monospace;
-      border-radius: 30px;
-      transition: all 0.3s ease;
-      padding-right: 2.5rem;
-      outline: none;
-    }
-
-    .search-bar input:focus {
-      border-color: var(--golden-yellow);
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-    }
-
-    .search-bar button {
-      position: absolute;
-      right: 0.8rem;
-      top: 50%;
-      transform: translateY(-50%);
-      background: transparent;
-      border: none;
-      color: var(--electric-orange);
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .search-bar button:hover {
-      color: var(--golden-yellow);
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .category-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .category-btn {
-      padding: 0.8rem 1.2rem;
-      background: transparent;
-      border: 2px solid var(--electric-orange);
-      color: var(--electric-orange);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border-radius: 4px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.8rem;
-      white-space: nowrap;
-    }
-
-    .category-btn:hover {
-      background: rgba(255, 140, 0, 0.1);
-      box-shadow: 0 0 15px rgba(255, 140, 0, 0.3);
-    }
-
-    .category-btn.active {
-      background: rgba(255, 140, 0, 0.2);
-      color: var(--golden-yellow);
-      border-color: var(--golden-yellow);
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-    }
-
-    .sort-options {
-      flex: 0 0 auto;
-      min-width: 200px;
-    }
-
-    .sort-options select {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--electric-orange);
-      color: white;
-      font-family: 'Space Mono', monospace;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      outline: none;
-    }
-
-    .sort-options select:focus {
-      border-color: var(--golden-yellow);
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-    }
-
-    .sort-options option {
-      background: #111;
-    }
-
-    /* Gallery Grid */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-      padding: 1.5rem;
-      max-width: 1400px;
+    /* Blog Grid */
+    .blog-container {
+      max-width: 1200px;
       margin: 0 auto;
-    }
-
-    .portfolio-item {
-      position: relative;
-      overflow: hidden;
-      background: var(--card-bg);
-      border-radius: 4px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      aspect-ratio: 1/1;
-    }
-
-    /* Create variety in grid items */
-    .portfolio-item:nth-child(3n) {
-      aspect-ratio: 1/1.2;
-    }
-    
-    .portfolio-item:nth-child(5n) {
-      aspect-ratio: 1.2/1;
-    }
-    
-    .portfolio-item:nth-child(7n) {
-      aspect-ratio: 1/0.8;
-    }
-
-    .portfolio-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2);
-      border-color: rgba(255, 140, 0, 0.5);
-    }
-
-    .portfolio-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
-    .portfolio-item:hover img {
-      transform: scale(1.05);
-    }
-
-    .item-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-      color: white;
-      padding: 1rem;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-    }
-
-    .portfolio-item:hover .item-overlay {
-      transform: translateY(0);
-    }
-
-    /* Image Modal */
-    .image-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.95);
-      z-index: 10000;
-      overflow: auto;
-      animation: fadeIn 0.3s;
-    }
-
-    .modal-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100%;
       padding: 2rem;
-      box-sizing: border-box;
     }
 
-    .modal-image {
-      max-width: 90%;
-      max-height: 80vh;
-      object-fit: contain;
-      margin-bottom: 1rem;
-      border: 1px solid rgba(255, 140, 0, 0.3);
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
     }
 
-    .modal-details {
-      max-width: 800px;
-      text-align: center;
-      color: white;
-      padding: 1rem;
+    .blog-card {
+      background: #111;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: 0.3s ease;
+      overflow: hidden;
     }
 
-    .modal-details h3 {
-      color: var(--electric-orange);
-      margin-bottom: 0.5rem;
-      font-size: 1.5rem;
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 243, 255, 0.1);
     }
 
-    .modal-details p {
-      margin: 0.5rem 0;
-      line-height: 1.5;
-      color: var(--text-secondary);
+    .blog-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
     }
 
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
+    .blog-content {
+      padding: 1.5rem;
     }
 
-    .close-modal:hover {
-      color: var(--electric-orange);
+    .blog-content h3 {
+      color: var(--electric-blue);
+      margin-top: 0;
     }
+
+    .blog-content p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+    }
+
+    .blog-meta {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--neon-pink);
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s ease;
+    }
+
+    .read-more:hover {
+      color: var(--flashy-pink);
+    }
+
+
+    
+  
 
     @keyframes fadeIn {
       from { opacity: 0; }
@@ -573,6 +391,10 @@
         min-width: 100%;
       }
       
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
       .category-buttons {
         justify-content: center;
         padding-top: 0.5rem;
@@ -655,9 +477,9 @@
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="blog.html">Blog</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
         <li><a href="prompting.html">Prompting</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="promo.html">Promo</a></li>
@@ -675,9 +497,9 @@
   <div class="mobile-menu">
     <ul class="mobile-nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="blog.html">Blog</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
       <li><a href="prompting.html">Prompting</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="promo.html">Promo</a></li>
@@ -685,17 +507,6 @@
     </ul>
   </div>
 
-  <!-- Image Modal -->
-  <div id="imageModal" class="image-modal">
-    <span class="close-modal">&times;</span>
-    <div class="modal-content">
-      <img id="modalImage" class="modal-image" src="" alt="">
-      <div class="modal-details">
-        <h3 id="modalTitle"></h3>
-        <p id="modalDesc"></p>
-      </div>
-    </div>
-  </div>
 
   <!-- Hero Section -->
   <section id="hero">
@@ -705,37 +516,9 @@
   <!-- Quote Section --
   <div id="quoteSection" class="quote-section">Loading quote...</div>
 
-  <!-- Gallery Controls -->
-  <section class="gallery-controls">
-    <div class="controls-row">
-      <!-- Search Bar (Left) -->
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search artworks...">
-        <button id="searchBtn">⌕</button>
-      </div>
-      <!-- Category Buttons (Center) -->
-      <div class="category-buttons">
-        <button class="category-btn active" data-category="all">All</button>
-        <button class="category-btn" data-category="nature">Nature</button>
-        <button class="category-btn" data-category="technology">Tech</button>
-        <button class="category-btn" data-category="art">Art</button>
-        <button class="category-btn" data-category="abstract">Abstract</button>
-      </div>
-      <!-- Filter Toggle / Sort Options (Right) -->
-      <div class="sort-options">
-        <select id="sortSelect">
-          <option value="random">Sort by: Random</option>
-          <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
-          <option value="popular">Most Popular</option>
-          <option value="views">Most Views</option>
-        </select>
-      </div>
-    </div>
-  </section>
 
-  <!-- Portfolio Grid -->
-  <div class="portfolio-grid" id="portfolio-grid"></div>
+
+  
 
   <!-- Footer -->
   <footer>
