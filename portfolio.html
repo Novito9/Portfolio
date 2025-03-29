@@ -909,6 +909,46 @@
         }
       }, 3000);
     });
+
+  document.querySelectorAll('.category-btn').forEach(button => {
+  button.addEventListener('click', function () {
+    // Remove 'active' class from all buttons
+    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+
+    // Add 'active' class to the clicked button
+    this.classList.add('active');
+
+    // Get the selected category
+    const selectedCategory = this.dataset.category;
+
+    // Filter and display images based on the selected category
+    filterImagesByCategory(selectedCategory);
+  });
+});
+
+function filterImagesByCategory(category) {
+  const grid = document.getElementById('portfolio-grid');
+  grid.innerHTML = '<div class="loading">Filtering projects...</div>';
+
+  loadImages().then(images => {
+    const filteredImages = category === 'all'
+      ? images
+      : images.filter(image => image.tags.includes(category));
+
+    grid.innerHTML = '';
+    if (filteredImages.length === 0) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:2rem;">
+          <p style="color:var(--electric-green);">No projects found in this category</p>
+        </div>
+      `;
+    } else {
+      filteredImages.forEach(image => {
+        grid.appendChild(createImageElement(image));
+      });
+    }
+  });
+}
 </script>
   
 </body>
