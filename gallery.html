@@ -3,36 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <title>Novito9 - gallery</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;500&display=swap">
   <style>
-    /* Base styles with gold/indigo variation */
     :root {
-      --electric-gold: #ffd700;
-      --neon-indigo: #6a00ff;
-      --dark-bg: #000;
-      --flashy-gold: #ffea00;
-      --hot-indigo: #7f00ff;
-      --gold-glow: rgba(255, 215, 0, 0.7);
+      --neon-orange: #FF5E00;
+      --electric-orange: #FF8C00;
+      --golden-yellow: #FFD700;
+      --dark-bg: #121212;
+      --orange-glow: rgba(255, 94, 0, 0.7);
+      --card-bg: #1a1a1a;
+      --text-primary: rgba(255, 255, 255, 0.9);
+      --text-secondary: rgba(255, 255, 255, 0.7);
     }
 
     body {
       margin: 0;
       font-family: 'Space Mono', monospace;
       background-color: var(--dark-bg);
-      color: #fff;
+      color: var(--text-primary);
       overflow-x: hidden;
+      background-image: 
+        linear-gradient(rgba(255, 94, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 94, 0, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
+    /* Navigation */
     .navbar {
       padding: 1.5rem 2rem;
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
-      background: rgba(0, 0, 0, 0.95);
+      background: rgba(18, 18, 18, 0.98);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 140, 0, 0.3);
     }
 
     .navbar nav ul {
@@ -45,14 +51,16 @@
     }
 
     .navbar nav ul li a {
-      color: #fff;
+      color: var(--text-primary);
       text-decoration: none;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       position: relative;
       padding: 0.5rem 0;
       transition: 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
     }
 
     .navbar nav ul li a::after {
@@ -62,7 +70,7 @@
       height: 2px;
       bottom: 0;
       left: 0;
-      background: var(--electric-gold);
+      background: var(--electric-orange);
       transition: width 0.3s ease;
     }
 
@@ -71,296 +79,572 @@
     }
 
     .navbar nav ul li a.active {
-      color: var(--electric-gold);
+      color: var(--electric-orange);
     }
 
-    /* Gallery Header */
-    .gallery-header {
-      height: 80vh;
+    /* Mobile Menu */
+    .menu-btn {
+      display: none;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0.5rem;
+      position: absolute;
+      right: 2rem;
+      top: 1.5rem;
+      z-index: 1001;
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: var(--electric-orange);
+      margin: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(15px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: translateY(-100%);
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .mobile-menu.active {
+      transform: translateY(0);
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .mobile-nav-links li a {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-nav-links li a:hover {
+      color: var(--electric-orange);
+    }
+
+    .mobile-nav-links li a.active {
+      color: var(--electric-orange);
+    }
+
+    /* Hero Section */
+    #hero {
+      height: 20vh;
+      min-height: 180px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 2rem;
+      padding: 1rem;
       margin-top: 60px;
-      background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.95));
       position: relative;
       overflow: hidden;
     }
 
-    .gallery-header h1 {
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      margin: 0;
-      color: var(--electric-gold);
+    #hero h1 {
+      font-size: clamp(2.5rem, 10vw, 5rem);
+      margin: 0 0 0.5rem 0;
+      line-height: 1;
+      color: var(--electric-orange);
       text-shadow: 
-        0 0 10px var(--gold-glow),
-        0 0 20px var(--gold-glow);
+        0 0 10px var(--orange-glow),
+        0 0 20px var(--orange-glow),
+        0 0 30px var(--orange-glow),
+        0 0 60px var(--golden-yellow);
+      animation: 
+        orange-pulse 0.8s infinite alternate,
+        text-glitch 4s infinite;
       position: relative;
-      z-index: 2;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 5px;
     }
 
-    .gallery-header p {
-      font-size: 1.25rem;
-      margin: 1rem 0 0;
-      color: rgba(255, 255, 255, 0.8);
+    #hero p {
+      font-size: 1.1rem;
+      margin: 0.5rem 0 0;
+      color: var(--text-secondary);
       max-width: 600px;
-      position: relative;
-      z-index: 2;
     }
 
-    .header-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('images/gallery-header-bg.jpg') center/cover;
-      opacity: 0.3;
-      animation: bgPan 60s infinite linear;
+    #welcome-message {
+      transition: opacity 1.5s ease-out, visibility 1.5s ease-out;
+    }
+    
+    #welcome-message.fade-out {
+      opacity: 0;
+      visibility: hidden;
     }
 
-    @keyframes bgPan {
-      0% { background-position: 0% 0%; }
-      50% { background-position: 100% 100%; }
-      100% { background-position: 0% 0%; }
-    }
-
-    /* Gallery Navigation */
-    .gallery-nav {
+    /* Quote Section - Fixed positioning */
+    .quote-section {
+      text-align: center;
+      padding: 0.5rem 1rem;
+      margin: -1.5rem auto 0;
+      max-width: 800px;
+      color: var(--golden-yellow);
+      font-size: 1.1rem;
+      font-style: italic;
+      opacity: 1;
+      transition: opacity 1s ease;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+      min-height: 3rem;
       display: flex;
+      align-items: center;
       justify-content: center;
-      padding: 1.5rem;
-      background: rgba(20,20,20,0.8);
-      position: sticky;
-      top: 80px;
-      z-index: 900;
     }
 
-    .gallery-nav button {
-      padding: 0.8rem 1.5rem;
+    @keyframes orange-pulse {
+      from {
+        text-shadow: 
+          0 0 10px var(--orange-glow),
+          0 0 20px var(--orange-glow),
+          0 0 30px var(--golden-yellow);
+      }
+      to {
+        text-shadow: 
+          0 0 20px var(--orange-glow),
+          0 0 40px var(--orange-glow),
+          0 0 60px var(--golden-yellow),
+          0 0 80px var(--golden-yellow);
+      }
+    }
+
+    /* Gallery Controls - Three-column layout */
+    .gallery-controls {
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 140, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 140, 0, 0.2);
+      margin-bottom: 1rem;
+    }
+
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+
+    .search-bar {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--electric-orange);
+      color: white;
+      font-family: 'Space Mono', monospace;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      padding-right: 2.5rem;
+      outline: none;
+    }
+
+    .search-bar input:focus {
+      border-color: var(--golden-yellow);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .search-bar button {
+      position: absolute;
+      right: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
       background: transparent;
       border: none;
-      color: var(--electric-gold);
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      color: var(--electric-orange);
+      font-size: 1.2rem;
       cursor: pointer;
       transition: all 0.3s ease;
-      position: relative;
     }
 
-    .gallery-nav button::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--neon-indigo);
+    .search-bar button:hover {
+      color: var(--golden-yellow);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .category-btn {
+      padding: 0.8rem 1.2rem;
+      background: transparent;
+      border: 2px solid var(--electric-orange);
+      color: var(--electric-orange);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
       transition: all 0.3s ease;
+      border-radius: 4px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      white-space: nowrap;
     }
 
-    .gallery-nav button:hover::after,
-    .gallery-nav button.active::after {
+    .category-btn:hover {
+      background: rgba(255, 140, 0, 0.1);
+      box-shadow: 0 0 15px rgba(255, 140, 0, 0.3);
+    }
+
+    .category-btn.active {
+      background: rgba(255, 140, 0, 0.2);
+      color: var(--golden-yellow);
+      border-color: var(--golden-yellow);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+
+    .sort-options {
+      flex: 0 0 auto;
+      min-width: 200px;
+    }
+
+    .sort-options select {
       width: 100%;
-      left: 0;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--electric-orange);
+      color: white;
+      font-family: 'Space Mono', monospace;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      outline: none;
     }
 
-    .gallery-nav button.active {
-      color: var(--neon-indigo);
+    .sort-options select:focus {
+      border-color: var(--golden-yellow);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .sort-options option {
+      background: #111;
     }
 
     /* Gallery Grid */
-    .gallery-container {
-      max-width: 1800px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    .art-grid {
+    .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    .art-piece {
+    .portfolio-item {
       position: relative;
       overflow: hidden;
-      aspect-ratio: 1;
-      background: #000;
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      background: var(--card-bg);
+      border-radius: 4px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      aspect-ratio: 1/1;
     }
 
-    .art-piece:hover {
-      transform: translateY(-10px);
-      box-shadow: 
-        0 20px 40px rgba(0,0,0,0.5),
-        0 0 0 1px var(--electric-gold);
+    /* Create variety in grid items */
+    .portfolio-item:nth-child(3n) {
+      aspect-ratio: 1/1.2;
+    }
+    
+    .portfolio-item:nth-child(5n) {
+      aspect-ratio: 1.2/1;
+    }
+    
+    .portfolio-item:nth-child(7n) {
+      aspect-ratio: 1/0.8;
     }
 
-    .art-piece img {
+    .portfolio-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2);
+      border-color: rgba(255, 140, 0, 0.5);
+    }
+
+    .portfolio-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.3s ease;
     }
 
-    .art-piece:hover img {
+    .portfolio-item:hover img {
       transform: scale(1.05);
     }
 
-    .art-info {
+    .item-overlay {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-      padding: 2rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+      padding: 1rem;
       transform: translateY(100%);
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.3s ease;
     }
 
-    .art-piece:hover .art-info {
+    .portfolio-item:hover .item-overlay {
       transform: translateY(0);
     }
 
-    .art-title {
-      color: var(--electric-gold);
-      margin: 0 0 0.5rem;
-    }
-
-    .art-meta {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .art-desc {
-      color: rgba(255,255,255,0.9);
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    /* Lightbox */
-    .lightbox {
+    /* Image Modal */
+    .image-modal {
       display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.95);
-      z-index: 2000;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 10000;
+      overflow: auto;
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
       padding: 2rem;
       box-sizing: border-box;
     }
 
-    .lightbox-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .lightbox-img {
-      max-width: 100%;
+    .modal-image {
+      max-width: 90%;
       max-height: 80vh;
       object-fit: contain;
-      margin: 0 auto;
-      box-shadow: 0 0 40px rgba(106, 0, 255, 0.3);
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 140, 0, 0.3);
     }
 
-    .lightbox-info {
+    .modal-details {
       max-width: 800px;
-      margin: 2rem auto 0;
       text-align: center;
+      color: white;
+      padding: 1rem;
     }
 
-    .lightbox-title {
-      color: var(--electric-gold);
+    .modal-details h3 {
+      color: var(--electric-orange);
       margin-bottom: 0.5rem;
+      font-size: 1.5rem;
     }
 
-    .lightbox-desc {
-      color: rgba(255,255,255,0.8);
-      line-height: 1.6;
+    .modal-details p {
+      margin: 0.5rem 0;
+      line-height: 1.5;
+      color: var(--text-secondary);
     }
 
-    .close-lightbox {
+    .close-modal {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
-      color: var(--electric-gold);
-      font-size: 2.5rem;
+      top: 1rem;
+      right: 1.5rem;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
       cursor: pointer;
-      transition: color 0.3s ease;
+      transition: 0.3s;
     }
 
-    .close-lightbox:hover {
-      color: var(--neon-indigo);
+    .close-modal:hover {
+      color: var(--electric-orange);
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Glitch Animations */
+    @keyframes text-glitch {
+      0%, 100% {
+        text-shadow: 3px 3px 0 var(--neon-orange), -3px -3px 0 var(--golden-yellow);
+      }
+      25% {
+        text-shadow: -3px 3px 0 var(--neon-orange), 3px -3px 0 var(--golden-yellow);
+      }
+      50% {
+        text-shadow: 3px -3px 0 var(--neon-orange), -3px 3px 0 var(--golden-yellow);
+      }
+      75% {
+        text-shadow: -3px -3px 0 var(--neon-orange), 3px 3px 0 var(--golden-yellow);
+      }
+    }
+    
     /* Footer */
     footer {
-      padding: 3rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
       text-align: center;
-      background: #000;
-      margin-top: 4rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(18, 18, 18, 0.95);
+      border-top: 1px solid rgba(255, 140, 0, 0.2);
+      margin-top: 2rem;
     }
 
     footer p {
       margin: 0;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.9rem;
-    }
-
-    /* Loading Animation */
-    .loading {
+      color: var(--text-secondary);
       display: flex;
-      justify-content: center;
-      padding: 3rem;
+      align-items: center;
     }
 
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255, 215, 0, 0.3);
-      border-radius: 50%;
-      border-top-color: var(--electric-gold);
-      animation: spin 1s ease-in-out infinite;
+    footer .heart-pulse {
+      color: var(--golden-yellow);
+      margin: 0 0.3rem;
+      text-shadow: 0 0 8px var(--orange-glow);
+      animation: pulse 1.5s infinite;
+      display: inline-block;
+      transition: all 0.3s ease;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    footer .heart-pulse:hover {
+      color: var(--electric-orange);
+      text-shadow: 0 0 12px var(--orange-glow);
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+      transform: scale(1.3);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.8rem;
+      }
+      
+      .search-bar,
+      .category-buttons,
+      .sort-options {
+        min-width: 100%;
+      }
+      
+      .category-buttons {
+        justify-content: center;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255, 140, 0, 0.2);
+      }
     }
 
     @media (max-width: 768px) {
       .navbar nav ul {
-        gap: 1rem;
-        flex-wrap: wrap;
+        display: none;
       }
       
-      .gallery-header {
-        margin-top: 80px;
-        height: 60vh;
+      .menu-btn {
+        display: block;
+      }
+      
+      .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
       }
 
-      .gallery-nav {
-        top: 120px;
-        flex-wrap: wrap;
+      #hero {
+        height: 18vh;
+        min-height: 160px;
       }
 
-      .art-grid {
-        grid-template-columns: 1fr;
+      .quote-section {
+        font-size: 1rem;
+        padding: 0.5rem;
+        margin: -1.2rem auto 0;
+        min-height: 2.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 1rem;
+      }
+      
+      #hero {
+        margin-top: 70px;
+        padding: 1rem;
+        height: 16vh;
+        min-height: 140px;
+      }
+      
+      #hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      #hero p {
+        font-size: 0.9rem;
+      }
+      
+      .mobile-nav-links li a {
+        font-size: 1.1rem;
+      }
+      
+      .category-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.7rem;
       }
 
-      .art-info {
-        padding: 1.5rem;
+      .modal-image {
+        max-width: 95%;
+      }
+
+      .quote-section {
+        font-size: 0.9rem;
+        margin: -1rem auto 0;
+        min-height: 2.5rem;
       }
     }
   </style>
@@ -369,7 +653,6 @@
   <!-- Navigation -->
   <header class="navbar">
     <nav>
-
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="gallery.html" class="active">Gallery</a></li>
@@ -381,203 +664,314 @@
         <li><a href="Tip-Jar.html">Tip-Jar</a></li>
       </ul>
     </nav>
+    <button class="menu-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </header>
   
-  <!-- Gallery Header -->
-  <section class="gallery-header">
-    <div class="header-bg"></div>
-    <h1>DIGITAL GALLERY</h1>
-    <p>A curated collection of cyberpunk-inspired artworks and digital creations</p>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="prompting.html">Prompting</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="promo.html">Promo</a></li>
+      <li><a href="Tip-Jar.html">Tip-Jar</a></li>
+    </ul>
+  </div>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="image-modal">
+    <span class="close-modal">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" class="modal-image" src="" alt="">
+      <div class="modal-details">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <h1>Gallery</h1>
+    <p id="welcome-message">A curated variety of digital media and artworks creations</p>
+  </section>
+  <!-- Quote Section --
+  <div id="quoteSection" class="quote-section">Loading quote...</div>
+
+  <!-- Gallery Controls -->
+  <section class="gallery-controls">
+    <div class="controls-row">
+      <!-- Search Bar (Left) -->
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search artworks...">
+        <button id="searchBtn">⌕</button>
+      </div>
+      <!-- Category Buttons (Center) -->
+      <div class="category-buttons">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="nature">Nature</button>
+        <button class="category-btn" data-category="technology">Tech</button>
+        <button class="category-btn" data-category="art">Art</button>
+        <button class="category-btn" data-category="abstract">Abstract</button>
+      </div>
+      <!-- Filter Toggle / Sort Options (Right) -->
+      <div class="sort-options">
+        <select id="sortSelect">
+          <option value="random">Sort by: Random</option>
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="popular">Most Popular</option>
+          <option value="views">Most Views</option>
+        </select>
+      </div>
+    </div>
   </section>
 
-  <!-- Gallery Navigation -->
-  <div class="gallery-nav">
-    <button class="active" data-category="all">All Works</button>
-    <button data-category="cyberpunk">Cyberpunk</button>
-    <button data-category="abstract">Abstract</button>
-    <button data-category="portrait">Portraits</button>
-    <button data-category="landscape">Landscapes</button>
-  </div>
+  <!-- Portfolio Grid -->
+  <div class="portfolio-grid" id="portfolio-grid"></div>
 
-  <!-- Gallery Grid -->
-  <div class="gallery-container">
-    <div class="art-grid" id="artGrid">
-      <div class="loading">
-        <div class="spinner"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <span class="close-lightbox">&times;</span>
-    <div class="lightbox-content">
-      <img class="lightbox-img" id="lightboxImg" src="" alt="">
-      <div class="lightbox-info">
-        <h2 class="lightbox-title" id="lightboxTitle"></h2>
-        <p class="lightbox-desc" id="lightboxDesc"></p>
-      </div>
-    </div>
-  </div>
-
+  <!-- Footer -->
   <footer>
-    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
+    <p>Created with <span class="heart-pulse">♥</span> by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
   </footer>
 
-  <script>
-    // Artwork data
-    const artworks = [
-      {
-        id: 1,
-        title: "Neon Metropolis",
-        image: "images/neon-metropolis.jpg",
-        category: "cyberpunk",
-        description: "A sprawling cyberpunk cityscape with towering skyscrapers and vibrant neon signs reflecting on rain-soaked streets. Created using a blend of 3D rendering and digital painting techniques.",
-        year: 2025,
-        size: "4000 × 6000 px"
-      },
-      {
-        id: 2,
-        title: "Digital Dreams",
-        image: "images/digital-dreams.jpg",
-        category: "abstract",
-        description: "Abstract representation of data flow in a neural network. This piece explores the intersection of technology and human consciousness through fluid digital forms.",
-        year: 2024,
-        size: "5000 × 5000 px"
-      },
-      {
-        id: 3,
-        title: "Cyber Samurai",
-        image: "images/cyber-samurai.jpg",
-        category: "portrait",
-        description: "Futuristic warrior portrait combining traditional Japanese elements with cybernetic enhancements. Rendered in Unreal Engine with post-processing in Photoshop.",
-        year: 2025,
-        size: "3500 × 5250 px"
-      },
-      {
-        id: 4,
-        title: "Fractal Dimensions",
-        image: "images/fractal-dimensions.jpg",
-        category: "abstract",
-        description: "Mathematically-generated fractal artwork with infinite detail. Zoom reveals ever more complex patterns within the golden ratio structure.",
-        year: 2023,
-        size: "6000 × 6000 px"
-      },
-      {
-        id: 5,
-        title: "Tokyo 2089",
-        image: "images/tokyo-2089.jpg",
-        category: "cyberpunk",
-        description: "Reimagined Tokyo cityscape with futuristic architecture and holographic advertisements. Inspired by classic cyberpunk literature with a modern aesthetic.",
-        year: 2025,
-        size: "4500 × 3000 px"
-      },
-      {
-        id: 6,
-        title: "Quantum Portrait",
-        image: "images/quantum-portrait.jpg",
-        category: "portrait",
-        description: "Experimental portrait that exists in multiple quantum states simultaneously. Created using AI-assisted rendering and manual digital painting.",
-        year: 2024,
-        size: "4000 × 4000 px"
-      },
-      {
-        id: 7,
-        title: "Alien Flora",
-        image: "images/alien-flora.jpg",
-        category: "landscape",
-        description: "Bioluminescent plant life on an exoplanet with three suns. This speculative biology piece imagines photosynthesis in an alien environment.",
-        year: 2025,
-        size: "5000 × 3000 px"
-      },
-      {
-        id: 8,
-        title: "Data Storm",
-        image: "images/data-storm.jpg",
-        category: "abstract",
-        description: "Visualization of a digital information storm. Each particle represents a packet of data flowing through a global network.",
-        year: 2023,
-        size: "4000 × 6000 px"
-      }
-    ];
-
-    // Initialize gallery
-    document.addEventListener('DOMContentLoaded', function() {
-      // Simulate loading from JSON
-      setTimeout(() => {
-        displayArtworks(artworks);
-        
-        // Filter functionality
-        const filterBtns = document.querySelectorAll('.gallery-nav button');
-        filterBtns.forEach(btn => {
-          btn.addEventListener('click', function() {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            const category = this.dataset.category;
-            if (category === 'all') {
-              displayArtworks(artworks);
-            } else {
-              const filteredArt = artworks.filter(art => art.category === category);
-              displayArtworks(filteredArt);
-            }
-          });
-        });
-        
-        // Lightbox functionality
-        const lightbox = document.getElementById('lightbox');
-        const closeBtn = document.querySelector('.close-lightbox');
-        
-        closeBtn.addEventListener('click', function() {
-          lightbox.style.display = 'none';
-        });
-        
-        window.addEventListener('click', function(e) {
-          if(e.target === lightbox) {
-            lightbox.style.display = 'none';
-          }
-        });
-      }, 1000);
+ <script>
+    // Mobile Menu Toggle
+    const menuBtn = document.querySelector('.menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    menuBtn.addEventListener('click', function() {
+      this.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
     });
 
-    function displayArtworks(artworks) {
-      const grid = document.getElementById('artGrid');
-      grid.innerHTML = '';
-      
-      // Randomize display order
-      const shuffled = [...artworks].sort(() => 0.5 - Math.random());
-      
-      shuffled.forEach(art => {
-        const artPiece = document.createElement('div');
-        artPiece.className = 'art-piece';
-        artPiece.dataset.category = art.category;
+    // Image Modal
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const closeModal = document.querySelector(".close-modal");
+
+    function openModal(imgSrc, title, desc) {
+      modal.style.display = "flex";
+      modalImg.src = imgSrc;
+      modalImg.alt = title;
+      modalTitle.textContent = title;
+      modalDesc.textContent = desc;
+      document.body.style.overflow = "hidden";
+    }
+
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+      document.body.style.overflow = "";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+    });
+
+    // Gallery Functions
+    let allImages = [];
+    let filteredImages = [];
+
+    async function loadGalleryImages() {
+      try {
+        const response = await fetch('images/image-list.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
         
-        const img = new Image();
-        img.src = art.image;
-        img.alt = art.title;
-        img.loading = "lazy";
+        if (!Array.isArray(data)) {
+          throw new Error('Expected an array of images');
+        }
         
-        img.addEventListener('click', function() {
-          document.getElementById('lightbox').style.display = 'block';
-          document.getElementById('lightboxImg').src = art.image;
-          document.getElementById('lightboxImg').alt = art.title;
-          document.getElementById('lightboxTitle').textContent = art.title;
-          document.getElementById('lightboxDesc').textContent = `${art.description} (${art.year}, ${art.size})`;
+        // Validate and clean data
+        return data.filter(item => {
+          if (!item.url) {
+            console.warn('Image missing URL:', item);
+            return false;
+          }
+          
+          // Ensure URL is properly formatted
+          if (!item.url.startsWith('images/')) {
+            item.url = `images/${item.url}`;
+          }
+          
+          // Ensure tags exist
+          if (!item.tags || !Array.isArray(item.tags)) {
+            item.tags = ['art'];
+          }
+          
+          // Ensure default values for sorting
+          item.likes = item.likes || 0;
+          item.views = item.views || 0;
+          item.date = item.date || new Date().toISOString();
+          
+          return true;
         });
+      } catch (error) {
+        console.error('Error loading images:', error);
+        return [];
+      }
+    }
+
+    function createGalleryItem(item) {
+      const galleryItem = document.createElement('div');
+      galleryItem.className = 'portfolio-item';
+
+      const img = document.createElement('img');
+      img.src = item.url;
+      img.alt = item.alt || item.title || 'Artwork';
+      img.loading = 'lazy';
+      
+      img.onerror = () => {
+        console.error('Failed to load image:', item.url);
+        galleryItem.style.display = 'none';
+      };
+
+      const overlay = document.createElement('div');
+      overlay.className = 'item-overlay';
+      overlay.innerHTML = `
+        <h3>${item.title || 'Untitled'}</h3>
+        <p>${item.tags.join(', ')}</p>
+      `;
+
+      galleryItem.appendChild(img);
+      galleryItem.appendChild(overlay);
+      
+      galleryItem.addEventListener('click', () => {
+        openModal(
+          item.url,
+          item.title || 'Untitled',
+          item.desc || item.tags.join(', ') || 'Digital artwork'
+        );
+      });
+
+      return galleryItem;
+    }
+
+    function filterImages() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const activeCategory = document.querySelector('.category-btn.active')?.dataset.category || 'all';
+      const sortOption = document.getElementById('sortSelect').value;
+      
+      filteredImages = allImages.filter(item => {
+        // Search filter
+        const matchesSearch = 
+          (item.title?.toLowerCase().includes(searchTerm)) ||
+          (item.desc?.toLowerCase().includes(searchTerm)) ||
+          (item.tags?.some(tag => tag.toLowerCase().includes(searchTerm)));
         
-        const info = document.createElement('div');
-        info.className = 'art-info';
-        info.innerHTML = `
-          <h3 class="art-title">${art.title}</h3>
-          <div class="art-meta">${art.year} • ${art.size}</div>
-          <p class="art-desc">${art.description}</p>
+        // Category filter
+        const matchesCategory = 
+          activeCategory === 'all' || 
+          item.tags?.some(tag => tag.toLowerCase() === activeCategory.toLowerCase());
+        
+        return matchesSearch && matchesCategory;
+      });
+      
+      // Sorting
+      switch(sortOption) {
+        case 'newest':
+          filteredImages.sort((a, b) => new Date(b.date) - new Date(a.date));
+          break;
+        case 'oldest':
+          filteredImages.sort((a, b) => new Date(a.date) - new Date(b.date));
+          break;
+        case 'popular':
+          filteredImages.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+          break;
+        case 'views':
+          filteredImages.sort((a, b) => (b.views || 0) - (a.views || 0));
+          break;
+        default: // random
+          filteredImages = shuffleArray([...filteredImages]);
+      }
+      
+      displayFilteredImages();
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function displayFilteredImages() {
+      const grid = document.getElementById('portfolio-grid');
+      
+      if (filteredImages.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column:1/-1;text-align:center;padding:2rem;">
+            <p style="color:var(--electric-orange);">No artworks found</p>
+            <p style="color:var(--text-secondary);font-size:0.9rem;">
+              Try adjusting your search or filter criteria
+            </p>
+          </div>
         `;
-        
-        artPiece.appendChild(img);
-        artPiece.appendChild(info);
-        grid.appendChild(artPiece);
+        return;
+      }
+      
+      grid.innerHTML = '';
+      filteredImages.forEach(item => {
+        grid.appendChild(createGalleryItem(item));
       });
     }
-  </script>
+
+    // Initialize Gallery
+    async function initGallery() {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = '<div class="loading">Loading artworks...</div>';
+      
+      allImages = await loadGalleryImages();
+      filteredImages = [...allImages];
+      
+      // Set up event listeners
+      document.getElementById('searchInput').addEventListener('input', filterImages);
+      document.getElementById('searchBtn').addEventListener('click', filterImages);
+      document.getElementById('sortSelect').addEventListener('change', filterImages);
+      
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          filterImages();
+        });
+      });
+      
+      // Initial display
+      filterImages();
+      
+      // Fade out welcome message
+      setTimeout(() => {
+        const welcomeMsg = document.getElementById('welcome-message');
+        if (welcomeMsg) welcomeMsg.classList.add('fade-out');
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', initGallery);
+</script>
 </body>
 </html>

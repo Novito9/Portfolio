@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Novito9</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+  <title>Novito9 - Digital Art Portal</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;500&display=swap">
   <style>
     :root {
       --electric-blue: #00f3ff;
       --neon-pink: #ff0066;
-      --dark-bg: #000;
+      --dark-bg: #121212;
       --flashy-pink: #ff00ff;
       --hot-pink: #ff0099;
       --pink-glow: rgba(255, 0, 255, 0.7);
+      --cyber-yellow: #fff200;
+      --matrix-green: #00ff41;
+      --card-bg: #1a1a1a;
     }
 
     body {
@@ -21,18 +24,22 @@
       background-color: var(--dark-bg);
       color: #fff;
       overflow-x: hidden;
+      background-image: 
+        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
-    /* Original Cyberpunk Navigation */
+    /* Navigation */
     .navbar {
       padding: 1.5rem 2rem;
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
-      background: rgba(0, 0, 0, 0.95);
+      background: rgba(10, 10, 10, 0.98);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(0, 243, 255, 0.3);
     }
 
     .navbar nav ul {
@@ -49,10 +56,12 @@
       text-decoration: none;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       position: relative;
       padding: 0.5rem 0;
       transition: 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
     }
 
     .navbar nav ul li a::after {
@@ -74,7 +83,7 @@
       color: var(--electric-blue);
     }
 
-    /* Mobile Menu Button */
+    /* Mobile Menu */
     .menu-btn {
       display: none;
       cursor: pointer;
@@ -97,7 +106,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Mobile Menu */
     .mobile-menu {
       position: fixed;
       top: 0;
@@ -126,7 +134,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .mobile-nav-links li a {
@@ -135,25 +143,22 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       font-weight: 700;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       padding: 0.5rem 1rem;
       transition: all 0.3s ease;
-      display: inline-block;
     }
 
     .mobile-nav-links li a:hover {
       color: var(--electric-blue);
-      transform: translateX(5px);
     }
 
     .mobile-nav-links li a.active {
       color: var(--electric-blue);
-      border-left: 3px solid var(--electric-blue);
     }
 
-    /* Glitch Hero Section - Adjusted spacing */
+    /* Hero Section with Original Pink Animation */
     #hero {
-      height: 80vh;
+      height: 70vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -161,7 +166,8 @@
       text-align: center;
       padding: 1rem;
       margin-top: 60px;
-      padding-bottom: 0;
+      position: relative;
+      overflow: hidden;
     }
 
     #hero h1 {
@@ -178,13 +184,24 @@
         pink-pulse 0.8s infinite alternate,
         text-glitch 4s infinite;
       position: relative;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 5px;
     }
 
     #hero p {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       margin: 0.5rem 0;
       color: rgba(255, 255, 255, 0.8);
       max-width: 600px;
+    }
+
+    #welcome-message {
+      transition: opacity 1.5s ease-out, visibility 1.5s ease-out;
+    }
+    
+    #welcome-message.fade-out {
+      opacity: 0;
+      visibility: hidden;
     }
 
     @keyframes pink-pulse {
@@ -203,100 +220,96 @@
       }
     }
 
-    /* Cyber Button */
+    /* Dynamic Quote */
+    #dynamic-quote {
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 600px;
+      margin: 1rem auto;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    /* Gallery Button */
     .btn-gallery {
-      padding: 1rem 3rem;
+      padding: 0.8rem 2.5rem;
       background: transparent;
       border: 2px solid var(--electric-blue);
       color: var(--electric-blue);
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: 0.3s ease;
-      margin: 1rem 0 0 0;
-    }
-
-    .btn-gallery::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(0, 243, 255, 0.2),
-        transparent
-      );
-      transition: 0.5s;
+      transition: all 0.3s ease;
+      margin-top: 1.5rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
     }
 
     .btn-gallery:hover {
       background: rgba(0, 243, 255, 0.1);
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
     }
 
-    .btn-gallery:hover::before {
-      left: 100%;
-    }
-
-    /* Hologrid Portfolio - Adjusted spacing */
+    /* Portfolio Grid - 4 items */
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1px;
-      background: #111;
-      padding: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
       max-width: 1200px;
       margin: 0 auto;
-      margin-top: 1rem;
     }
 
     .portfolio-item {
       position: relative;
       aspect-ratio: 1;
       overflow: hidden;
-      background: #000;
-      transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      background: var(--card-bg);
+      border-radius: 4px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .portfolio-item:hover {
-      transform: scale(1.05);
-      z-index: 2;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      border-color: rgba(0, 243, 255, 0.5);
     }
 
     .portfolio-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     .portfolio-item:hover img {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
 
-    /* Image Overlay */
     .item-overlay {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
       color: white;
       padding: 1rem;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
     }
 
-    .portfolio-item:hover .item-overlay {
-      transform: translateY(0);
+    .item-overlay h3 {
+      margin: 0 0 0.3rem 0;
+      font-size: 1rem;
+    }
+
+    .item-overlay p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
     }
 
     /* Image Modal */
@@ -307,10 +320,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0, 0, 0, 0.95);
       z-index: 10000;
       overflow: auto;
-      animation: fadeIn 0.3s;
     }
 
     .modal-content {
@@ -325,13 +337,14 @@
 
     .modal-image {
       max-width: 90%;
-      max-height: 80vh;
+      max-height: 70vh;
       object-fit: contain;
       margin-bottom: 1rem;
+      border: 1px solid rgba(0, 243, 255, 0.3);
     }
 
     .modal-details {
-      max-width: 800px;
+      max-width: 600px;
       text-align: center;
       color: white;
       padding: 1rem;
@@ -340,17 +353,16 @@
     .modal-details h3 {
       color: var(--electric-blue);
       margin-bottom: 0.5rem;
-      font-size: 1.5rem;
     }
 
     .modal-details p {
       margin: 0.5rem 0;
-      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.8);
     }
 
     .close-modal {
       position: absolute;
-      top: 1rem;
+      top: 1.5rem;
       right: 1.5rem;
       color: white;
       font-size: 2rem;
@@ -363,9 +375,44 @@
       color: var(--electric-blue);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* Footer */
+    footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(10, 10, 10, 0.95);
+      border-top: 1px solid rgba(0, 243, 255, 0.2);
+      margin-top: 2rem;
+    }
+
+    footer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    .heart-pulse {
+      color: var(--neon-pink);
+      margin: 0 0.3rem;
+      display: inline-block;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* Loading State */
+    .loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 2rem;
+      color: var(--electric-blue);
+      font-family: 'Orbitron', sans-serif;
     }
 
     /* Glitch Animations */
@@ -384,26 +431,6 @@
       }
     }
 
-    /* Footer */
-    footer {
-      padding: 3rem 2rem;
-      text-align: center;
-      background: #000;
-      margin-top: 4rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    footer p {
-      margin: 0;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.9rem;
-    }
-
-    footer p span {
-      color: var(--electric-blue);
-      font-weight: 700;
-    }
-
     /* Responsive Design */
     @media (max-width: 768px) {
       .navbar nav ul {
@@ -415,11 +442,13 @@
       }
       
       .portfolio-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1rem;
       }
 
       #hero {
-        height: 70vh;
+        height: 60vh;
       }
     }
 
@@ -429,9 +458,8 @@
       }
       
       #hero {
-        margin-top: 80px;
-        padding: 1rem;
-        height: 65vh;
+        margin-top: 70px;
+        height: 50vh;
       }
       
       #hero h1 {
@@ -439,26 +467,21 @@
       }
       
       #hero p {
-        font-size: 1rem;
-      }
-      
-      .mobile-nav-links li a {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
       }
       
       .btn-gallery {
-        padding: 0.75rem 2rem;
-        font-size: 0.9rem;
+        padding: 0.7rem 2rem;
+        font-size: 0.8rem;
       }
-
-      .modal-image {
-        max-width: 95%;
+      
+      .portfolio-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Original Navigation with Mobile Toggle -->
   <header class="navbar">
     <nav>
       <ul>
@@ -479,7 +502,6 @@
     </button>
   </header>
   
-  <!-- Mobile Menu -->
   <div class="mobile-menu">
     <ul class="mobile-nav-links">
       <li><a href="index.html" class="active">Home</a></li>
@@ -493,7 +515,6 @@
     </ul>
   </div>
 
-  <!-- Image Modal -->
   <div id="imageModal" class="image-modal">
     <span class="close-modal">&times;</span>
     <div class="modal-content">
@@ -507,15 +528,20 @@
 
   <section id="hero">
     <h1>NOVITO9</h1>
-    <p id="welcome-message">Welcome and Thank you for Visiting</p>
-    <p id="dynamic-quote">Loading quote...</p>
+    <p id="welcome-message">Digital Art Portal</p>
+    <p id="dynamic-quote">Loading creative inspiration...</p>
     <button class="btn-gallery" onclick="location.href='gallery.html'">EXPLORE GALLERY</button>
   </section>
 
-  <!-- Portfolio Grid -->
-  <div class="portfolio-grid" id="portfolio-grid"></div>
+  <div class="portfolio-grid" id="portfolio-grid">
+    <div class="loading">Loading featured artworks...</div>
+  </div>
 
-  <script>
+  <footer>
+    <p>Created with <span class="heart-pulse">♥</span> by Nine &copy; 2025 Novito9</p>
+  </footer>
+
+<script>
     // Mobile Menu Toggle
     const menuBtn = document.querySelector('.menu-btn');
     const mobileMenu = document.querySelector('.mobile-menu');
@@ -523,14 +549,10 @@
     menuBtn.addEventListener('click', function() {
       this.classList.toggle('active');
       mobileMenu.classList.toggle('active');
-      
-      // Toggle body overflow when menu is open
       document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
     });
     
-    // Close mobile menu when clicking a link
-    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
-    mobileLinks.forEach(link => {
+    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         menuBtn.classList.remove('active');
         mobileMenu.classList.remove('active');
@@ -538,59 +560,7 @@
       });
     });
 
-    // Helper function to validate image file extensions
-    function isValidImage(url) {
-      if (!url) return false;
-      const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
-      const extension = url.split('.').pop().toLowerCase();
-      return validExtensions.includes(extension);
-    }
-
-    // Dynamic image loader with fallback and validation
-    async function loadRandomImages() {
-      try {
-        const response = await fetch('images/image-list.json');
-        if (response.ok) {
-          const imageData = await response.json();
-          // Filter to ensure only valid images are displayed
-          const validImages = imageData.filter(item => isValidImage(item.url));
-          if (validImages.length > 0) {
-            displayImages(validImages);
-            return;
-          }
-        }
-      } catch (e) {
-        console.log("Using fallback image data");
-      }
-      
-      // Fallback to hardcoded image data (with validation)
-      const fallbackImages = [
-        { 
-          url: "images/Anubis-jackal-headed-god-towering-in-judgment-hall-holding-scales-and-ankh-souls-below.-Chiaroscuro-lighting-black-and-gold-contrast.-Warm-golden-glow-radiant-and-luxurious.jpg", 
-          alt: "Ai Generation Artwork", 
-          title: "Egypt Ai", 
-          desc: "Prompt : Anubis, jackal-headed god, towering in judgment hall, holding scales and ankh, souls below. Chiaroscuro lighting, black and gold contrast. Warm golden glow, radiant and luxurious" 
-        },
-        { 
-          url: "images/A-stylized-Pharaoh-Hound-slender-and-regal-with-charming-features-wears-a-jeweled-collar-and-sits-beside-an-Egyptian-artifact.-Vibrant-complementary-colors-create-a-balanced-and-adorable-image.jpg", 
-          alt: "Holographic Motion", 
-          title: "Quantum Flow", 
-          desc: "Prompt : A stylized Pharaoh Hound, slender and regal, with charming features, wears a jeweled collar and sits beside an Egyptian artifact. Vibrant complementary colors create a balanced and adorable image." 
-        }
-      ].filter(item => isValidImage(item.url));
-      
-      displayImages(fallbackImages);
-    }
-
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    // Modal functionality
+    // Image Modal
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("modalImage");
     const modalTitle = document.getElementById("modalTitle");
@@ -606,106 +576,170 @@
       document.body.style.overflow = "hidden";
     }
 
-    closeModal.addEventListener("click", function() {
+    closeModal.addEventListener("click", () => {
       modal.style.display = "none";
       document.body.style.overflow = "";
     });
 
-    window.addEventListener("click", function(event) {
+    window.addEventListener("click", (event) => {
       if (event.target === modal) {
         modal.style.display = "none";
         document.body.style.overflow = "";
       }
     });
 
-    // Updated displayImages function with modal support
-    function displayImages(imageData) {
-      const grid = document.getElementById('portfolio-grid');
-      grid.innerHTML = '';
-      
-      // Filter and shuffle the images
-      const validImages = shuffleArray(imageData.filter(item => {
-        return item.url && item.alt && isValidImage(item.url);
-      }));
-      
-      // Display only valid images
-      validImages.forEach(item => {
-        const portfolioItem = document.createElement('div');
-        portfolioItem.className = 'portfolio-item';
+    // Image Loading and Display
+    async function loadImages() {
+      try {
+        const response = await fetch('images/image-list.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
         
-        const img = new Image();
-        img.src = item.url;
-        img.alt = item.alt || 'Artwork image';
-        img.loading = "lazy";
+        if (!Array.isArray(data)) {
+          throw new Error('Expected an array of images');
+        }
         
-        // Handle image loading errors
-        img.onerror = function() {
-          console.error('Failed to load image:', item.url);
-          portfolioItem.style.display = 'none'; // Hide the item if image fails to load
-        };
-        
-        // Add click event for modal
-        portfolioItem.addEventListener('click', () => {
-          openModal(item.url, item.title || 'Untitled', item.desc || '');
+        // Validate and clean data
+        return data.filter(item => {
+          if (!item.url) {
+            console.warn('Image missing URL:', item);
+            return false;
+          }
+          
+          // Ensure URL is properly formatted
+          if (!item.url.startsWith('images/')) {
+            item.url = `images/${item.url}`;
+          }
+          
+          // Ensure tags exist
+          if (!item.tags || !Array.isArray(item.tags)) {
+            item.tags = ['art'];
+          }
+          
+          return true;
         });
-        
-        const overlay = document.createElement('div');
-        overlay.className = 'item-overlay';
-        overlay.innerHTML = `
-          <h3>${item.title || 'Untitled'}</h3>
-          <p>${item.desc || ''}</p>
-        `;
-        
-        portfolioItem.appendChild(img);
-        portfolioItem.appendChild(overlay);
-        grid.appendChild(portfolioItem);
-      });
-      
-      // Show message if no images found
-      if (validImages.length === 0) {
-        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:white;">No images found in the gallery</p>';
+      } catch (error) {
+        console.error("Error loading images:", error);
+        return [];
       }
     }
 
-    // Quote functionality
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function createImageElement(item) {
+      const portfolioItem = document.createElement('div');
+      portfolioItem.className = 'portfolio-item';
+
+      const img = document.createElement('img');
+      img.src = item.url;
+      img.alt = item.alt || item.title || 'Digital Artwork';
+      img.loading = "lazy";
+      
+      img.onerror = () => {
+        console.error('Failed to load image:', item.url);
+        portfolioItem.style.display = 'none';
+      };
+
+      const overlay = document.createElement('div');
+      overlay.className = 'item-overlay';
+      overlay.innerHTML = `
+        <h3>${item.title || 'Untitled'}</h3>
+        <p>${item.tags.join(', ')}</p>
+      `;
+
+      portfolioItem.appendChild(img);
+      portfolioItem.appendChild(overlay);
+      
+      portfolioItem.addEventListener('click', () => {
+        openModal(
+          item.url,
+          item.title || 'Untitled',
+          item.desc || item.tags.join(', ') || 'Digital artwork'
+        );
+      });
+
+      return portfolioItem;
+    }
+
+    async function displayFeaturedImages() {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = '<div class="loading">Loading featured artworks...</div>';
+      
+      const images = await loadImages();
+      
+      if (images.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column:1/-1;text-align:center;padding:2rem;">
+            <p style="color:var(--electric-blue);">No artworks found</p>
+            <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">
+              Please check if images/image-list.json exists and contains valid data
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      const shuffledImages = shuffleArray([...images]);
+      const featuredImages = shuffledImages.slice(0, 4);
+      
+      grid.innerHTML = '';
+      featuredImages.forEach(item => {
+        grid.appendChild(createImageElement(item));
+      });
+    }
+
+    // Quote Rotation
     const quotes = [
-      "Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep. - Scott Adams",
+      "In a world of noise, create something worth listening to.",
+      "Art should comfort the disturbed and disturb the comfortable.",
+      "The future is already here — it's just not evenly distributed. - William Gibson",
+      "We don't make mistakes, just happy little accidents. - Bob Ross",
+      "Every artist was first an amateur. - Ralph Waldo Emerson",
+      "Creativity takes courage. - Henri Matisse",
       "Art enables us to find ourselves and lose ourselves at the same time. - Thomas Merton",
-      "A true artist is not one who is inspired, but one who inspires others. - Salvador Dalí"
+      "The only time I feel alive is when I'm painting. - Vincent Van Gogh",
+      "Digital art is like painting, except the paint never dries. - Neville Brody",
+      "Technology is just a tool. In terms of getting the kids working together and motivating them, the teacher is the most important. - Bill Gates"
     ];
 
-    let currentQuote = 0;
-    const dynamicQuote = document.getElementById('dynamic-quote');
-    const welcomeMessage = document.getElementById('welcome-message');
-
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(() => {
-        welcomeMessage.style.opacity = 0;
-      }, 4000);
+    function rotateQuotes() {
+      const quoteElement = document.getElementById('dynamic-quote');
+      let currentIndex = 0;
+      
+      function showNextQuote() {
+        quoteElement.style.opacity = 0;
+        setTimeout(() => {
+          quoteElement.textContent = quotes[currentIndex];
+          quoteElement.style.opacity = 1;
+          currentIndex = (currentIndex + 1) % quotes.length;
+        }, 1000);
+      }
       
       showNextQuote();
       setInterval(showNextQuote, 8000);
-      loadRandomImages();
-    });
+    }
 
-    function showNextQuote() {
-      dynamicQuote.style.opacity = 0;
+    // Initialize Page
+    window.addEventListener('DOMContentLoaded', () => {
+      rotateQuotes();
+      displayFeaturedImages();
+      
       setTimeout(() => {
-        currentQuote = (currentQuote + 1) % quotes.length;
-        dynamicQuote.textContent = quotes[currentQuote];
-        dynamicQuote.style.opacity = 1;
-      }, 1000);
-    }
+        const welcomeMsg = document.getElementById('welcome-message');
+        if (welcomeMsg) {
+          welcomeMsg.classList.add('fade-out');
+        }
+      }, 3000);
+    });
+</script>
 
-    function scrollToGallery() {
-      document.querySelector('.portfolio-grid').scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
-  </script>
-
-  <footer>
-    <p>Designed with <3 by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
-  </footer>
 </body>
 </html>
