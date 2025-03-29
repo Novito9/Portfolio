@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Blog | Novito9</title>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
-      <style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novito9 - gallery</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;500&display=swap">
+  <style>
     :root {
-      --neon-green: #00ff88;
-      --electric-green: #00f3ff;
-      --matrix-green: #00ff41;
+      --neon-orange: #FF5E00;
+      --electric-orange: #FF8C00;
+      --golden-yellow: #FFD700;
       --dark-bg: #121212;
-      --green-glow: rgba(0, 255, 136, 0.7);
+      --orange-glow: rgba(255, 94, 0, 0.7);
       --card-bg: #1a1a1a;
       --text-primary: rgba(255, 255, 255, 0.9);
       --text-secondary: rgba(255, 255, 255, 0.7);
+    }
 
-       body {
+    body {
       margin: 0;
       font-family: 'Space Mono', monospace;
       background-color: var(--dark-bg);
@@ -28,7 +29,7 @@
       background-size: 40px 40px;
     }
 
-       /* Navigation */
+    /* Navigation */
     .navbar {
       padding: 1.5rem 2rem;
       position: fixed;
@@ -73,7 +74,30 @@
       transition: width 0.3s ease;
     }
 
+    .navbar nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .navbar nav ul li a.active {
+      color: var(--electric-orange);
+    }
+
+    /* Mobile Menu */
+    .menu-btn {
+      display: none;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0.5rem;
+      position: absolute;
+      right: 2rem;
+      top: 1.5rem;
+      z-index: 1001;
+    }
+
     .menu-btn span {
+      display: block;
       width: 25px;
       height: 2px;
       background: var(--electric-orange);
@@ -214,73 +238,270 @@
       }
     }
 
-    /* Blog Grid */
-    .blog-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
+    /* Gallery Controls - Three-column layout */
+    .gallery-controls {
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 140, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 140, 0, 0.2);
+      margin-bottom: 1rem;
     }
 
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .blog-card {
-      background: #111;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: 0.3s ease;
-      overflow: hidden;
-    }
-
-    .blog-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 243, 255, 0.1);
-    }
-
-    .blog-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .blog-content {
-      padding: 1.5rem;
-    }
-
-    .blog-content h3 {
-      color: var(--electric-blue);
-      margin-top: 0;
-    }
-
-    .blog-content p {
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.6;
-    }
-
-    .blog-meta {
+    .controls-row {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.9rem;
-      margin-top: 1rem;
+      gap: 1rem;
+      flex-wrap: nowrap;
     }
 
-    .read-more {
-      display: inline-block;
-      margin-top: 1rem;
-      color: var(--neon-pink);
-      text-decoration: none;
+    .search-bar {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--electric-orange);
+      color: white;
+      font-family: 'Space Mono', monospace;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      padding-right: 2.5rem;
+      outline: none;
+    }
+
+    .search-bar input:focus {
+      border-color: var(--golden-yellow);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .search-bar button {
+      position: absolute;
+      right: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: var(--electric-orange);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar button:hover {
+      color: var(--golden-yellow);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .category-btn {
+      padding: 0.8rem 1.2rem;
+      background: transparent;
+      border: 2px solid var(--electric-orange);
+      color: var(--electric-orange);
       font-weight: 700;
-      transition: 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      white-space: nowrap;
     }
 
-    .read-more:hover {
-      color: var(--flashy-pink);
+    .category-btn:hover {
+      background: rgba(255, 140, 0, 0.1);
+      box-shadow: 0 0 15px rgba(255, 140, 0, 0.3);
     }
 
-       /* Glitch Animations */
+    .category-btn.active {
+      background: rgba(255, 140, 0, 0.2);
+      color: var(--golden-yellow);
+      border-color: var(--golden-yellow);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+
+    .sort-options {
+      flex: 0 0 auto;
+      min-width: 200px;
+    }
+
+    .sort-options select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--electric-orange);
+      color: white;
+      font-family: 'Space Mono', monospace;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .sort-options select:focus {
+      border-color: var(--golden-yellow);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .sort-options option {
+      background: #111;
+    }
+
+    /* Gallery Grid */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--card-bg);
+      border-radius: 4px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      aspect-ratio: 1/1;
+    }
+
+    /* Create variety in grid items */
+    .portfolio-item:nth-child(3n) {
+      aspect-ratio: 1/1.2;
+    }
+    
+    .portfolio-item:nth-child(5n) {
+      aspect-ratio: 1.2/1;
+    }
+    
+    .portfolio-item:nth-child(7n) {
+      aspect-ratio: 1/0.8;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2);
+      border-color: rgba(255, 140, 0, 0.5);
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .item-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+      padding: 1rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .portfolio-item:hover .item-overlay {
+      transform: translateY(0);
+    }
+
+    /* Image Modal */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 10000;
+      overflow: auto;
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .modal-image {
+      max-width: 90%;
+      max-height: 80vh;
+      object-fit: contain;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 140, 0, 0.3);
+    }
+
+    .modal-details {
+      max-width: 800px;
+      text-align: center;
+      color: white;
+      padding: 1rem;
+    }
+
+    .modal-details h3 {
+      color: var(--electric-orange);
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .modal-details p {
+      margin: 0.5rem 0;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-modal:hover {
+      color: var(--electric-orange);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Glitch Animations */
     @keyframes text-glitch {
       0%, 100% {
         text-shadow: 3px 3px 0 var(--neon-orange), -3px -3px 0 var(--golden-yellow);
@@ -345,17 +566,23 @@
         align-items: stretch;
         gap: 0.8rem;
       }
-    }
-    @media (max-width: 768px) {
-      .navbar nav ul {
-        gap: 1rem;
-        flex-wrap: wrap;
+      
+      .search-bar,
+      .category-buttons,
+      .sort-options {
+        min-width: 100%;
+      }
+      
+      .category-buttons {
+        justify-content: center;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255, 140, 0, 0.2);
       }
     }
+
     @media (max-width: 768px) {
       .navbar nav ul {
         display: none;
-      }
       }
       
       .menu-btn {
@@ -404,676 +631,6 @@
       .mobile-nav-links li a {
         font-size: 1.1rem;
       }
-      .blog-header {
-        margin-top: 80px;
-        height: 40vh;
-      }
-
-      .blog-grid {
-        grid-template-columns: 1fr;
-      }
-            .quote-section {
-        font-size: 0.9rem;
-        margin: -1rem auto 0;
-        min-height: 2.5rem;
-      }
-    }
-      
-    
-  </style>
-</head>
-<body>
-  <!-- Navigation -->
-    <!-- Navigation -->
-  <header class="navbar">
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="blog.html" class="active">Blog</a></li>
-        <li><a href="prompting.html">Prompting</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="promo.html">Promo</a></li>
-        <li><a href="Tip-Jar.html">Tip-Jar</a></li>
-      </ul>
-    </nav>
-    <button class="menu-btn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </header>
-  
-  <!-- Mobile Menu -->
-  <div class="mobile-menu">
-    <ul class="mobile-nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="gallery.html"">Gallery</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="blog.html" class="active">Blog</a></li>
-      <li><a href="prompting.html">Prompting</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="promo.html">Promo</a></li>
-      <li><a href="Tip-Jar.html">Tip-Jar</a></li>
-    </ul>
-  </div>
-
-
-  <!-- Hero Section -->
-  <section id="hero">
-    <h1>Blog posts</h1>
-    <p id="welcome-message">Stories, Thoughts, Articles, Tutorials ex e terra</p>
-  </section>
-  <!-- Quote Section --
-  <div id="quoteSection" class="quote-section">Loading quote...</div>
-
-
-
-  <!-- Blog Grid -->
-  <div class="blog-container">
-    <div class="blog-grid" id="blog-grid">
-      <!-- Blog posts will be loaded here -->
-    </div>
-  </div>
-
-    <!-- Footer -->
-  <footer>
-    <p>Created with <span class="heart-pulse">♥</span> by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
-  </footer>
-
- <script>
-    // Mobile Menu Toggle
-    var mobileMenu = document.querySelector('.mobile-menu');
-    
-    menuBtn.addEventListener('click', function() {
-      this.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
-      document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
-    });
-    
-    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuBtn.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-    });
-    // Blog post data
-    const blogPosts = [
-      {
-        title: "The Future of AI in Digital Art",
-        excerpt: "Exploring how artificial intelligence is revolutionizing the creative process and what it means for artists.",
-        image: "images/ai-art-blog.jpg",
-        date: "March 15, 2025",
-        category: "Technology",
-        readTime: "5 min read"
-      },
-      {
-        title: "Creating Cyberpunk Aesthetics",
-        excerpt: "My techniques for achieving that signature neon-drenched, high-tech low-life look in digital paintings.",
-        image: "images/cyberpunk-blog.jpg",
-        date: "February 28, 2025",
-        category: "Tutorial",
-        readTime: "8 min read"
-      },
-      {
-        title: "Egyptian Mythology in Modern Art",
-        excerpt: "How ancient Egyptian symbols and deities inspire my contemporary artwork and what they represent.",
-        image: "images/portfolio/An-Ancient-Egyptian-family-in-a-mudbrick-home,-with-a-Basenj~.jpg",
-        date: "February 10, 2025",
-        category: "Inspiration",
-        readTime: "6 min read"
-      },
-      {
-        title: "My Digital Painting Workflow",
-        excerpt: "A step-by-step breakdown of my process from initial sketch to finished digital painting.",
-        image: "images/workflow-blog.jpg",
-        date: "January 22, 2025",
-        category: "Tutorial",
-        readTime: "10 min read"
-      },
-      {
-        title: "The Psychology of Color in Art",
-        excerpt: "How different color palettes evoke specific emotions and how I use them to tell visual stories.",
-        image: "images/color-blog.jpg",
-        date: "January 5, 2025",
-        category: "Theory",
-        readTime: "7 min read"
-      },
-      {
-        title: "Building a Portfolio That Stands Out",
-        excerpt: "Tips and strategies I've learned for creating an online presence that gets noticed.",
-        image: "images/portfolio-blog.jpg",
-        date: "December 18, 2024",
-        category: "Career",
-        readTime: "4 min read"
-      }
-    ];
-
-    function displayBlogPosts() {
-      const blogGrid = document.getElementById('blog-grid');
-      blogGrid.innerHTML = '';
-      
-      blogPosts.forEach(post => {
-        const blogCard = document.createElement('article');
-        blogCard.className = 'blog-card';
-        
-        blogCard.innerHTML = `
-          <img src="${post.image}" alt="${post.title}">
-          <div class="blog-content">
-            <h3>${post.title}</h3>
-            <p>${post.excerpt}</p>
-            <div class="blog-meta">
-              <span>${post.date}</span>
-              <span>${post.readTime}</span>
-            </div>
-            <a href="#" class="read-more">Read More →</a>
-          </div>
-        `;
-        
-        blogGrid.appendChild(blogCard);
-      });
-    }
-
-      // Set up event listeners
-      document.getElementById('searchInput').addEventListener('input', filterImages);
-      document.getElementById('searchBtn').addEventListener('click', filterImages);
-      document.getElementById('sortSelect').addEventListener('change', filterImages);
-      
-      document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          filterImages();
-        });
-      });
-      
-      // Fade out welcome message
-      setTimeout(() => {
-        const welcomeMsg = document.getElementById('welcome-message');
-        if (welcomeMsg) welcomeMsg.classList.add('fade-out');
-      }, 3000);
-    
-
-    document.addEventListener('DOMContentLoaded', initGallery);
-</script>
-
-</body>
-</html>
-
-    #portfolio-hero h1 {
-      font-size: clamp(2.5rem, 10vw, 5rem);
-      margin: 0 0 0.5rem 0;
-      line-height: 1;
-      color: var(--neon-green);
-      text-shadow: 
-        0 0 10px var(--green-glow),
-        0 0 20px var(--green-glow),
-        0 0 30px var(--green-glow),
-        0 0 60px var(--matrix-green);
-      animation: 
-        green-pulse 0.8s infinite alternate,
-        text-glitch 4s infinite;
-      position: relative;
-      font-family: 'Orbitron', sans-serif;
-      letter-spacing: 5px;
-    }
-
-    #portfolio-hero p {
-      font-size: 1.1rem;
-      margin: 0.5rem 0;
-      color: var(--text-secondary);
-      max-width: 600px;
-    }
-    
-    #welcome-message {
-      transition: opacity 1.5s ease-out, visibility 1.5s ease-out;
-    }
-    
-    #welcome-message.fade-out {
-      opacity: 0;
-      visibility: hidden;
-    }
-    @keyframes green-pulse {
-      from {
-        text-shadow: 
-          0 0 10px var(--green-glow),
-          0 0 20px var(--green-glow),
-          0 0 30px var(--matrix-green);
-      }
-      to {
-        text-shadow: 
-          0 0 20px var(--green-glow),
-          0 0 40px var(--green-glow),
-          0 0 60px var(--matrix-green),
-          0 0 80px var(--matrix-green);
-      }
-    }
-
-    /* Dynamic Quote */
-    #dynamic-quote {
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.7);
-      max-width: 600px;
-      margin: 1rem auto;
-      opacity: 1;
-      transition: opacity 1s ease;
-    }
-    
-    /* Portfolio Controls */
-    .portfolio-controls {
-      padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(0, 255, 136, 0.2);
-      border-bottom: 1px solid rgba(0, 255, 136, 0.2);
-      margin-bottom: 1rem;
-    }
-
-    .controls-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .category-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .category-btn {
-      padding: 0.8rem 1.2rem;
-      background: transparent;
-      border: 2px solid var(--neon-green);
-      color: var(--neon-green);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border-radius: 4px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.8rem;
-      white-space: nowrap;
-    }
-
-    .category-btn:hover {
-      background: rgba(0, 255, 136, 0.1);
-      box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
-    }
-
-    .category-btn.active {
-      background: rgba(0, 255, 136, 0.2);
-      color: var(--matrix-green);
-      border-color: var(--matrix-green);
-      box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
-    }
-
-    /* Portfolio Grid */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-      padding: 1.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .portfolio-item {
-      position: relative;
-      overflow: hidden;
-      background: var(--card-bg);
-      border-radius: 4px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      aspect-ratio: 1/1;
-    }
-
-    /* Create variety in grid items */
-    .portfolio-item:nth-child(3n) {
-      aspect-ratio: 1/1.2;
-    }
-    
-    .portfolio-item:nth-child(5n) {
-      aspect-ratio: 1.2/1;
-    }
-    
-    .portfolio-item:nth-child(7n) {
-      aspect-ratio: 1/0.8;
-    }
-
-    .portfolio-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
-      border-color: rgba(0, 255, 136, 0.5);
-    }
-
-    .portfolio-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
-    .portfolio-item:hover img {
-      transform: scale(1.05);
-    }
-
-    .item-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-      color: white;
-      padding: 1rem;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-    }
-
-    .portfolio-item:hover .item-overlay {
-      transform: translateY(0);
-    }
-
-    .item-overlay h3 {
-      color: var(--neon-green);
-      margin: 0 0 0.3rem 0;
-      font-size: 1.1rem;
-    }
-
-    .item-overlay p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-    }
-
-    /* Project Modal */
-    .project-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.95);
-      z-index: 10000;
-      overflow: auto;
-      animation: fadeIn 0.3s;
-    }
-
-    .modal-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100%;
-      padding: 2rem;
-      box-sizing: border-box;
-    }
-
-    .modal-image {
-      max-width: 90%;
-      max-height: 80vh;
-      object-fit: contain;
-      margin-bottom: 1rem;
-      border: 1px solid rgba(0, 255, 136, 0.3);
-    }
-
-    .modal-details {
-      max-width: 800px;
-      text-align: center;
-      color: white;
-      padding: 1rem;
-    }
-    
-    .modal-details h2 {
-      color: var(--neon-green);
-      margin-bottom: 0.5rem;
-      font-size: 1.8rem;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .modal-details p {
-      margin: 0.5rem 0;
-      line-height: 1.5;
-      color: var(--text-secondary);
-    }
-
-    .modal-meta {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-    }
-
-    .modal-meta span {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      color: var(--matrix-green);
-    }
-
-    .modal-meta i {
-      font-style: normal;
-      color: var(--text-secondary);
-    }
-
-    .modal-stats {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .modal-stats span {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .modal-stats i {
-      font-style: normal;
-      color: var(--text-secondary);
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .close-modal:hover {
-      color: var(--neon-green);
-      transform: rotate(90deg);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Glitch Animations */
-    @keyframes text-glitch {
-      0%, 100% {
-        text-shadow: 3px 3px 0 var(--neon-green), -3px -3px 0 var(--matrix-green);
-      }
-      25% {
-        text-shadow: -3px 3px 0 var(--neon-green), 3px -3px 0 var(--matrix-green);
-      }
-      50% {
-        text-shadow: 3px -3px 0 var(--neon-green), -3px 3px 0 var(--matrix-green);
-      }
-      75% {
-        text-shadow: -3px -3px 0 var(--neon-green), 3px 3px 0 var(--matrix-green);
-      }
-    }
-    
-        /* Dynamic Quote */
-    #dynamic-quote {
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.7);
-      max-width: 600px;
-      margin: 1rem auto;
-      opacity: 1;
-      transition: opacity 1s ease;
-    }
-    
-/* See More Button */
-.see-more-btn {
-  display: block;
-  margin: 1rem auto;
-  padding: 0.8rem 2rem;
-  background: var(--neon-green);
-  color: #000;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Orbitron', sans-serif;
-}
-
-.see-more-btn:hover {
-  background: var(--matrix-green);
-  color: #fff;
-}
-
-/* Smooth Grid Expansion */
-.portfolio-grid {
-  max-height: 800px; /* Default height for visible items */
-  overflow: hidden;
-  transition: max-height 0.5s ease;
-}
-
-.portfolio-grid.expanded {
-  max-height: 2000px; /* Adjust based on the total content height */
-}
-
-    /* Footer */
-    footer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      text-align: center;
-      background: rgba(10, 10, 10, 0.95);
-      border-top: 1px solid rgba(0, 255, 136, 0.2);
-      margin-top: 2rem;
-    }
-
-    footer p {
-      margin: 0;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-    }
-
-    footer .heart-pulse {
-      color: var(--matrix-green);
-      margin: 0 0.3rem;
-      text-shadow: 0 0 8px var(--green-glow);
-      animation: pulse 1.5s infinite;
-      display: inline-block;
-      transition: all 0.3s ease;
-    }
-
-    footer .heart-pulse:hover {
-      color: var(--neon-green);
-      text-shadow: 0 0 12px var(--green-glow);
-      cursor: pointer;
-      animation: pulse 1.5s infinite;
-      transform: scale(1.3);
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-
-    /* Loading State */
-    .loading {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 2rem;
-      color: var(--neon-green);
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 992px) {
-      .controls-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.8rem;
-      }
-      
-      .category-buttons {
-        justify-content: center;
-        padding-top: 0.5rem;
-        border-top: 1px solid rgba(0, 255, 136, 0.2);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .navbar nav ul {
-        display: none;
-      }
-      
-      .menu-btn {
-        display: block;
-      }
-      
-      .portfolio-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-        padding: 1rem;
-      }
-
-      #portfolio-hero {
-        height: 25vh;
-        min-height: 220px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .navbar {
-        padding: 1rem;
-      }
-      
-      #portfolio-hero {
-        margin-top: 70px;
-        padding: 1rem;
-        height: 22vh;
-        min-height: 200px;
-      }
-      
-      #portfolio-hero h1 {
-        font-size: 2.2rem;
-      }
-      
-      #portfolio-hero p {
-        font-size: 0.9rem;
-      }
-      
-      .mobile-nav-links li a {
-        font-size: 1.1rem;
-      }
       
       .category-btn {
         padding: 0.6rem 1rem;
@@ -1083,6 +640,12 @@
       .modal-image {
         max-width: 95%;
       }
+
+      .quote-section {
+        font-size: 0.9rem;
+        margin: -1rem auto 0;
+        min-height: 2.5rem;
+      }
     }
   </style>
 </head>
@@ -1092,8 +655,8 @@
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="portfolio.html" class="active">Portfolio</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="prompting.html">Prompting</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -1112,8 +675,8 @@
   <div class="mobile-menu">
     <ul class="mobile-nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="prompting.html">Prompting</a></li>
       <li><a href="contact.html">Contact</a></li>
@@ -1122,63 +685,68 @@
     </ul>
   </div>
 
-  <!-- Hero Section -->
-  <section id="portfolio-hero">
-    <h1>Portfolio</h1>
-    <p id="welcome-message">Examples of works showcasing our creations and projects</p>
-    <p id="dynamic-quote">Loading quote...</p>
-  </section>
-
-  <!-- Portfolio Controls -->
-  <section class="portfolio-controls">
-    <div class="controls-row">
-      <div class="category-buttons">
-        <button class="category-btn active" data-category="all">All Projects</button>
-        <button class="category-btn" data-category="ai">AI</button>
-        <button class="category-btn" data-category="digital">Digital Art</button>
-        <button class="category-btn" data-category="web">Web</button>
-        <button class="category-btn" data-category="design">Design</button>
-        <button class="category-btn" data-category="experimental">Experimental</button>
-        <button class="category-btn" data-category="social media">Social Media</button>
-      </div>
-    </div>
-    <div class="portfolio-grid" id="portfolio-grid">
-        <div class="loading">Loading portfolio projects...</div>
-      </div>
-      <button id="seeMoreBtn" class="see-more-btn" style="display: none;">See More</button>
-  </section>
-
-
-
-  <!-- Project Modal -->
-  <div id="projectModal" class="project-modal">
+  <!-- Image Modal -->
+  <div id="imageModal" class="image-modal">
     <span class="close-modal">&times;</span>
     <div class="modal-content">
       <img id="modalImage" class="modal-image" src="" alt="">
       <div class="modal-details">
-        <h2 id="modalTitle">Project Title</h2>
-        <p id="modalDescription">Project description goes here.</p>
-        <div class="modal-meta">
-          <span><i>Created:</i> <span id="modalDate">January 2024</span></span>
-          <span><i>Tags:</i> <span id="modalTags">AI, Digital</span></span>
-        </div>
-        <div class="modal-stats">
-          <span><i>Likes:</i> <span id="modalLikes">0</span></span>
-          <span><i>Views:</i> <span id="modalViews">0</span></span>
-        </div>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
       </div>
     </div>
   </div>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <h1>Gallery</h1>
+    <p id="welcome-message">A curated variety of digital media and artworks creations</p>
+  </section>
+  <!-- Quote Section --
+  <div id="quoteSection" class="quote-section">Loading quote...</div>
+
+  <!-- Gallery Controls -->
+  <section class="gallery-controls">
+    <div class="controls-row">
+      <!-- Search Bar (Left) -->
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search artworks...">
+        <button id="searchBtn">⌕</button>
+      </div>
+      <!-- Category Buttons (Center) -->
+      <div class="category-buttons">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="nature">Nature</button>
+        <button class="category-btn" data-category="technology">Tech</button>
+        <button class="category-btn" data-category="art">Art</button>
+        <button class="category-btn" data-category="abstract">Abstract</button>
+      </div>
+      <!-- Filter Toggle / Sort Options (Right) -->
+      <div class="sort-options">
+        <select id="sortSelect">
+          <option value="random">Sort by: Random</option>
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="popular">Most Popular</option>
+          <option value="views">Most Views</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Grid -->
+  <div class="portfolio-grid" id="portfolio-grid"></div>
 
   <!-- Footer -->
   <footer>
     <p>Created with <span class="heart-pulse">♥</span> by Nine &copy; 2025 Novito9 - All Rights Reserved</p>
   </footer>
 
-<script>
+ <script>
     // Mobile Menu Toggle
     const menuBtn = document.querySelector('.menu-btn');
     const mobileMenu = document.querySelector('.mobile-menu');
+    
     menuBtn.addEventListener('click', function() {
       this.classList.toggle('active');
       mobileMenu.classList.toggle('active');
@@ -1221,10 +789,13 @@
       }
     });
 
-    // Image Loading and Display
-    async function loadImages() {
+    // Gallery Functions
+    let allImages = [];
+    let filteredImages = [];
+
+    async function loadGalleryImages() {
       try {
-        const response = await fetch('images/portfolio/3image-list.json');
+        const response = await fetch('images/image-list.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -1251,12 +822,93 @@
             item.tags = ['art'];
           }
           
+          // Ensure default values for sorting
+          item.likes = item.likes || 0;
+          item.views = item.views || 0;
+          item.date = item.date || new Date().toISOString();
+          
           return true;
         });
       } catch (error) {
-        console.error("Error loading images:", error);
+        console.error('Error loading images:', error);
         return [];
       }
+    }
+
+    function createGalleryItem(item) {
+      const galleryItem = document.createElement('div');
+      galleryItem.className = 'portfolio-item';
+
+      const img = document.createElement('img');
+      img.src = item.url;
+      img.alt = item.alt || item.title || 'Artwork';
+      img.loading = 'lazy';
+      
+      img.onerror = () => {
+        console.error('Failed to load image:', item.url);
+        galleryItem.style.display = 'none';
+      };
+
+      const overlay = document.createElement('div');
+      overlay.className = 'item-overlay';
+      overlay.innerHTML = `
+        <h3>${item.title || 'Untitled'}</h3>
+        <p>${item.tags.join(', ')}</p>
+      `;
+
+      galleryItem.appendChild(img);
+      galleryItem.appendChild(overlay);
+      
+      galleryItem.addEventListener('click', () => {
+        openModal(
+          item.url,
+          item.title || 'Untitled',
+          item.desc || item.tags.join(', ') || 'Digital artwork'
+        );
+      });
+
+      return galleryItem;
+    }
+
+    function filterImages() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const activeCategory = document.querySelector('.category-btn.active')?.dataset.category || 'all';
+      const sortOption = document.getElementById('sortSelect').value;
+      
+      filteredImages = allImages.filter(item => {
+        // Search filter
+        const matchesSearch = 
+          (item.title?.toLowerCase().includes(searchTerm)) ||
+          (item.desc?.toLowerCase().includes(searchTerm)) ||
+          (item.tags?.some(tag => tag.toLowerCase().includes(searchTerm)));
+        
+        // Category filter
+        const matchesCategory = 
+          activeCategory === 'all' || 
+          item.tags?.some(tag => tag.toLowerCase() === activeCategory.toLowerCase());
+        
+        return matchesSearch && matchesCategory;
+      });
+      
+      // Sorting
+      switch(sortOption) {
+        case 'newest':
+          filteredImages.sort((a, b) => new Date(b.date) - new Date(a.date));
+          break;
+        case 'oldest':
+          filteredImages.sort((a, b) => new Date(a.date) - new Date(b.date));
+          break;
+        case 'popular':
+          filteredImages.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+          break;
+        case 'views':
+          filteredImages.sort((a, b) => (b.views || 0) - (a.views || 0));
+          break;
+        default: // random
+          filteredImages = shuffleArray([...filteredImages]);
+      }
+      
+      displayFilteredImages();
     }
 
     function shuffleArray(array) {
@@ -1267,205 +919,59 @@
       return array;
     }
 
-    function createImageElement(item) {
-      const portfolioItem = document.createElement('div');
-      portfolioItem.className = 'portfolio-item';
-
-      const img = document.createElement('img');
-      img.src = item.url;
-      img.alt = item.alt || item.title || 'Digital Artwork';
-      img.loading = "lazy";
-      
-      img.onerror = () => {
-        console.error('Failed to load image:', item.url);
-        portfolioItem.style.display = 'none';
-      };
-
-      const overlay = document.createElement('div');
-      overlay.className = 'item-overlay';
-      overlay.innerHTML = `
-        <h3>${item.title || 'Untitled'}</h3>
-        <p>${item.tags.join(', ')}</p>
-      `;
-
-      portfolioItem.appendChild(img);
-      portfolioItem.appendChild(overlay);
-      
-      portfolioItem.addEventListener('click', () => {
-        openModal(
-          item.url,
-          item.title || 'Untitled',
-          item.desc || item.tags.join(', ') || 'Digital artwork'
-        );
-      });
-
-      return portfolioItem;
-    }
-
-    async function displayFeaturedImages() {
+    function displayFilteredImages() {
       const grid = document.getElementById('portfolio-grid');
-      grid.innerHTML = '<div class="loading">Loading featured artworks...</div>';
       
-      const images = await loadImages();
-      
-      if (images.length === 0) {
+      if (filteredImages.length === 0) {
         grid.innerHTML = `
           <div style="grid-column:1/-1;text-align:center;padding:2rem;">
-            <p style="color:var(--electric-blue);">No artworks found</p>
-            <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">
-              Please check if images/image-list.json exists and contains valid data
+            <p style="color:var(--electric-orange);">No artworks found</p>
+            <p style="color:var(--text-secondary);font-size:0.9rem;">
+              Try adjusting your search or filter criteria
             </p>
           </div>
         `;
         return;
       }
-
-      const shuffledImages = shuffleArray([...images]);
-      const featuredImages = shuffledImages.slice(0, 4);
       
       grid.innerHTML = '';
-      featuredImages.forEach(item => {
-        grid.appendChild(createImageElement(item));
+      filteredImages.forEach(item => {
+        grid.appendChild(createGalleryItem(item));
       });
     }
 
-    async function displayFeaturedImages() {
-  const grid = document.getElementById('portfolio-grid');
-  const seeMoreBtn = document.getElementById('seeMoreBtn');
-  grid.innerHTML = '<div class="loading">Loading featured artworks...</div>';
-
-  const images = await loadImages();
-
-  if (images.length === 0) {
-    grid.innerHTML = `
-      <div style="grid-column:1/-1;text-align:center;padding:2rem;">
-        <p style="color:var(--electric-blue);">No artworks found</p>
-        <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">
-          Please check if images/image-list.json exists and contains valid data
-        </p>
-      </div>
-    `;
-    return;
-  }
-
-  const shuffledImages = shuffleArray([...images]);
-  const visibleImages = shuffledImages.slice(0, 6); // Default visible images
-  const hiddenImages = shuffledImages.slice(6); // Remaining images
-
-  grid.innerHTML = '';
-  visibleImages.forEach(item => {
-    grid.appendChild(createImageElement(item));
-  });
-
-  // Add hidden images but keep them initially hidden
-  hiddenImages.forEach(item => {
-    const element = createImageElement(item);
-    element.style.display = 'none';
-    grid.appendChild(element);
-  });
-
-  // Show the "See More" button if there are hidden images
-  if (hiddenImages.length > 0) {
-    seeMoreBtn.style.display = 'block';
-    seeMoreBtn.addEventListener('click', () => {
-      const isExpanded = grid.classList.toggle('expanded');
-      seeMoreBtn.textContent = isExpanded ? 'See Less' : 'See More';
-
-      // Show or hide the hidden images
-      hiddenImages.forEach((_, index) => {
-        const element = grid.children[visibleImages.length + index];
-        element.style.display = isExpanded ? 'block' : 'none';
+    // Initialize Gallery
+    async function initGallery() {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = '<div class="loading">Loading artworks...</div>';
+      
+      allImages = await loadGalleryImages();
+      filteredImages = [...allImages];
+      
+      // Set up event listeners
+      document.getElementById('searchInput').addEventListener('input', filterImages);
+      document.getElementById('searchBtn').addEventListener('click', filterImages);
+      document.getElementById('sortSelect').addEventListener('change', filterImages);
+      
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          filterImages();
+        });
       });
-    });
-  } else {
-    seeMoreBtn.style.display = 'none';
-  }
-}
-
-    // Quote Rotation
-    const quotes = [
-      "In a world of noise, create something worth listening to.",
-      "Art should comfort the disturbed and disturb the comfortable.",
-      "The future is already here — it's just not evenly distributed. - William Gibson",
-      "We don't make mistakes, just happy little accidents. - Bob Ross",
-      "Every artist was first an amateur. - Ralph Waldo Emerson",
-      "Creativity takes courage. - Henri Matisse",
-      "Art enables us to find ourselves and lose ourselves at the same time. - Thomas Merton",
-      "The only time I feel alive is when I'm painting. - Vincent Van Gogh",
-      "Digital art is like painting, except the paint never dries. - Neville Brody",
-      "Technology is just a tool. In terms of getting the kids working together and motivating them, the teacher is the most important. - Bill Gates"
-    ];
-
-    function rotateQuotes() {
-      const quoteElement = document.getElementById('dynamic-quote');
-      let currentIndex = 0;
       
-      function showNextQuote() {
-        quoteElement.style.opacity = 0;
-        setTimeout(() => {
-          quoteElement.textContent = quotes[currentIndex];
-          quoteElement.style.opacity = 1;
-          currentIndex = (currentIndex + 1) % quotes.length;
-        }, 1000);
-      }
+      // Initial display
+      filterImages();
       
-      showNextQuote();
-      setInterval(showNextQuote, 8000);
-    }
-
-    // Initialize Page
-    window.addEventListener('DOMContentLoaded', () => {
-      rotateQuotes();
-      displayFeaturedImages();
-      
+      // Fade out welcome message
       setTimeout(() => {
         const welcomeMsg = document.getElementById('welcome-message');
-        if (welcomeMsg) {
-          welcomeMsg.classList.add('fade-out');
-        }
+        if (welcomeMsg) welcomeMsg.classList.add('fade-out');
       }, 3000);
-    });
-
-    document.querySelectorAll('.category-btn').forEach(button => {
-  button.addEventListener('click', function () {
-    // Remove 'active' class from all buttons
-    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-
-    // Add 'active' class to the clicked button
-    this.classList.add('active');
-
-    // Get the selected category
-    const selectedCategory = this.dataset.category;
-
-    // Filter and display images based on the selected category
-    filterImagesByCategory(selectedCategory);
-  });
-});
-
-function filterImagesByCategory(category) {
-  const grid = document.getElementById('portfolio-grid');
-  grid.innerHTML = '<div class="loading">Filtering projects...</div>';
-
-  loadImages().then(images => {
-    const filteredImages = category === 'all'
-      ? images
-      : images.filter(image => image.tags.includes(category));
-
-    grid.innerHTML = '';
-    if (filteredImages.length === 0) {
-      grid.innerHTML = `
-        <div style="grid-column:1/-1;text-align:center;padding:2rem;">
-          <p style="color:var(--electric-green);">No projects found in this category</p>
-        </div>
-      `;
-    } else {
-      filteredImages.forEach(image => {
-        grid.appendChild(createImageElement(image));
-      });
     }
-  });
-}
+
+    document.addEventListener('DOMContentLoaded', initGallery);
 </script>
-  
 </body>
 </html>
