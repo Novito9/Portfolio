@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+< lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -501,6 +501,38 @@
       transition: opacity 1s ease;
     }
     
+/* See More Button */
+.see-more-btn {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.8rem 2rem;
+  background: var(--neon-green);
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.see-more-btn:hover {
+  background: var(--matrix-green);
+  color: #fff;
+}
+
+/* Smooth Grid Expansion */
+.portfolio-grid {
+  max-height: 800px; /* Default height for visible items */
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.portfolio-grid.expanded {
+  max-height: 2000px; /* Adjust based on the total content height */
+}
+
     /* Footer */
     footer {
       display: flex;
@@ -663,7 +695,7 @@
   <section id="portfolio-hero">
     <h1>Portfolio</h1>
     <p id="welcome-message">Examples of works showcasing our creations and projects</p>
-  <p id="dynamic-quote">Loading quote...</p>
+    <p id="dynamic-quote">Loading quote...</p>
   </section>
 
   <!-- Portfolio Controls -->
@@ -676,15 +708,16 @@
         <button class="category-btn" data-category="web">Web</button>
         <button class="category-btn" data-category="design">Design</button>
         <button class="category-btn" data-category="experimental">Experimental</button>
-        <button class="category-btn" data-category="art">Art</button>
+        <button class="category-btn" data-category="social media">Social Media</button>
       </div>
     </div>
+    <div class="portfolio-grid" id="portfolio-grid">
+        <div class="loading">Loading portfolio projects...</div>
+      </div>
+      <button id="seeMoreBtn" class="see-more-btn" style="display: none;">See More</button>
   </section>
 
-  <!-- Portfolio Grid -->
-  <div class="portfolio-grid" id="portfolio-grid">
-    <div class="loading">Loading portfolio projects...</div>
-  </div>
+
 
   <!-- Project Modal -->
   <div id="projectModal" class="project-modal">
@@ -866,6 +899,59 @@
       });
     }
 
+    async function displayFeaturedImages() {
+  const grid = document.getElementById('portfolio-grid');
+  const seeMoreBtn = document.getElementById('seeMoreBtn');
+  grid.innerHTML = '<div class="loading">Loading featured artworks...</div>';
+
+  const images = await loadImages();
+
+  if (images.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:2rem;">
+        <p style="color:var(--electric-blue);">No artworks found</p>
+        <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">
+          Please check if images/image-list.json exists and contains valid data
+        </p>
+      </div>
+    `;
+    return;
+  }
+
+  const shuffledImages = shuffleArray([...images]);
+  const visibleImages = shuffledImages.slice(0, 6); // Default visible images
+  const hiddenImages = shuffledImages.slice(6); // Remaining images
+
+  grid.innerHTML = '';
+  visibleImages.forEach(item => {
+    grid.appendChild(createImageElement(item));
+  });
+
+  // Add hidden images but keep them initially hidden
+  hiddenImages.forEach(item => {
+    const element = createImageElement(item);
+    element.style.display = 'none';
+    grid.appendChild(element);
+  });
+
+  // Show the "See More" button if there are hidden images
+  if (hiddenImages.length > 0) {
+    seeMoreBtn.style.display = 'block';
+    seeMoreBtn.addEventListener('click', () => {
+      const isExpanded = grid.classList.toggle('expanded');
+      seeMoreBtn.textContent = isExpanded ? 'See Less' : 'See More';
+
+      // Show or hide the hidden images
+      hiddenImages.forEach((_, index) => {
+        const element = grid.children[visibleImages.length + index];
+        element.style.display = isExpanded ? 'block' : 'none';
+      });
+    });
+  } else {
+    seeMoreBtn.style.display = 'none';
+  }
+}
+
     // Quote Rotation
     const quotes = [
       "In a world of noise, create something worth listening to.",
@@ -910,7 +996,7 @@
       }, 3000);
     });
 
-  document.querySelectorAll('.category-btn').forEach(button => {
+    document.querySelectorAll('.category-btn').forEach(button => {
   button.addEventListener('click', function () {
     // Remove 'active' class from all buttons
     document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
