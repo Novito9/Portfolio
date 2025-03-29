@@ -417,6 +417,25 @@
       color: var(--text-secondary);
     }
 
+    .modal-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .modal-stats span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .modal-stats i {
+      font-style: normal;
+      color: var(--text-secondary);
+    }
+
     .close-modal {
       position: absolute;
       top: 1rem;
@@ -628,6 +647,7 @@
         <button class="category-btn" data-category="web">Web</button>
         <button class="category-btn" data-category="design">Design</button>
         <button class="category-btn" data-category="experimental">Experimental</button>
+        <button class="category-btn" data-category="art">Art</button>
       </div>
     </div>
   </section>
@@ -648,6 +668,10 @@
         <div class="modal-meta">
           <span><i>Created:</i> <span id="modalDate">January 2024</span></span>
           <span><i>Tags:</i> <span id="modalTags">AI, Digital</span></span>
+        </div>
+        <div class="modal-stats">
+          <span><i>Likes:</i> <span id="modalLikes">0</span></span>
+          <span><i>Views:</i> <span id="modalViews">0</span></span>
         </div>
       </div>
     </div>
@@ -687,11 +711,57 @@
     const modalDescription = document.getElementById('modalDescription');
     const modalDate = document.getElementById('modalDate');
     const modalTags = document.getElementById('modalTags');
+    const modalLikes = document.getElementById('modalLikes');
+    const modalViews = document.getElementById('modalViews');
     const closeModal = document.querySelector('.close-modal');
 
     // Current filter state
     let currentCategory = 'all';
     let portfolioData = [];
+
+    // Sample portfolio data (fallback if JSON fails)
+    const samplePortfolioData = [
+      {
+        "url": "images/portfolio/843043398349867386.png",
+        "alt": "843043398349867386 image",
+        "title": "843043398349867386",
+        "desc": "AI-generated artwork: 843043398349867386",
+        "tags": ["digital", "art"],
+        "date": "2025-03-28",
+        "likes": 0,
+        "views": 0
+      },
+      {
+        "url": "images/portfolio/843043643163008521.png",
+        "alt": "843043643163008521 image",
+        "title": "843043643163008521",
+        "desc": "AI-generated artwork: 843043643163008521",
+        "tags": ["digital", "art"],
+        "date": "2025-03-28",
+        "likes": 0,
+        "views": 0
+      },
+      {
+        "url": "images/portfolio/843043643163008522.png",
+        "alt": "843043643163008522 image",
+        "title": "843043643163008522",
+        "desc": "AI-generated artwork: 843043643163008522",
+        "tags": ["digital", "art"],
+        "date": "2025-03-28",
+        "likes": 0,
+        "views": 0
+      },
+      {
+        "url": "images/portfolio/843043814961704024.png",
+        "alt": "843043814961704024 image",
+        "title": "843043814961704024",
+        "desc": "AI-generated artwork: 843043814961704024",
+        "tags": ["digital", "art"],
+        "date": "2025-03-28",
+        "likes": 0,
+        "views": 0
+      }
+    ];
 
     // Validate portfolio item
     function isValidPortfolioItem(item) {
@@ -699,9 +769,7 @@
         item && 
         typeof item === 'object' &&
         item.url && 
-        typeof item.url === 'string' &&
-        item.tags &&
-        Array.isArray(item.tags)
+        typeof item.url === 'string'
       );
     }
 
@@ -711,13 +779,15 @@
         const response = await fetch('images/portfolio/3image-list.json');
         
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          console.warn('Using sample data due to failed JSON fetch');
+          return samplePortfolioData;
         }
         
         const data = await response.json();
         
         if (!Array.isArray(data)) {
-          throw new Error('Invalid data format: Expected array');
+          console.warn('Invalid JSON format, using sample data');
+          return samplePortfolioData;
         }
         
         // Validate and clean data
@@ -727,19 +797,18 @@
             return false;
           }
           
-          // Ensure URL points to portfolio subfolder
-          if (!item.url.includes('portfolio/')) {
-            item.url = `images/portfolio/${item.url.replace(/^images\//, '')}`;
+          // Ensure tags exist and is array
+          if (!item.tags || !Array.isArray(item.tags)) {
+            item.tags = ['art'];
           }
           
           return true;
         });
         
-        return validItems;
+        return validItems.length > 0 ? validItems : samplePortfolioData;
       } catch (error) {
-        console.error('Error loading portfolio data:', error);
-        showErrorState();
-        return [];
+        console.error('Error loading portfolio data, using sample data:', error);
+        return samplePortfolioData;
       }
     }
 
@@ -774,7 +843,8 @@
       
       img.onerror = () => {
         console.error('Failed to load image:', item.url);
-        portfolioItem.style.display = 'none';
+        img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" fill="%2300ff88"><rect width="300" height="300" fill="%231a1a1a"/><text x="150" y="150" font-family="Arial" font-size="16" fill="%2300ff88" text-anchor="middle" dominant-baseline="middle">Image not available</text></svg>';
+        img.alt = 'Image not available';
       };
       
       const overlay = document.createElement('div');
@@ -825,7 +895,8 @@
         displayPortfolioItems(portfolioData);
       } else {
         const filteredItems = portfolioData.filter(item => 
-          item.tags.some(tag => tag.toLowerCase() === category.toLowerCase())
+          item.tags && 
+          item.tags.map(tag => tag.toLowerCase()).includes(category.toLowerCase())
         );
         displayPortfolioItems(filteredItems);
       }
@@ -847,6 +918,8 @@
       });
       
       modalTags.textContent = item.tags.join(', ');
+      modalLikes.textContent = item.likes || 0;
+      modalViews.textContent = item.views || 0;
       
       modal.style.display = 'block';
       document.body.style.overflow = 'hidden';
