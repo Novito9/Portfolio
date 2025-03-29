@@ -385,20 +385,8 @@
         gap: 0.8rem;
       }
       
-      .search-bar,
-      .category-buttons,
-      .sort-options {
-        min-width: 100%;
-      }
-      
       .blog-grid {
         grid-template-columns: 1fr;
-      }
-
-      .category-buttons {
-        justify-content: center;
-        padding-top: 0.5rem;
-        border-top: 1px solid rgba(255, 140, 0, 0.2);
       }
     }
 
@@ -411,11 +399,7 @@
         display: block;
       }
       
-      .portfolio-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-        padding: 1rem;
-      }
+      
 
       #hero {
         height: 18vh;
@@ -454,10 +438,7 @@
         font-size: 1.1rem;
       }
       
-      .category-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.7rem;
-      }
+      
 
       .modal-image {
         max-width: 95%;
@@ -510,13 +491,19 @@
 
   <!-- Hero Section -->
   <section id="hero">
-    <h1>Gallery</h1>
-    <p id="welcome-message">A curated variety of digital media and artworks creations</p>
+    <h1>Blog Posts</h1>
+    <p id="welcome-message">Thoughts, tutorials, and behind-the-scenes of my creative process</p>
   </section>
   <!-- Quote Section --
   <div id="quoteSection" class="quote-section">Loading quote...</div>
 
 
+ <!-- Blog Grid -->
+  <div class="blog-container">
+    <div class="blog-grid" id="blog-grid">
+      <!-- Blog posts will be loaded here -->
+    </div>
+  </div>
 
   
 
@@ -544,208 +531,87 @@
       });
     });
 
-    // Image Modal
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImage");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalDesc = document.getElementById("modalDesc");
-    const closeModal = document.querySelector(".close-modal");
-
-    function openModal(imgSrc, title, desc) {
-      modal.style.display = "flex";
-      modalImg.src = imgSrc;
-      modalImg.alt = title;
-      modalTitle.textContent = title;
-      modalDesc.textContent = desc;
-      document.body.style.overflow = "hidden";
-    }
-
-    closeModal.addEventListener("click", () => {
-      modal.style.display = "none";
-      document.body.style.overflow = "";
-    });
-
-    window.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-        document.body.style.overflow = "";
+   // Blog post data
+    const blogPosts = [
+      {
+        title: "The Future of AI in Digital Art",
+        excerpt: "Exploring how artificial intelligence is revolutionizing the creative process and what it means for artists.",
+        image: "images/ai-art-blog.jpg",
+        date: "March 15, 2025",
+        category: "Technology",
+        readTime: "5 min read"
+      },
+      {
+        title: "Creating Cyberpunk Aesthetics",
+        excerpt: "My techniques for achieving that signature neon-drenched, high-tech low-life look in digital paintings.",
+        image: "images/cyberpunk-blog.jpg",
+        date: "February 28, 2025",
+        category: "Tutorial",
+        readTime: "8 min read"
+      },
+      {
+        title: "Egyptian Mythology in Modern Art",
+        excerpt: "How ancient Egyptian symbols and deities inspire my contemporary artwork and what they represent.",
+        image: "images/egypt-blog.jpg",
+        date: "February 10, 2025",
+        category: "Inspiration",
+        readTime: "6 min read"
+      },
+      {
+        title: "My Digital Painting Workflow",
+        excerpt: "A step-by-step breakdown of my process from initial sketch to finished digital painting.",
+        image: "images/workflow-blog.jpg",
+        date: "January 22, 2025",
+        category: "Tutorial",
+        readTime: "10 min read"
+      },
+      {
+        title: "The Psychology of Color in Art",
+        excerpt: "How different color palettes evoke specific emotions and how I use them to tell visual stories.",
+        image: "images/color-blog.jpg",
+        date: "January 5, 2025",
+        category: "Theory",
+        readTime: "7 min read"
+      },
+      {
+        title: "Building a Portfolio That Stands Out",
+        excerpt: "Tips and strategies I've learned for creating an online presence that gets noticed.",
+        image: "images/portfolio-blog.jpg",
+        date: "December 18, 2024",
+        category: "Career",
+        readTime: "4 min read"
       }
-    });
+    ];
 
-    // Gallery Functions
-    let allImages = [];
-    let filteredImages = [];
-
-    async function loadGalleryImages() {
-      try {
-        const response = await fetch('images/image-list.json');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+    function displayBlogPosts() {
+      const blogGrid = document.getElementById('blog-grid');
+      blogGrid.innerHTML = '';
+      
+      blogPosts.forEach(post => {
+        const blogCard = document.createElement('article');
+        blogCard.className = 'blog-card';
         
-        if (!Array.isArray(data)) {
-          throw new Error('Expected an array of images');
-        }
-        
-        // Validate and clean data
-        return data.filter(item => {
-          if (!item.url) {
-            console.warn('Image missing URL:', item);
-            return false;
-          }
-          
-          // Ensure URL is properly formatted
-          if (!item.url.startsWith('images/')) {
-            item.url = `images/${item.url}`;
-          }
-          
-          // Ensure tags exist
-          if (!item.tags || !Array.isArray(item.tags)) {
-            item.tags = ['art'];
-          }
-          
-          // Ensure default values for sorting
-          item.likes = item.likes || 0;
-          item.views = item.views || 0;
-          item.date = item.date || new Date().toISOString();
-          
-          return true;
-        });
-      } catch (error) {
-        console.error('Error loading images:', error);
-        return [];
-      }
-    }
-
-    function createGalleryItem(item) {
-      const galleryItem = document.createElement('div');
-      galleryItem.className = 'portfolio-item';
-
-      const img = document.createElement('img');
-      img.src = item.url;
-      img.alt = item.alt || item.title || 'Artwork';
-      img.loading = 'lazy';
-      
-      img.onerror = () => {
-        console.error('Failed to load image:', item.url);
-        galleryItem.style.display = 'none';
-      };
-
-      const overlay = document.createElement('div');
-      overlay.className = 'item-overlay';
-      overlay.innerHTML = `
-        <h3>${item.title || 'Untitled'}</h3>
-        <p>${item.tags.join(', ')}</p>
-      `;
-
-      galleryItem.appendChild(img);
-      galleryItem.appendChild(overlay);
-      
-      galleryItem.addEventListener('click', () => {
-        openModal(
-          item.url,
-          item.title || 'Untitled',
-          item.desc || item.tags.join(', ') || 'Digital artwork'
-        );
-      });
-
-      return galleryItem;
-    }
-
-    function filterImages() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const activeCategory = document.querySelector('.category-btn.active')?.dataset.category || 'all';
-      const sortOption = document.getElementById('sortSelect').value;
-      
-      filteredImages = allImages.filter(item => {
-        // Search filter
-        const matchesSearch = 
-          (item.title?.toLowerCase().includes(searchTerm)) ||
-          (item.desc?.toLowerCase().includes(searchTerm)) ||
-          (item.tags?.some(tag => tag.toLowerCase().includes(searchTerm)));
-        
-        // Category filter
-        const matchesCategory = 
-          activeCategory === 'all' || 
-          item.tags?.some(tag => tag.toLowerCase() === activeCategory.toLowerCase());
-        
-        return matchesSearch && matchesCategory;
-      });
-      
-      // Sorting
-      switch(sortOption) {
-        case 'newest':
-          filteredImages.sort((a, b) => new Date(b.date) - new Date(a.date));
-          break;
-        case 'oldest':
-          filteredImages.sort((a, b) => new Date(a.date) - new Date(b.date));
-          break;
-        case 'popular':
-          filteredImages.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-          break;
-        case 'views':
-          filteredImages.sort((a, b) => (b.views || 0) - (a.views || 0));
-          break;
-        default: // random
-          filteredImages = shuffleArray([...filteredImages]);
-      }
-      
-      displayFilteredImages();
-    }
-
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    function displayFilteredImages() {
-      const grid = document.getElementById('portfolio-grid');
-      
-      if (filteredImages.length === 0) {
-        grid.innerHTML = `
-          <div style="grid-column:1/-1;text-align:center;padding:2rem;">
-            <p style="color:var(--electric-orange);">No artworks found</p>
-            <p style="color:var(--text-secondary);font-size:0.9rem;">
-              Try adjusting your search or filter criteria
-            </p>
+        blogCard.innerHTML = `
+          <img src="${post.image}" alt="${post.title}">
+          <div class="blog-content">
+            <h3>${post.title}</h3>
+            <p>${post.excerpt}</p>
+            <div class="blog-meta">
+              <span>${post.date}</span>
+              <span>${post.readTime}</span>
+            </div>
+            <a href="#" class="read-more">Read More →</a>
           </div>
         `;
-        return;
-      }
-      
-      grid.innerHTML = '';
-      filteredImages.forEach(item => {
-        grid.appendChild(createGalleryItem(item));
+        
+        blogGrid.appendChild(blogCard);
       });
     }
 
-    // Initialize Gallery
-    async function initGallery() {
-      const grid = document.getElementById('portfolio-grid');
-      grid.innerHTML = '<div class="loading">Loading artworks...</div>';
-      
-      allImages = await loadGalleryImages();
-      filteredImages = [...allImages];
-      
-      // Set up event listeners
-      document.getElementById('searchInput').addEventListener('input', filterImages);
-      document.getElementById('searchBtn').addEventListener('click', filterImages);
-      document.getElementById('sortSelect').addEventListener('change', filterImages);
-      
-      document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          filterImages();
-        });
-      });
-      
-      // Initial display
-      filterImages();
+    window.addEventListener('DOMContentLoaded', function() {
+      displayBlogPosts();
+    });
+ 
       
       // Fade out welcome message
       setTimeout(() => {
