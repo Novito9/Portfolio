@@ -572,10 +572,28 @@
       });
     }
 
-    window.addEventListener('DOMContentLoaded', function() {
-      displayBlogPosts();
-    });
-  </script>
+      // Set up event listeners
+      document.getElementById('searchInput').addEventListener('input', filterImages);
+      document.getElementById('searchBtn').addEventListener('click', filterImages);
+      document.getElementById('sortSelect').addEventListener('change', filterImages);
+      
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          filterImages();
+        });
+      });
+      
+      // Fade out welcome message
+      setTimeout(() => {
+        const welcomeMsg = document.getElementById('welcome-message');
+        if (welcomeMsg) welcomeMsg.classList.add('fade-out');
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', initGallery);
+</script>
 
 </body>
 </html>
