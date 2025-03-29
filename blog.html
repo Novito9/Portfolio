@@ -183,11 +183,12 @@
       color: var(--electric-orange);
       text-shadow: 
         0 0 10px var(--orange-glow),
-        0 0 20px var(--orange-glow),
-        0 0 30px var(--orange-glow),
-        0 0 60px var(--golden-yellow);
+        0 0 20px var(--hot-pink),
+        0 0 20px var(--hot-pink),
+        0 0 30px var(--flashy-pink),
+        0 0 60px var(--flashy-pink);
       animation: 
-        orange-pulse 0.8s infinite alternate,
+        var(--pink-glow) 0.8s infinite alternate,
         text-glitch 4s infinite;
       position: relative;
       font-family: 'Orbitron', sans-serif;
@@ -365,7 +366,8 @@
 
     footer .heart-pulse:hover {
       color: var(--electric-orange);
-      text-shadow: 0 0 12px var(--orange-glow);
+      text-shadow: 0 0 12px var(--hot-pink);
+        transform: scale(1.2);
       cursor: pointer;
       animation: pulse 1.5s infinite;
       transform: scale(1.3);
@@ -618,7 +620,7 @@
         const welcomeMsg = document.getElementById('welcome-message');
         if (welcomeMsg) welcomeMsg.classList.add('fade-out');
       }, 3000);
-    }
+    
 
     document.addEventListener('DOMContentLoaded', initGallery);
 </script>
